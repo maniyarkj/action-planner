@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 app.run(function()
 {
 	// Page Loading Overlay
@@ -16,7 +14,7 @@ app.run(function()
 
 app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, ASSETS){
 
-	$urlRouterProvider.otherwise('/dashboard-variant-1');
+	$urlRouterProvider.otherwise('/admin-role');
 
 	$stateProvider.
 		// Main Layout Structure
@@ -32,69 +30,6 @@ app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, ASS
 			}
 		}).
 
-		// Dashboards
-		state('app.dashboard-variant-1', {
-			url: '/dashboard-variant-1',
-			templateUrl: appHelper.templatePath('dashboards/variant-1'),
-			resolve: {
-				resources: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.charts.dxGlobalize,
-						ASSETS.extra.toastr,
-					]);
-				},
-				dxCharts: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.charts.dxCharts,
-					]);
-				},
-			}
-		}).
-		state('app.dashboard-variant-2', {
-			url: '/dashboard-variant-2',
-			templateUrl: appHelper.templatePath('dashboards/variant-2'),
-			resolve: {
-				resources: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.charts.dxGlobalize,
-					]);
-				},
-				dxCharts: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.charts.dxCharts,
-					]);
-				},
-			}
-		}).
-		state('app.dashboard-variant-3', {
-			url: '/dashboard-variant-3',
-			templateUrl: appHelper.templatePath('dashboards/variant-3'),
-			resolve: {
-				resources: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.charts.dxGlobalize,
-						ASSETS.maps.vectorMaps,
-					]);
-				},
-				dxCharts: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.charts.dxCharts,
-					]);
-				},
-			}
-		}).
-		state('app.dashboard-variant-4', {
-			url: '/dashboard-variant-4',
-			templateUrl: appHelper.templatePath('dashboards/variant-4'),
-			resolve: {
-				resources: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.icons.meteocons,
-						ASSETS.maps.vectorMaps,
-					]);
-				}
-			}
-		}).
 
 		// Update Highlights
 		state('app.update-highlights', {
@@ -108,56 +43,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, ASS
 			templateUrl: appHelper.templatePath('layout-and-skins'),
 		}).
 
-		// UI Elements
-		state('app.ui-panels', {
-			url: '/ui-panels',
-			templateUrl: appHelper.templatePath('ui/panels'),
-		}).
-		state('app.ui-buttons', {
-			url: '/ui-buttons',
-			templateUrl: appHelper.templatePath('ui/buttons')
-		}).
-		state('app.ui-tabs-accordions', {
-			url: '/ui-tabs-accordions',
-			templateUrl: appHelper.templatePath('ui/tabs-accordions')
-		}).
-		state('app.ui-modals', {
-			url: '/ui-modals',
-			templateUrl: appHelper.templatePath('ui/modals'),
-			controller: 'UIModalsCtrl'
-		}).
-		state('app.ui-breadcrumbs', {
-			url: '/ui-breadcrumbs',
-			templateUrl: appHelper.templatePath('ui/breadcrumbs')
-		}).
-		state('app.ui-blockquotes', {
-			url: '/ui-blockquotes',
-			templateUrl: appHelper.templatePath('ui/blockquotes')
-		}).
-		state('app.ui-progress-bars', {
-			url: '/ui-progress-bars',
-			templateUrl: appHelper.templatePath('ui/progress-bars')
-		}).
-		state('app.ui-navbars', {
-			url: '/ui-navbars',
-			templateUrl: appHelper.templatePath('ui/navbars')
-		}).
-		state('app.ui-alerts', {
-			url: '/ui-alerts',
-			templateUrl: appHelper.templatePath('ui/alerts')
-		}).
-		state('app.ui-pagination', {
-			url: '/ui-pagination',
-			templateUrl: appHelper.templatePath('ui/pagination')
-		}).
-		state('app.ui-typography', {
-			url: '/ui-typography',
-			templateUrl: appHelper.templatePath('ui/typography')
-		}).
-		state('app.ui-other-elements', {
-			url: '/ui-other-elements',
-			templateUrl: appHelper.templatePath('ui/other-elements')
-		}).
+
 
 		// Widgets
 		state('app.widgets', {
@@ -173,234 +59,13 @@ app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, ASS
 			}
 		}).
 
-		// Mailbox
-		state('app.mailbox-inbox', {
-			url: '/mailbox-inbox',
-			templateUrl: appHelper.templatePath('mailbox/inbox'),
-		}).
-		state('app.mailbox-compose', {
-			url: '/mailbox-compose',
-			templateUrl: appHelper.templatePath('mailbox/compose'),
-			resolve: {
-				bootstrap: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.core.bootstrap,
-					]);
-				},
-				bootstrapWysihtml5: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.bootstrapWysihtml5,
-					]);
-				},
-			}
-		}).
-		state('app.mailbox-message', {
-			url: '/mailbox-message',
-			templateUrl: appHelper.templatePath('mailbox/message'),
-		}).
-
-		// Tables
-		state('app.tables-basic', {
-			url: '/tables-basic',
-			templateUrl: appHelper.templatePath('tables/basic'),
-		}).
-		state('app.tables-responsive', {
-			url: '/tables-responsive',
-			templateUrl: appHelper.templatePath('tables/responsive'),
-			resolve: {
-				deps: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.tables.rwd,
-					]);
-				}
-			}
-		}).
-		state('app.tables-datatables', {
-			url: '/tables-datatables',
-			templateUrl: appHelper.templatePath('tables/datatables'),
-			resolve: {
-				deps: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.tables.datatables,
-					]);
-				},
-			}
-		}).
-
-		// Forms
-		state('app.forms-native', {
-			url: '/forms-native',
-			templateUrl: appHelper.templatePath('forms/native-elements'),
-		}).
-		state('app.forms-role', {
-			url: '/forms-role',
-			templateUrl: appHelper.templatePath('forms/role-entity'),
+		// Administration Module
+		state('app.admin-role', {
+			url: '/admin-role',
+			templateUrl: 'modules/admin/views/role-entity.html',
 			controller: 'RoleEntityCtrl',
 			controllerAs: 'roleEntityCtrl'
 		}).
-		state('app.forms-advanced', {
-			url: '/forms-advanced',
-			templateUrl: appHelper.templatePath('forms/advanced-plugins'),
-			resolve: {
-				jqui: function($ocLazyLoad){
-					return $ocLazyLoad.load({
-						files: ASSETS.core.jQueryUI
-					});
-				},
-				select2: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.select2,
-					]);
-				},
-				selectboxit: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.selectboxit,
-					]);
-				},
-				tagsinput: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.tagsinput,
-					]);
-				},
-				multiSelect: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.multiSelect,
-					]);
-				},
-				typeahead: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.typeahead,
-					]);
-				},
-				datepicker: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.datepicker,
-					]);
-				},
-				timepicker: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.timepicker,
-					]);
-				},
-				daterangepicker: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.core.moment,
-						ASSETS.forms.daterangepicker,
-					]);
-				},
-				colorpicker: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.colorpicker,
-					]);
-				},
-			}
-		}).
-		state('app.forms-wizard', {
-			url: '/forms-wizard',
-			templateUrl: appHelper.templatePath('forms/form-wizard'),
-			resolve: {
-				fwDependencies: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.core.bootstrap,
-						ASSETS.core.jQueryUI,
-						ASSETS.forms.jQueryValidate,
-						ASSETS.forms.inputmask,
-						ASSETS.forms.multiSelect,
-						ASSETS.forms.datepicker,
-						ASSETS.forms.selectboxit,
-						ASSETS.forms.formWizard,
-					]);
-				},
-				formWizard: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-					]);
-				},
-			},
-		}).
-		state('app.forms-validation', {
-			url: '/forms-validation',
-			templateUrl: appHelper.templatePath('forms/form-validation'),
-			resolve: {
-				jQueryValidate: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.jQueryValidate,
-					]);
-				},
-			},
-		}).
-		state('app.forms-input-masks', {
-			url: '/forms-input-masks',
-			templateUrl: appHelper.templatePath('forms/input-masks'),
-			resolve: {
-				inputmask: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.inputmask,
-					]);
-				},
-			},
-		}).
-		state('app.forms-file-upload', {
-			url: '/forms-file-upload',
-			templateUrl: appHelper.templatePath('forms/file-upload'),
-			resolve: {
-				dropzone: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.dropzone,
-					]);
-				},
-			}
-		}).
-		state('app.forms-wysiwyg', {
-			url: '/forms-wysiwyg',
-			templateUrl: appHelper.templatePath('forms/wysiwyg'),
-			resolve: {
-				bootstrap: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.core.bootstrap,
-					]);
-				},
-				bootstrapWysihtml5: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.bootstrapWysihtml5,
-					]);
-				},
-				uikit: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.uikit.base,
-						ASSETS.uikit.codemirror,
-						ASSETS.uikit.marked,
-					]);
-				},
-				uikitHtmlEditor: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.uikit.htmleditor,
-					]);
-				},
-			}
-		}).
-		state('app.forms-sliders', {
-			url: '/forms-sliders',
-			templateUrl: appHelper.templatePath('forms/sliders'),
-			resolve: {
-				sliders: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.core.jQueryUI,
-					]);
-				},
-			},
-		}).
-		state('app.forms-icheck', {
-			url: '/forms-icheck',
-			templateUrl: appHelper.templatePath('forms/icheck'),
-			resolve: {
-				iCheck: function($ocLazyLoad){
-					return $ocLazyLoad.load([
-						ASSETS.forms.icheck,
-					]);
-				},
-			}
-		}).
-
 		// Extra
 		state('app.extra-icons-font-awesome', {
 			url: '/extra-icons-font-awesome',

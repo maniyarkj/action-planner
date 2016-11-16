@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('apApp.controllers', []).
+angular.module('apApp.adminModules.controllers', []).
 	controller('RoleEntityCtrl', function($scope, $rootScope)
 	{
 		console.log('called');
