@@ -94,6 +94,16 @@ angular.module('apApp.adminModules.controllers', [])
 		/* End of Tree Manipulation Functions */
 
 		/* Controller Functions */
+		// On Success of Save Role Details Call
+		function onSuccessSaveRoleDetails() {
+
+		}
+
+		// On Error of Save Role Details Call
+		function onErrorSaveRoleDetails() {
+
+		}
+
 		vm.saveRoleEntity = function() {
 			var dataObject = {
 				'roleId' : vm.roleId,
@@ -102,9 +112,7 @@ angular.module('apApp.adminModules.controllers', [])
 			};
 			console.log(dataObject);
 
-
+			AdminServices.saveRoleDetails(dataObject, onSuccessSaveRoleDetails, onErrorSaveRoleDetails);
 		}
-
-
 		/* End of Controller Functions */
 	});

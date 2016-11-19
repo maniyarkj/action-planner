@@ -19,6 +19,7 @@ var app = angular.module('apApp', [
 
 	// Module wise Controllers & Services
 	'apApp.adminModules.controllers',
+	'apApp.adminModules.services'
 	// Added in v1.3
 	//'FBAngular'
 ]);
@@ -29,3 +30,4 @@ angular.module('apApp.services', []);
 angular.module('apApp.factory', []);
 
 angular.module('apApp.adminModules.controllers', []);
+angular.module('apApp.adminModules.services', []);
