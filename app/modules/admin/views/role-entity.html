@@ -1,7 +1,30 @@
+<page-title ng-if="layoutOptions.pageTitles" title="Role Entity" description="Define or Customize Role Entity"></page-title>
 
+<script type="text/ng-template" id="nodes_renderer.html">
+  <div class="tree-node">
+    <div class="pull-left tree-handle" ui-tree-handle>
+      <span class="glyphicon glyphicon-list"></span>
+    </div>
+    <div class="tree-node-content">
+      <a class="btn btn-success btn-xs" data-nodrag ng-click="roleEntityCtrl.toggle(this)">
+        <span class="glyphicon" ng-class="{
+          'glyphicon-chevron-right': collapsed,
+          'glyphicon-chevron-down': !collapsed
+          }">
+        </span>
+      </a>
 
-	<page-title ng-if="layoutOptions.pageTitles" title="Role Entity" description="Define or Customize Role Entity"></page-title>
+      <input type="text" ng-model="node.title">
 
+      <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="roleEntityCtrl.remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
+      <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="roleEntityCtrl.newSubItem(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
+    </div>
+  </div>
+  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+    </li>
+  </ol>
+</script>
 
 <div class="row">
 	<div class="col-sm-12">
@@ -19,46 +42,38 @@
 				</div>
 			</div>
 			<div class="panel-body">
-				<form role="form" class="form-horizontal" role="form">
+				<form role="form" class="form-horizontal" role="form" class="validate">
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="field-1">Role Id</label>
+						<label class="col-sm-2 control-label" for="role-id">Role Id</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="field-1" placeholder="Enter Role Id">
+							<input type="text" class="form-control" ng-model="roleEntityCtrl.roleId" id="role-id" placeholder="Enter Role Id">
 						</div>
 					</div>
 					<div class="form-group-separator"></div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="field-1">Role Name</label>
+						<label class="col-sm-2 control-label" for="role-name">Role Name</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="field-1" placeholder="Enter Role Name">
+							<input type="text" class="form-control" id="role-name" ng-model="roleEntityCtrl.roleName" placeholder="Enter Role Name">
 						</div>
 					</div>
 					<div class="form-group-separator"></div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="field-1">Organization Level</label>
+						<div class="col-sm-2 control-label">Organization Level</div>
 						<div class="col-sm-10">
-							<!-- <input type="text" class="form-control" id="field-1" placeholder="Placeholder"> -->
-							<div ui-tree>
-							  <ol ui-tree-nodes="" ng-model="list">
-							    <li ng-repeat="item in list" ui-tree-node>
-							      <div ui-tree-handle>
-							        {{item.title}}
-							      </div>
-							      <ol ui-tree-nodes="" ng-model="item.items">
-							        <li ng-repeat="subItem in item.items" ui-tree-node>
-							          <div ui-tree-handle>
-							            {{subItem.title}}
-							          </div>
-							        </li>
-							      </ol>
-							    </li>
-							  </ol>
-							</div>
+							<button ng-click="roleEntityCtrl.expandAll()">Expand all</button>
+							<button ng-click="roleEntityCtrl.collapseAll()">Collapse all</button>
+							<br />
+							<br />
+							<div ui-tree id="org-level">
+					      <ol ui-tree-nodes="" ng-model="roleEntityCtrl.roleOrgLevel">
+					        <li ng-repeat="node in roleEntityCtrl.roleOrgLevel" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+					      </ol>
+					    </div>
 						</div>
 					</div>
 					<div class="form-group-separator"></div>
 					<div class="form-group text-right">
-						<button class="btn btn-info">Submit</button>
+						<button class="btn btn-info" ng-click="roleEntityCtrl.saveRoleEntity()">Submit</button>
 						<button class="btn btn-info">Back</button>
 					</div>
 				</form>
