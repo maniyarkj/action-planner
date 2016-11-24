@@ -136,3 +136,15 @@ app.constant('ASSETS', {
 		]
 	}
 });
+
+app.constant('DEBUG_MODE', /*DEBUG_MODE*/true/*DEBUG_MODE*/);
+app.constant('VERSION_TAG', /*VERSION_TAG_START*/new Date().getTime()/*VERSION_TAG_END*/);
+app.constant('LOCALES', {
+	'locales': {
+		'en_US': 'English',
+		'de_DE': 'Deutsche',
+		'jp_JP': '日本語',
+		'in_GJ': 'ગુજરાતી'
+	},
+	'preferredLocale': 'en_US'
+})

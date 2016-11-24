@@ -1,0 +1,99 @@
+<page-title ng-if="layoutOptions.pageTitles" title="roleEntity.Role Id" description="Define or Customize Role Entity"></page-title>
+
+<script type="text/ng-template" id="nodes_renderer.html">
+  <div class="tree-node">
+    <div class="pull-left tree-handle" ui-tree-handle>
+      <span class="glyphicon glyphicon-move"></span>
+    </div>
+    <div class="tree-node-content">
+      <a class="btn btn-xs" data-nodrag ng-click="roleEntityCtrl.toggle(this)">
+        <span class="glyphicon" ng-class="{
+          'glyphicon-chevron-right': collapsed,
+          'glyphicon-chevron-down': !collapsed
+          }">
+        </span>
+      </a>
+
+      <input type="text" ng-model="node.title">
+
+      <a class="pull-right btn btn-xs" data-nodrag ng-click="roleEntityCtrl.remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
+      <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="roleEntityCtrl.newSubItem(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
+    </div>
+  </div>
+  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+    </li>
+  </ol>
+</script>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Add new Role</h3>
+			</div>
+			<div class="panel-body">
+				<form role="form" class="form-horizontal" role="form" class="validate">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="role-id">{{"roleEntity.Role Id" | translate }}</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="roleEntityCtrl.roleId" id="role-id" placeholder="Enter Role Id">
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="role-name">{{"roleEntity.Role Name" | translate }}</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="role-name" ng-model="roleEntityCtrl.roleName" placeholder="Enter Role Name">
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+					<div class="form-group">
+						<div class="col-sm-2 control-label">Organization Level</div>
+            <div class="col-sm-10">
+              <select class="form-control" id="role-org-level"
+                ng-init="roleEntityCtrl.roleOrgLevel = roleEntityCtrl.roleOrgLevelList[0]"
+                ng-model="roleEntityCtrl.roleOrgLevel"
+                ng-options="option.name for option in roleEntityCtrl.roleOrgLevelList track by option.value">
+        				  <!-- <option value="">Please select role organisation level</option> -->
+        				</select>
+            </div>
+					</div>
+					<div class="form-group-separator"></div>
+					<div class="form-group text-right">
+						<button class="btn btn-info" ng-click="roleEntityCtrl.saveRoleEntity()">Save</button>
+						<button class="btn btn-info">Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">List of Roles</h3>
+			</div>
+			<div class="panel-body">
+				<form role="form" class="form-horizontal" role="form" class="validate">
+					<div class="form-group">
+						<div class="col-sm-2 control-label">Roles</div>
+						<div class="col-sm-10">
+							<button ng-if="!roleEntityCtrl.isRoleEntityTreeExpanded" ng-click="roleEntityCtrl.expandAll()">{{"roleEntity.(+) Expand" | translate }}</button>
+							<button ng-if="roleEntityCtrl.isRoleEntityTreeExpanded" ng-click="roleEntityCtrl.collapseAll()">{{"roleEntity.(-) Collapse" | translate }}</button>
+							<br />
+							<br />
+							<div ui-tree id="org-level">
+					      <ol ui-tree-nodes="" ng-model="roleEntityCtrl.roleOrgLevelTree">
+					        <li ng-repeat="node in roleEntityCtrl.roleOrgLevelTree" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+					      </ol>
+					    </div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

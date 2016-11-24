@@ -3,7 +3,33 @@
 angular.module('apApp.adminModules.controllers', [])
 	.controller('RoleEntityCtrl', function($scope, $rootScope)
 	{
+		// Initialization
 		var vm = this;
+		vm.isRoleEntityTreeExpanded = true;
+		vm.roleOrgLevelList =
+		[
+      {
+        'name' : 'Corporate',
+        'value' : 'CORP'
+      },
+      {
+        'name' : 'Division',
+        'value' : 'DIVISION'
+      },
+      {
+        'name' : 'Region',
+        'value' : 'REGION'
+      },
+      {
+        'name' : 'District',
+        'value' : 'DISTRICT'
+      },
+      {
+        'name' : 'Store',
+        'value' : 'STORE'
+      },
+    ];
+
 
 		/* Tree View Manipulation Functions */
 		// Remove Node from Tree
@@ -29,63 +55,41 @@ angular.module('apApp.adminModules.controllers', [])
 		// Collapsing All Nodes
 		vm.collapseAll = function () {
 			$scope.$broadcast('angular-ui-tree:collapse-all');
+			vm.isRoleEntityTreeExpanded = false;
 		};
+
 
 		// Expanding All Nodes
 		vm.expandAll = function () {
 			$scope.$broadcast('angular-ui-tree:expand-all');
+			vm.isRoleEntityTreeExpanded = true;
 		};
 
 		// Initialization of Org Level Data.
-		vm.roleOrgLevel =
+		vm.roleOrgLevelTree =
 		[
 	  	{
 		    "id": 1,
-		    "title": "node1",
+		    "title": "Corporate",
 		    "nodes": [
 		      {
 		        "id": 11,
-		        "title": "node1.1",
-		        "nodes": [
-		          {
-		            "id": 111,
-		            "title": "node1.1.1",
-		            "nodes": []
-		          }
-		        ]
-		      },
-		      {
-		        "id": 12,
-		        "title": "node1.2",
-		        "nodes": []
+		        "title": "Role Corp 1",
 		      }
 		    ]
 		  },
 		  {
 		    "id": 2,
-		    "title": "node2",
-		    "nodrop": true,
-		    "nodes": [
-		      {
-		        "id": 21,
-		        "title": "node2.1",
-		        "nodes": []
-		      },
-		      {
-		        "id": 22,
-		        "title": "node2.2",
-		        "nodes": []
-		      }
-		    ]
+		    "title": "Division",
+				"nodes": []
 		  },
 		  {
 		    "id": 3,
-		    "title": "node3",
+		    "title": "Region",
 		    "nodes": [
 		      {
 		        "id": 31,
-		        "title": "node3.1",
-		        "nodes": []
+		        "title": "Role Region 1",
 		      }
 		    ]
 		  }
@@ -108,11 +112,11 @@ angular.module('apApp.adminModules.controllers', [])
 			var dataObject = {
 				'roleId' : vm.roleId,
 				'roleName' : vm.roleName,
-				'roleOrgLevel' : vm.roleOrgLevel
+				'roleOrgLevel' : vm.roleOrgLevel.value
 			};
 			console.log(dataObject);
 
-			AdminServices.saveRoleDetails(dataObject, onSuccessSaveRoleDetails, onErrorSaveRoleDetails);
+			//AdminServices.saveRoleDetails(dataObject, onSuccessSaveRoleDetails, onErrorSaveRoleDetails);
 		}
 		/* End of Controller Functions */
 	});

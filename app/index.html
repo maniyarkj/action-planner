@@ -93,6 +93,12 @@
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/oclazyload/dist/ocLazyLoad.js"></script>
     <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.js"></script>
+    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+    <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+    <script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.js"></script>
+    <script src="bower_components/angular-translate-handler-log/angular-translate-handler-log.js"></script>
+    <!-- <script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script> -->
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -106,17 +112,20 @@
 
     <!-- Config Scripts -->
     <script src="scripts/app.js"></script>
-    <script src="scripts/config/routes.js"></script>
     <script src="scripts/config/constants.js"></script>
+    <script src="scripts/config/routes.js"></script>
+
 
     <!-- Common Scripts -->
-    <script src="scripts/controllers/SettingsControllers.js"></script>
+    <script src="scripts/controllers/settingsCtrl.js"></script>
   	<script src="scripts/directives/directives.js"></script>
   	<script src="scripts/factory/factory.js"></script>
   	<script src="scripts/services/services.js"></script>
+    <script src="scripts/services/localeService.js"></script>
+    <script src="scripts/directives/languageSelectDirective.js"></script>
 
     <!-- Admin Module Scripts -->
-    <script src="modules/admin/controllers/AdminControllers.js"></script>
+    <script src="modules/admin/controllers/roleEntityCtrl.js"></script>
 
 	<!-- JavaScripts initializations and stuff -->
 	<script src="scripts/js/custom.js"></script>

@@ -10,6 +10,8 @@ var app = angular.module('apApp', [
   'ui.router',
 	'oc.lazyLoad',
 	'ui.tree',
+	'pascalprecht.translate',
+  // 'tmh.dynamicLocale',
 
 	'baseApp.controllers',
 	'apApp.controllers',
