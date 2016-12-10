@@ -1,31 +1,5 @@
 <page-title ng-if="layoutOptions.pageTitles" title="roleEntity.Role Id" description="Define or Customize Role Entity"></page-title>
 
-<script type="text/ng-template" id="nodes_renderer.html">
-  <div class="tree-node">
-    <div class="pull-left tree-handle" ui-tree-handle>
-      <span class="glyphicon glyphicon-move"></span>
-    </div>
-    <div class="tree-node-content">
-      <a class="btn btn-xs" data-nodrag ng-click="roleEntityCtrl.toggle(this)">
-        <span class="glyphicon" ng-class="{
-          'glyphicon-chevron-right': collapsed,
-          'glyphicon-chevron-down': !collapsed
-          }">
-        </span>
-      </a>
-
-      <input type="text" ng-model="node.title">
-
-      <a class="pull-right btn btn-xs" data-nodrag ng-click="roleEntityCtrl.remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
-      <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="roleEntityCtrl.newSubItem(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-edit"></span></a>
-    </div>
-  </div>
-  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
-    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
-    </li>
-  </ol>
-</script>
-
 <div class="row">
 	<div class="col-sm-12">
 		<div class="panel panel-default">
@@ -42,14 +16,14 @@
 					</div>
 					<div class="form-group-separator"></div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="role-name">{{"roleEntity.Role Name" | translate }}</label>
+						<label class="col-sm-2 control-label" for="role-name">Role Name</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="role-name" ng-model="roleEntityCtrl.roleName" placeholder="Enter Role Name">
 						</div>
 					</div>
 					<div class="form-group-separator"></div>
 					<div class="form-group">
-						<div class="col-sm-2 control-label">Organization Level</div>
+						<label class="col-sm-2 control-label" for="role-org-level">Organization Level</label>
             <div class="col-sm-10">
               <select class="form-control" id="role-org-level"
                 ng-init="roleEntityCtrl.roleOrgLevel = roleEntityCtrl.roleOrgLevelList[0]"
@@ -76,10 +50,10 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">List of Roles</h3>
 			</div>
-			<div class="panel-body">
+			<div class="panel-body" ng-if="roleEntityCtrl.roleOrgLevelTree.length > 0">
 				<form role="form" class="form-horizontal" role="form" class="validate">
 					<div class="form-group">
-						<div class="col-sm-2 control-label">Roles</div>
+						<!-- <div class="col-sm-2 control-label">Roles</div>
 						<div class="col-sm-10">
 							<button ng-if="!roleEntityCtrl.isRoleEntityTreeExpanded" ng-click="roleEntityCtrl.expandAll()">{{"roleEntity.(+) Expand" | translate }}</button>
 							<button ng-if="roleEntityCtrl.isRoleEntityTreeExpanded" ng-click="roleEntityCtrl.collapseAll()">{{"roleEntity.(-) Collapse" | translate }}</button>
@@ -90,10 +64,41 @@
 					        <li ng-repeat="node in roleEntityCtrl.roleOrgLevelTree" ui-tree-node ng-include="'nodes_renderer.html'"></li>
 					      </ol>
 					    </div>
-						</div>
+						</div> -->
+
+            <div ng-repeat="rl in roleEntityCtrl.roleOrgLevelTree">
+              <div class="col-xs-12 data_header">
+                {{rl.title}}
+              </div>
+
+              <div class="col-xs-12 padding_top_10 padding_bottom_10" ng-repeat="rl_node in rl.nodes">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-3">
+                      <span ng-show="roleEntityCtrl.selectedNodeId !== rl_node.id">{{rl_node.id}}</span>
+                      <input ng-show="roleEntityCtrl.selectedNodeId === rl_node.id" type="text" class="form-control" id="txtRoleId" ng-model="rl_node.id" placeholder=""/>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                      <span ng-show="roleEntityCtrl.selectedNodeId !== rl_node.id">{{rl_node.title}}</span>
+                      <input ng-show="roleEntityCtrl.selectedNodeId === rl_node.id" type="text" class="form-control" id="txtRoleName" ng-model="rl_node.title" placeholder=""/>
+                  </div>
+                  <div class="col-xs-12 col-sm-3 text-right">
+                    <a class="pull-right btn btn-info btn-xs" ng-click="roleEntityCtrl.editEnable(rl_node)" ng-if="!roleEntityCtrl.editRoleEntity || (roleEntityCtrl.editRoleEntity && roleEntityCtrl.selectedNodeId !== rl_node.id)"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a class="pull-right btn btn-info btn-xs" ng-click="roleEntityCtrl.removeEnable(rl_node)" ng-if="roleEntityCtrl.editRoleEntity && roleEntityCtrl.selectedNodeId === rl_node.id"><span class="glyphicon glyphicon-remove"></span></a>
+                    <a class="pull-right btn btn-info btn-xs" ng-click="roleEntityCtrl.save(rl_node)" ng-if="roleEntityCtrl.editRoleEntity && roleEntityCtrl.selectedNodeId === rl_node.id" style="margin-right: 8px;"><span class="glyphicon glyphicon-ok"></span></a>
+                    <a class="pull-right btn btn-info btn-xs" ng-click="roleEntityCtrl.editEnable(rl_node)" ng-if="!roleEntityCtrl.editRoleEntity || (roleEntityCtrl.editRoleEntity && roleEntityCtrl.selectedNodeId !== rl_node.id)" style="margin-right: 8px;"><span class="glyphicon glyphicon-pencil"></span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 					</div>
 				</form>
 			</div>
+      <div class="no-data" ng-if="roleEntityCtrl.roleOrgLevelTree.length < 0">
+        <p>
+          No Role list found.
+        </p>
+      </div>
 		</div>
 	</div>
 </div>

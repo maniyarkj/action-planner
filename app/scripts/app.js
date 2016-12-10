@@ -11,6 +11,7 @@ var app = angular.module('apApp', [
 	'oc.lazyLoad',
 	'ui.tree',
 	'pascalprecht.translate',
+	'ngFileUpload',
   // 'tmh.dynamicLocale',
 
 	'baseApp.controllers',

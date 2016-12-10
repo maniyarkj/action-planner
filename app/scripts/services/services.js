@@ -133,6 +133,7 @@ angular.module('apApp.services', []).
 				// Subitems of Forms
 				// adminModule.addItem('Native Elements',		'-/native');
 				adminModule.addItem('Role Entities',		'-/role');
+				adminModule.addItem('User',		'-/user');
 				adminModule.addItem('Layout & Skins',	'/layout-and-skins');
 				// adminModule.addItem('Advanced Plugins',		'-/advanced');
 				// adminModule.addItem('Form Wizard',			'-/wizard');

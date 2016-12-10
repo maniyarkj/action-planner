@@ -44,6 +44,13 @@ app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, ASS
 			controllerAs: 'roleEntityCtrl'
 		}).
 
+		state('app.admin-user', {
+			url: '/admin-user',
+			templateUrl: 'modules/admin/views/user.html',
+			controller: 'UserCtrl',
+			controllerAs: 'userCtrl'
+		}).
+
 		// Logins and Lockscreen
 		state('login', {
 			url: '/login',

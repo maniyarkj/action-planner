@@ -1,11 +1,13 @@
 'use strict';
 
-angular.module('apApp.adminModules.controllers', [])
-	.controller('RoleEntityCtrl', function($scope, $rootScope)
+angular.module('apApp.adminModules.controllers')
+	.controller('RoleEntityCtrl', ['$scope', '$rootScope', function($scope, $rootScope)
 	{
 		// Initialization
 		var vm = this;
 		vm.isRoleEntityTreeExpanded = true;
+		vm.editRoleEntity = false;
+
 		vm.roleOrgLevelList =
 		[
       {
@@ -70,32 +72,76 @@ angular.module('apApp.adminModules.controllers', [])
 		[
 	  	{
 		    "id": 1,
-		    "title": "Corporate",
+		    "title": "Level 1",
 		    "nodes": [
 		      {
 		        "id": 11,
 		        "title": "Role Corp 1",
+		      },
+					{
+		        "id": 12,
+		        "title": "Role Corp 2",
+		      },
+					{
+		        "id": 13,
+		        "title": "Role Corp 3",
 		      }
 		    ]
 		  },
 		  {
 		    "id": 2,
-		    "title": "Division",
-				"nodes": []
+		    "title": "Level 2",
+				"nodes": [
+					{
+		        "id": 21,
+		        "title": "Role Div 1",
+		      },
+					{
+		        "id": 22,
+		        "title": "Role Div 2",
+		      },
+					{
+		        "id": 23,
+		        "title": "Role Div 3",
+		      }
+				]
 		  },
 		  {
 		    "id": 3,
-		    "title": "Region",
+		    "title": "Level 3",
 		    "nodes": [
-		      {
+					{
 		        "id": 31,
 		        "title": "Role Region 1",
+		      },
+					{
+		        "id": 32,
+		        "title": "Role Region 2",
+		      },
+					{
+		        "id": 33,
+		        "title": "Role Region 3",
 		      }
 		    ]
 		  }
 		];
 
 		/* End of Tree Manipulation Functions */
+		//
+
+		// vm.selectedNodeId = 11;
+		// console.log(vm.selectedNodeId);
+		vm.editEnable = function(rl_node) {
+			vm.selectedNodeId = rl_node.id;
+			console.log(vm.selectedNodeId);
+			vm.editRoleEntity = true;
+		};
+
+
+		vm.removeEnable = function(rl_node) {
+			vm.selectedNodeId = {};
+			vm.editRoleEntity = false;
+		};
 
 		/* Controller Functions */
 		// On Success of Save Role Details Call
@@ -119,4 +165,4 @@ angular.module('apApp.adminModules.controllers', [])
 			//AdminServices.saveRoleDetails(dataObject, onSuccessSaveRoleDetails, onErrorSaveRoleDetails);
 		}
 		/* End of Controller Functions */
-	});
+	}]);

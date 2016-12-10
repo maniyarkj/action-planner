@@ -1,0 +1,190 @@
+<page-title ng-if="layoutOptions.pageTitles" title="User" description="Add/Edit User Profile"></page-title>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Add New User</h3>
+			</div>
+			<div class="panel-body">
+				<form role="form" class="form-horizontal" role="form" class="validate">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="user-id">User Id</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="userCtrl.roleId" id="user-id" placeholder="Choose User Id">
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+
+          <div class="form-group">
+						<label class="col-sm-2 control-label" for="password">Password</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" ng-model="userCtrl.password" id="password" placeholder="Enter Password">
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+
+  				<div class="form-group">
+  					<label class="col-sm-2 control-label" for="title">Title</label>
+            <div class="col-sm-10">
+    					<select name="test" class="form-control selectboxit">
+    						<optgroup label="Select Title">
+    							<option value="1">Mr.</option>
+    							<option value="2">Mrs.</option>
+    							<option value="3">Ms.</option>
+    							<option value="4">Dr.</option>
+    							<option value="5">Honorable.</option>
+    							<option value="6">Prof.</option>
+    						</optgroup>
+    					</select>
+            </div>
+  				</div>
+          <div class="form-group-separator"></div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="first-name">First Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="first-name" ng-model="userCtrl.firstName" placeholder="Enter First Name">
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="middle-name">Middle Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="middle-name" ng-model="userCtrl.middleName" placeholder="Enter Middle Name">
+            </div>
+          </div>
+          <div class="form-group-separator"></div>
+
+          <div class="form-group">
+						<label class="col-sm-2 control-label" for="last-name">Last Name</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="last-name" ng-model="userCtrl.lastName" placeholder="Enter Last Name">
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="gender">Gender</label>
+            <div class="col-sm-10">
+    					<div class="form-control">
+    						<label class="radio-inline">
+    							<input type="radio" name="rdo_gender" checked>
+    							Male
+    						</label>
+    						<label class="radio-inline">
+    							<input type="radio" name="rdo_gender">
+    							Female
+    						</label>
+    					</div>
+            </div>
+          </div>
+          <div class="form-group-separator"></div>
+
+          <div class="form-group">
+						<label class="col-sm-2 control-label" for="email-id">Email Id</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="email-id" ng-model="userCtrl.emailId" placeholder="Enter Email Id">
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+
+          <div class="form-group">
+						<label class="col-sm-2 control-label" for="contact-number">Contact Number</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="contact-number" ng-model="userCtrl.contactNumber" placeholder="Enter Contact Number">
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="profile-image">Profile Image</label>
+            <div class="col-sm-10">
+							<input type="file" class="form-control" id="profile-image" value="Upload profile image" ng-model="userCtrl.profileImage" placeholder="Upload profile image"
+              ngf-select ngf-max-size="2MB" ng-required="true" ngf-model-invalid="errorFile">
+						</div>
+          </div>
+          <div class="form-group-separator"></div>
+
+          <div class="form-group">
+						<label class="col-sm-2 control-label" for="birthdate">Date of Birth</label>
+						<div class="col-sm-10">
+              <input type="text" class="form-control"  uib-datepicker-popup="{{userCtrl.format}}" id="birthdate" ng-model="userCtrl.birthdate" is-open="userCtrl.openedBirthDate" datepicker-options="userCtrl.dateOptions" ng="true" close-text="Close" alt-input-formats="altInputFormats" />
+               <span class="input-group-btn fullProfileBtn">
+                 <button type="button" class="btn btn-info" ng-click="userCtrl.openBirthDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+               </span>
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+
+          <div class="form-group">
+						<label class="col-sm-2 control-label" for="hire-date">Hire Date</label>
+						<div class="col-sm-10">
+              <input type="text" class="form-control"  uib-datepicker-popup="{{userCtrl.format}}" id="hire-date" ng-model="userCtrl.hireDate" is-open="userCtrl.openedHireDate" datepicker-options="userCtrl.dateOptions" ng="true" close-text="Close" alt-input-formats="altInputFormats" />
+               <span class="input-group-btn fullProfileBtn">
+                 <button type="button" class="btn btn-info" ng-click="userCtrl.openHireDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+               </span>
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="gender">Status</label>
+            <div class="col-sm-10">
+    					<div class="form-control">
+    						<label class="radio-inline">
+    							<input type="radio" name="rdo_active" checked>
+    							Active
+    						</label>
+    						<label class="radio-inline">
+    							<input type="radio" name="rdo_active">
+    							Inactive
+    						</label>
+    					</div>
+            </div>
+          </div>
+          <div class="form-group-separator"></div>
+
+          <div class="form-group">
+						<label class="col-sm-2 control-label" for="employee-id">Employee Id</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="employee-id" ng-model="userCtrl.employeeId" placeholder="Enter Employee Id">
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="default-locale">Select Default Locale</label>
+            <div class="col-sm-10">
+              <select class="form-control" id="default-locale"
+                ng-init="userCtrl.roleOrgLevel = userCtrl.localeList[0]"
+                ng-model="userCtrl.locale"
+                ng-options="option.name for option in userCtrl.localeList track by option.value">
+        				</select>
+            </div>
+					</div>
+					<div class="form-group-separator"></div>
+					<div class="form-group text-right">
+						<button class="btn btn-info" ng-click="userCtrl.saveRoleEntity()">Save</button>
+						<button class="btn btn-info">Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">List of Users</h3>
+			</div>
+      <div class="no-data">
+        <p>
+          No Users found.
+        </p>
+      </div>
+		</div>
+	</div>
+</div>

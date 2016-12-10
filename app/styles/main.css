@@ -121,3 +121,25 @@ Tree View CSS
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+.data_header {
+  background-color: #f2f2f2;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.padding_top_10 {
+  padding-top: 10px;
+}
+
+.padding_bott_10 {
+  padding-bottom: 10px;
+}
+
+.form-horizontal .radio-inline {padding-top: 0 ;}
+
+span.input-group-btn {
+  position: absolute;
+  right: 46px;
+  top: 0;
+}
