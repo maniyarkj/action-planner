@@ -11,39 +11,14 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700,400italic">
-  	<link rel="stylesheet" href="styles/fonts/linecons/css/linecons.css">
   	<link rel="stylesheet" href="styles/fonts/fontawesome/css/font-awesome.min.css">
-  	<!-- <link rel="stylesheet" href="styles/bootstrap.css"> -->
   	<link rel="stylesheet" href="styles/core.css">
-  	<link rel="stylesheet" href="styles/forms.css">
-  	<link rel="stylesheet" href="styles/components.css">
-  	<link rel="stylesheet" href="styles/skins.css">
-  	<link rel="stylesheet" href="styles/custom.css">
-    <!-- build:css(.tmp) styles/main.css -->
+  	<!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-    <script>
-  	var appHelper = {
-  		// Vars (paths without trailing slash)
-  		templatesDir: 'views',
-  		assetsDir: 'assets',
-
-  		// Methods
-  		templatePath: function(view_name)
-  		{
-  			return this.templatesDir + '/' + view_name + '.html';
-  		},
-
-  		assetPath: function(file_path)
-  		{
-  			return this.assetsDir + '/' + file_path;
-  		}
-  	};
-  	</script>
 
   	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   	<!--[if lt IE 9]>
@@ -55,8 +30,6 @@
   </head>
   <body class="page-body" ng-controller="MainCtrl"
     ng-class="{'settings-pane-open': layoutOptions.settingsPane.isOpen, 'chat-open': layoutOptions.chat.isOpen, 'login-page': isLoginPage && isMainPage == false, 'login-light': isLightLoginPage && isMainPage == false, 'lockscreen-page': isLockscreenPage && isMainPage == false, 'right-sidebar': layoutOptions.sidebar.isRight, 'boxed-container': layoutOptions.container.isBoxed}">
-    <settings-pane></settings-pane>
-    <horizontal-menu ng-if="layoutOptions.horizontalMenu.isVisible"></horizontal-menu>
 
   	<div class="page-container" ui-view></div>
 
@@ -65,16 +38,7 @@
   		<div class="loader-2"></div>
   	</div>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+    <div class="alertDiv" uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" dismiss-on-timeout="3000" close="closeAlert()">{{alert.msg}}</div>
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -92,7 +56,6 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/oclazyload/dist/ocLazyLoad.js"></script>
-    <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
     <script src="bower_components/angular-translate/angular-translate.js"></script>
     <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
     <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
@@ -100,6 +63,8 @@
     <script src="bower_components/angular-translate-handler-log/angular-translate-handler-log.js"></script>
     <script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -107,15 +72,13 @@
         <!-- <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script> -->
     <script src="scripts/js/angular-fullscreen.js"></script>
-  	<script src="assets/js/TweenMax.min.js"></script>
-  	<script src="assets/js/joinable.js"></script>
-  	<script src="assets/js/resizeable.js"></script>
+  	<script src="scripts/js/TweenMax.min.js"></script>
+  	<script src="scripts/js/resizeable.js"></script>
 
     <!-- Config Scripts -->
     <script src="scripts/app.js"></script>
     <script src="scripts/config/constants.js"></script>
     <script src="scripts/config/routes.js"></script>
-
 
     <!-- Common Scripts -->
     <script src="scripts/controllers/settingsCtrl.js"></script>
@@ -126,11 +89,20 @@
     <script src="scripts/directives/languageSelectDirective.js"></script>
 
     <!-- Admin Module Scripts -->
-    <script src="modules/admin/controllers/roleEntityCtrl.js"></script>
-    <script src="modules/admin/controllers/userCtrl.js"></script>
+      <!-- Controlleres -->
+      <script src="modules/admin/controllers/roleEntityCtrl.js"></script>
+      <script src="modules/admin/controllers/userCtrl.js"></script>
+      <script src="modules/admin/controllers/userListCtrl.js"></script>
+      <!-- End Controllers -->
+
+      <!-- Services -->
+      <script src="modules/admin/services/adminServices.js"></script>
+      <!-- End Services -->
 
 	<!-- JavaScripts initializations and stuff -->
-	<script src="scripts/js/custom.js"></script>
+	<script src="scripts/custom/custom.js"></script>
+  <!-- <script src="scripts/custom/actionPlannerCustom.js"></script> -->
+
         <!-- endbuild -->
 </body>
 </html>

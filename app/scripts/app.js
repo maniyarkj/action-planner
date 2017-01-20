@@ -9,9 +9,9 @@ var app = angular.module('apApp', [
   'ngTouch',
   'ui.router',
 	'oc.lazyLoad',
-	'ui.tree',
 	'pascalprecht.translate',
 	'ngFileUpload',
+	'angularMoment',
   // 'tmh.dynamicLocale',
 
 	'baseApp.controllers',

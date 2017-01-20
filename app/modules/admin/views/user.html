@@ -1,190 +1,205 @@
-<page-title ng-if="layoutOptions.pageTitles" title="User" description="Add/Edit User Profile"></page-title>
-<div class="row">
-	<div class="col-sm-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Add New User</h3>
-			</div>
-			<div class="panel-body">
-				<form role="form" class="form-horizontal" role="form" class="validate">
-					<div class="form-group">
-						<label class="col-sm-2 control-label" for="user-id">User Id</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" ng-model="userCtrl.roleId" id="user-id" placeholder="Choose User Id">
-						</div>
-					</div>
-					<div class="form-group-separator"></div>
+<page-title ng-if="layoutOptions.pageTitles && userCtrl.newUser" title="userRes.pageNameAddMode" description=""></page-title>
+<page-title ng-if="layoutOptions.pageTitles && !userCtrl.newUser" title="userRes.pageNameEditMode" description=""></page-title>
 
-          <div class="form-group">
-						<label class="col-sm-2 control-label" for="password">Password</label>
-						<div class="col-sm-10">
-							<input type="password" class="form-control" ng-model="userCtrl.password" id="password" placeholder="Enter Password">
-						</div>
-					</div>
-					<div class="form-group-separator"></div>
-
-  				<div class="form-group">
-  					<label class="col-sm-2 control-label" for="title">Title</label>
-            <div class="col-sm-10">
-    					<select name="test" class="form-control selectboxit">
-    						<optgroup label="Select Title">
+<form role="forl" id="rootwizard" class="form-wizard validate" name="userForm" novalidate>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{ "userRes.labels.personalInfo" | translate }}</h3>
+				</div>
+				<div class="panel-body">
+					<div class="no-margin">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="title"> {{ "userRes.labels.title" | translate }}</label>
+									<select name="test" class="form-control selectboxit" ng-model="userCtrl.title">
     							<option value="1">Mr.</option>
     							<option value="2">Mrs.</option>
     							<option value="3">Ms.</option>
     							<option value="4">Dr.</option>
     							<option value="5">Honorable.</option>
     							<option value="6">Prof.</option>
-    						</optgroup>
-    					</select>
-            </div>
-  				</div>
-          <div class="form-group-separator"></div>
+	    					</select>
+								</div>
+							</div>
+							<div class="col-md-12" ng-class="{'has-error' : (userForm.$submitted || userForm.first_name.$touched || submitted ) && userForm.first_name.$error.required }">
+								<div class="form-group">
+									<label class="control-label" for="first_name"> {{ "userRes.labels.firstName" | translate }}</label>
+									<input class="form-control" name="first_name" ng-model="userCtrl.data.firstName" id="first_name" type="text" placeholder="First Name" ng-required="true" />
+									<p class="help-block" ng-show="(userForm.$submitted || userForm.first_name.$touched || submitted ) && userForm.first_name.$invalid && userForm.first_name.$error.required">{{ "userRes.labels.validFirstName" | translate }}</p>
+								</div>
+							</div>
+						</div>
 
-					<div class="form-group">
-						<label class="col-sm-2 control-label" for="first-name">First Name</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="first-name" ng-model="userCtrl.firstName" placeholder="Enter First Name">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="middle_name"> {{ "userRes.labels.middleName" | translate }}</label>
+									<input class="form-control" name="middle_name" ng-model="userCtrl.data.middleName" id="middle_name" type="text" placeholder="Middle Name" />
+								</div>
+							</div>
+							<div class="col-md-12" ng-class="{'has-error' : (userForm.$submitted || userForm.last_name.$touched || submitted ) && userForm.last_name.$error.required }">
+								<div class="form-group">
+									<label class="control-label" for="last_name"> {{ "userRes.labels.lastName" | translate }}</label>
+									<input class="form-control" name="last_name" ng-model="userCtrl.data.lastName" id="last_name" type="text" placeholder="Last Name" ng-required="true" />
+									<p class="help-block" ng-show="(userForm.$submitted || userForm.last_name.$touched || submitted ) && userForm.last_name.$invalid && userForm.last_name.$error.required">{{ "userRes.labels.validLastName" | translate }}</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="user_id"> {{ "userRes.labels.gender" | translate }}</label>
+									<div class="form-group">
+										<div class="btn-group">
+							        <label class="btn btn-primary" ng-model="userCtrl.data.gender" uib-btn-radio="'Male'">Male</label>
+							        <label class="btn btn-primary" ng-model="userCtrl.data.gender" uib-btn-radio="'Female'">Female</label>
+								    </div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="status"> {{ "userRes.labels.status" | translate }}</label>
+									<div class="form-group">
+										<div class="btn-group">
+							        <label class="btn btn-primary" ng-model="userCtrl.data.status" uib-btn-radio="'Active'">Active</label>
+							        <label class="btn btn-primary" ng-model="userCtrl.data.status" uib-btn-radio="'Inactive'">Inactive</label>
+								    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12" ng-class="{'has-error' : (userForm.$submitted || userForm.email.$touched || submitted ) && userForm.email.$error.required }">
+								<div class="form-group">
+									<label class="control-label" for="email"> {{ "userRes.labels.email" | translate }}</label>
+									<input class="form-control" name="email" ng-model="userCtrl.data.emailId" id="email" type="email" placeholder="Email Id" ng-required="true" />
+									<p class="help-block" ng-show="(userForm.$submitted || userForm.email.$touched || submitted ) && userForm.email.$invalid && userForm.email.$error.required">{{ "userRes.labels.validEmail" | translate }}</p>
+									<p class="help-block" ng-show="userForm.email.$error.email">{{ "userRes.validEmailType" | translate }}</p>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="contact_no"> {{ "userRes.labels.contactNo" | translate }}</label>
+									<input class="form-control" name="contact_no" ng-model="userCtrl.data.phoneNo" id="contact_no" placeholder="Contact Number" />
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+
+							<div class="col-md-12" ng-class="{'has-error' : (userForm.$submitted || userForm.user_id.$touched || submitted ) && userForm.user_id.$error.required }">
+								<div class="form-group">
+									<label class="control-label" for="user_id"> {{ "userRes.labels.userId" | translate }}</label>
+									<input class="form-control" name="user_id" ng-model="userCtrl.data.userId" id="user_id" placeholder="" ng-required="true" />
+									<p class="help-block" ng-show="(userForm.$submitted || userForm.user_id.$touched || submitted ) && userForm.user_id.$invalid && userForm.user_id.$error.required">{{ "userRes.labels.validUserId" | translate }}</p>
+								</div>
+							</div>
+
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="password"> {{ "userRes.labels.password" | translate }}</label>
+									<input class="form-control" name="password" ng-model="userCtrl.data.password" id="password" type="password" placeholder="" />
+								</div>
+							</div>
+
+						</div>
+
+						<!-- Tabs Pager -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"> {{ "userRes.labels.userInfo" | translate }}</h3>
+				</div>
+				<div class="panel-body">
+					<div class="tab-content no-margin">
+						<!-- Tabs Content -->
+
+
+						<div class="row">
+
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="empployee_id"> {{ "userRes.labels.empId" | translate }}</label>
+									<input class="form-control" name="empployee_id" ng-model="userCtrl.data.employeeId" id="empployee_id" placeholder="Employee Id" />
+								</div>
+							</div>
+
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="hire_date"> {{ "userRes.labels.hireDate" | translate }}</label>
+									<input type="text" class="form-control" name="hiredate"
+				            uib-datepicker-popup="{{userCtrl.format}}" id="dtpPostDate"
+				            ng-model="userCtrl.data.hireDate"
+				            is-open="userCtrl.openedHireDate"
+				            datepicker-options="userCtrl.dateOptions"
+				            ng-required="true" close-text="Close"
+										placeholder="Enter date in MM/DD/YYYY Format"
+			             />
+			            <span class="input-group-btn">
+			              <button type="button" class="btn btn-primary openCalendarIcon" ng-click="userCtrl.openCalendarHireDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+			            </span>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="profile_image"> {{ "userRes.labels.profImage" | translate }}</label>
+									<input type="file" class="form-control" id="profile-image" value="Upload profile image" ng-model="userCtrl.data.profileImage" placeholder="Upload profile image" ngf-select ngf-max-size="2MB" ngf-model-invalid="errorFile">
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="birthdate"> {{ "userRes.labels.dob" | translate }}</label>
+									<!-- <input class="form-control" inputmask name="birthdate" ng-model="userCtrl.data.dateOfBirth" id="birthdate" data-mask="date" placeholder="Pre-formatted birth date" /> -->
+									<input type="text" class="form-control" name="birthdate"
+				            uib-datepicker-popup="{{userCtrl.format}}" id="dtpPostDate"
+				            ng-model="userCtrl.data.dateOfBirth"
+				            is-open="userCtrl.openedBirthDate"
+				            datepicker-options="userCtrl.dateOptions"
+				            ng-required="true" close-text="Close"
+										placeholder="Enter date in MM/DD/YYYY Format"
+			             />
+			            <span class="input-group-btn">
+			              <button type="button" class="btn btn-primary openCalendarIcon" ng-click="userCtrl.openCalendarBirthDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+			            </span>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="default-locale"> {{ "userRes.labels.defaultLocale" | translate }}</label>
+									<select class="form-control" id="default-locale" ng-init="userCtrl.roleOrgLevel = userCtrl.localeList[0]" ng-model="userCtrl.data.locale" ng-options="option for option in userCtrl.localeList">
+	        				</select>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="form-group-separator"></div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="middle-name">Middle Name</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="middle-name" ng-model="userCtrl.middleName" placeholder="Enter Middle Name">
-            </div>
-          </div>
-          <div class="form-group-separator"></div>
-
-          <div class="form-group">
-						<label class="col-sm-2 control-label" for="last-name">Last Name</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="last-name" ng-model="userCtrl.lastName" placeholder="Enter Last Name">
-						</div>
-					</div>
-					<div class="form-group-separator"></div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="gender">Gender</label>
-            <div class="col-sm-10">
-    					<div class="form-control">
-    						<label class="radio-inline">
-    							<input type="radio" name="rdo_gender" checked>
-    							Male
-    						</label>
-    						<label class="radio-inline">
-    							<input type="radio" name="rdo_gender">
-    							Female
-    						</label>
-    					</div>
-            </div>
-          </div>
-          <div class="form-group-separator"></div>
-
-          <div class="form-group">
-						<label class="col-sm-2 control-label" for="email-id">Email Id</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="email-id" ng-model="userCtrl.emailId" placeholder="Enter Email Id">
-						</div>
-					</div>
-					<div class="form-group-separator"></div>
-
-          <div class="form-group">
-						<label class="col-sm-2 control-label" for="contact-number">Contact Number</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="contact-number" ng-model="userCtrl.contactNumber" placeholder="Enter Contact Number">
-						</div>
-					</div>
-					<div class="form-group-separator"></div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="profile-image">Profile Image</label>
-            <div class="col-sm-10">
-							<input type="file" class="form-control" id="profile-image" value="Upload profile image" ng-model="userCtrl.profileImage" placeholder="Upload profile image"
-              ngf-select ngf-max-size="2MB" ng-required="true" ngf-model-invalid="errorFile">
-						</div>
-          </div>
-          <div class="form-group-separator"></div>
-
-          <div class="form-group">
-						<label class="col-sm-2 control-label" for="birthdate">Date of Birth</label>
-						<div class="col-sm-10">
-              <input type="text" class="form-control"  uib-datepicker-popup="{{userCtrl.format}}" id="birthdate" ng-model="userCtrl.birthdate" is-open="userCtrl.openedBirthDate" datepicker-options="userCtrl.dateOptions" ng="true" close-text="Close" alt-input-formats="altInputFormats" />
-               <span class="input-group-btn fullProfileBtn">
-                 <button type="button" class="btn btn-info" ng-click="userCtrl.openBirthDate()"><i class="glyphicon glyphicon-calendar"></i></button>
-               </span>
-						</div>
-					</div>
-					<div class="form-group-separator"></div>
-
-          <div class="form-group">
-						<label class="col-sm-2 control-label" for="hire-date">Hire Date</label>
-						<div class="col-sm-10">
-              <input type="text" class="form-control"  uib-datepicker-popup="{{userCtrl.format}}" id="hire-date" ng-model="userCtrl.hireDate" is-open="userCtrl.openedHireDate" datepicker-options="userCtrl.dateOptions" ng="true" close-text="Close" alt-input-formats="altInputFormats" />
-               <span class="input-group-btn fullProfileBtn">
-                 <button type="button" class="btn btn-info" ng-click="userCtrl.openHireDate()"><i class="glyphicon glyphicon-calendar"></i></button>
-               </span>
-						</div>
-					</div>
-					<div class="form-group-separator"></div>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="gender">Status</label>
-            <div class="col-sm-10">
-    					<div class="form-control">
-    						<label class="radio-inline">
-    							<input type="radio" name="rdo_active" checked>
-    							Active
-    						</label>
-    						<label class="radio-inline">
-    							<input type="radio" name="rdo_active">
-    							Inactive
-    						</label>
-    					</div>
-            </div>
-          </div>
-          <div class="form-group-separator"></div>
-
-          <div class="form-group">
-						<label class="col-sm-2 control-label" for="employee-id">Employee Id</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="employee-id" ng-model="userCtrl.employeeId" placeholder="Enter Employee Id">
-						</div>
-					</div>
-					<div class="form-group-separator"></div>
-
-					<div class="form-group">
-						<label class="col-sm-2 control-label" for="default-locale">Select Default Locale</label>
-            <div class="col-sm-10">
-              <select class="form-control" id="default-locale"
-                ng-init="userCtrl.roleOrgLevel = userCtrl.localeList[0]"
-                ng-model="userCtrl.locale"
-                ng-options="option.name for option in userCtrl.localeList track by option.value">
-        				</select>
-            </div>
-					</div>
-					<div class="form-group-separator"></div>
-					<div class="form-group text-right">
-						<button class="btn btn-info" ng-click="userCtrl.saveRoleEntity()">Save</button>
-						<button class="btn btn-info">Close</button>
-					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-
-<div class="row">
-	<div class="col-sm-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">List of Users</h3>
+	<div class="row">
+		<div class='col-sm-12'>
+			<div class="form-group-separator"></div>
+			<div class="form-group text-right">
+				<button class="btn btn-primary" ng-click="userForm.$valid && userCtrl.saveUser()">{{ "crud.save" | translate }}</button>
+				<button ng-if="!userCtrl.newUser" class="btn btn-primary" ng-click="userCtrl.deleteUser()">{{ "crud.delete" | translate }}</button>
+				<button class="btn btn-primary">{{ "crud.cancel" | translate }}</button>
 			</div>
-      <div class="no-data">
-        <p>
-          No Users found.
-        </p>
-      </div>
 		</div>
 	</div>
-</div>
+</form>

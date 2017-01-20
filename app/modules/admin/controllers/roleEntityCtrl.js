@@ -1,168 +1,186 @@
 'use strict';
 
 angular.module('apApp.adminModules.controllers')
-	.controller('RoleEntityCtrl', ['$scope', '$rootScope', function($scope, $rootScope)
+	.controller('RoleEntityCtrl', ['$scope', '$rootScope', 'AdminServices', 'STATUS_CODE', '$window',
+	function($scope, $rootScope, AdminServices, STATUS_CODE, $window)
 	{
 		// Initialization
 		var vm = this;
-		vm.isRoleEntityTreeExpanded = true;
 		vm.editRoleEntity = false;
+		$rootScope.alerts = [];
+		var alert = {};
 
-		vm.roleOrgLevelList =
-		[
-      {
-        'name' : 'Corporate',
-        'value' : 'CORP'
-      },
-      {
-        'name' : 'Division',
-        'value' : 'DIVISION'
-      },
-      {
-        'name' : 'Region',
-        'value' : 'REGION'
-      },
-      {
-        'name' : 'District',
-        'value' : 'DISTRICT'
-      },
-      {
-        'name' : 'Store',
-        'value' : 'STORE'
-      },
-    ];
-
-
-		/* Tree View Manipulation Functions */
-		// Remove Node from Tree
-		vm.remove = function (scope) {
-      scope.remove();
-    };
-
-		// Expanding/Collapsing Signle Node with it's Sub Nodes
-    vm.toggle = function (scope) {
-      scope.toggle();
-    };
-
-		// Adding New Sub Node
-    vm.newSubItem = function (scope) {
-      var nodeData = scope.$modelValue;
-      nodeData.nodes.push({
-        id: nodeData.id * 10 + nodeData.nodes.length,
-        title: nodeData.title + '.' + (nodeData.nodes.length + 1),
-        nodes: []
-      });
-    };
-
-		// Collapsing All Nodes
-		vm.collapseAll = function () {
-			$scope.$broadcast('angular-ui-tree:collapse-all');
-			vm.isRoleEntityTreeExpanded = false;
-		};
-
-
-		// Expanding All Nodes
-		vm.expandAll = function () {
-			$scope.$broadcast('angular-ui-tree:expand-all');
-			vm.isRoleEntityTreeExpanded = true;
-		};
-
-		// Initialization of Org Level Data.
-		vm.roleOrgLevelTree =
-		[
-	  	{
-		    "id": 1,
-		    "title": "Level 1",
-		    "nodes": [
-		      {
-		        "id": 11,
-		        "title": "Role Corp 1",
-		      },
-					{
-		        "id": 12,
-		        "title": "Role Corp 2",
-		      },
-					{
-		        "id": 13,
-		        "title": "Role Corp 3",
-		      }
-		    ]
-		  },
-		  {
-		    "id": 2,
-		    "title": "Level 2",
-				"nodes": [
-					{
-		        "id": 21,
-		        "title": "Role Div 1",
-		      },
-					{
-		        "id": 22,
-		        "title": "Role Div 2",
-		      },
-					{
-		        "id": 23,
-		        "title": "Role Div 3",
-		      }
-				]
-		  },
-		  {
-		    "id": 3,
-		    "title": "Level 3",
-		    "nodes": [
-					{
-		        "id": 31,
-		        "title": "Role Region 1",
-		      },
-					{
-		        "id": 32,
-		        "title": "Role Region 2",
-		      },
-					{
-		        "id": 33,
-		        "title": "Role Region 3",
-		      }
-		    ]
-		  }
-		];
-
-		/* End of Tree Manipulation Functions */
-		//
-
-		// vm.selectedNodeId = 11;
-		// console.log(vm.selectedNodeId);
-		vm.editEnable = function(rl_node) {
-			vm.selectedNodeId = rl_node.id;
-			console.log(vm.selectedNodeId);
-			vm.editRoleEntity = true;
-		};
-
-
-		vm.removeEnable = function(rl_node) {
-			vm.selectedNodeId = {};
-			vm.editRoleEntity = false;
-		};
-
-		/* Controller Functions */
-		// On Success of Save Role Details Call
-		function onSuccessSaveRoleDetails() {
-
+		// GET API for Organization levels
+		function onSuccessGetOrganizationLevels(response) {
+			if (STATUS_CODE.status_ok === response.status) {
+				vm.roleOrgLevelList = response.data;
+			}
+			else {
+				alert = {
+					type: 'danger',
+					msg: 'Sorry, No data found!'
+				};
+				$rootScope.alerts.push(alert);
+			}
 		}
-
-		// On Error of Save Role Details Call
-		function onErrorSaveRoleDetails() {
-
+		function onErrorGetOrganizationLevels(response) {
+			alert = {
+				type: 'danger',
+				msg: 'Sorry, something went wrong, please try again!'
+			};
+			$rootScope.alerts.push(alert);
 		}
+		AdminServices.getOrganizationLevels(onSuccessGetOrganizationLevels, onErrorGetOrganizationLevels);
 
+		/* CRUD Operations for Roles */
+
+		// Save Role Details
+		function onSuccessSaveRoleEntity(response) {
+			if (STATUS_CODE.status_ok === response.status) {
+				// Prompt Role Detail is saved successfully.
+				alert = {
+					type: 'success',
+					msg: 'Role entity saved successfully.'
+				};
+
+				// Reseting the Text Boxes
+				$scope.roleEntityForm.$setPristine();
+				$scope.roleEntityForm.$setUntouched();
+
+				vm.roleId = '';
+				vm.roleName = '';
+				vm.roleOrgLevel = '';
+
+				$rootScope.alerts.push(alert);
+			 	AdminServices.getRoles(onSuccessGetRoles, onErrorGetRoles);
+			}
+			else {
+				alert = {
+					type: 'danger',
+					msg: 'Sorry, Something went wrong. Please try again!'
+				};
+				$rootScope.alerts.push(alert);
+			}
+		}
+		function onErrorSaveRoleEntity(response) {
+			alert = {
+				type: 'danger',
+				msg: 'Sorry, Something went wrong. Please try again!'
+			};
+			$rootScope.alerts.push(alert);
+		}
 		vm.saveRoleEntity = function() {
 			var dataObject = {
 				'roleId' : vm.roleId,
 				'roleName' : vm.roleName,
-				'roleOrgLevel' : vm.roleOrgLevel.value
+				'roleOrgLevel' : vm.roleOrgLevel.id,
+				'tenantId' : "5"
 			};
-			console.log(dataObject);
-
-			//AdminServices.saveRoleDetails(dataObject, onSuccessSaveRoleDetails, onErrorSaveRoleDetails);
+			AdminServices.saveRoleEntity(dataObject, onSuccessSaveRoleEntity, onErrorSaveRoleEntity);
 		}
+
+		// Get Roles
+		function onSuccessGetRoles(response) {
+			if (STATUS_CODE.status_ok === response.status) {
+				vm.allRoles = response.data;
+			}
+			else {
+				alert = {
+					type: 'danger',
+					msg: 'Sorry, We are unable to load Roles Data.'
+				};
+				$rootScope.alerts.push(alert);
+			}
+		}
+		function onErrorGetRoles(response) {
+			alert = {
+				type: 'danger',
+				msg: 'Sorry, We are unable to load Roles Data.'
+			};
+			$rootScope.alerts.push(alert);
+		}
+		AdminServices.getRoles(onSuccessGetRoles, onErrorGetRoles);
+
+		// Update Role Details
+		function onSuccessUpdateRoleEntity(response) {
+			if (STATUS_CODE.status_ok === response.status) {
+				// Prompt Role Detail is saved successfully.
+				alert = {
+					type: 'success',
+					msg: 'Role Entity updated successfully.'
+				};
+				$rootScope.alerts.push(alert);
+				vm.removeEnable(); // Removing enable Mode.
+			}
+			else {
+				alert = {
+					type: 'danger',
+					msg: 'Sorry, something went wrong, please try again'
+				};
+				$rootScope.alerts.push(alert);
+				vm.removeEnable();
+			}
+		}
+		function onErrorUpdateRoleEntity(response) {
+			alert = {
+				type: 'danger',
+				msg: 'Sorry, something went wrong, please try again'
+			};
+			$rootScope.alerts.push(alert);
+			vm.removeEnable();
+		}
+		vm.updateRoleEntity = function(role) {
+			var dataObject = {
+				'roleId' : role.roleId,
+				'roleName' : role.roleName,
+				'roleOrgLevel' : vm.selectedOrgLevel.id
+			};
+			AdminServices.updateRoleEntity(dataObject, role._id, onSuccessUpdateRoleEntity, onErrorUpdateRoleEntity);
+		}
+
+		// Delete Role Details
+		function onSuccessDeleteRoleEntity(response) {
+			if (STATUS_CODE.status_ok === response.status) {
+				alert = {
+					type: 'success',
+					msg: 'Role entity deleted successfully.'
+				};
+				$rootScope.alerts.push(alert);
+				AdminServices.getRoles(onSuccessGetRoles, onErrorGetRoles);
+			}
+			else {
+				alert = {
+					type: 'danger',
+					msg: 'Sorry, something went wrong, please try again'
+				};
+				$rootScope.alerts.push(alert);
+			}
+		}
+		function onErrorDeleteRoleEntity(response) {
+			alert = {
+				type: 'danger',
+				msg: 'Sorry, something went wrong, please try again'
+			};
+			$rootScope.alerts.push(alert);
+		}
+		vm.deleteRoleEntity = function(role) {
+			AdminServices.deleteRoleEntity(role._id, onSuccessDeleteRoleEntity, onErrorDeleteRoleEntity);
+		}
+
+		vm.editEnable = function(role) {
+			vm.selectedNodeId = role._id;
+			vm.editRoleEntity = true;
+		};
+
+		vm.removeEnable = function(role) {
+			vm.selectedNodeId = {};
+			vm.editRoleEntity = false;
+			vm.roleOrgLevel = role.roleOrgLevel.id;
+		};
+
+
+		$rootScope.closeAlert = function() {
+     	$rootScope.alerts = [];
+   	};
 		/* End of Controller Functions */
 	}]);

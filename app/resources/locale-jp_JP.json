@@ -1,6 +1,76 @@
 {
-  "roleEntity.Role Id" : "こんにちは、元気ですか？",
-  "roleEntity.Role Name" : "ロール名",
-  "roleEntity.(+) Expand" : "(+) 展開する",
-  "roleEntity.(-) Collapse" : "(+) 崩壊"
+  "crud" : {
+    "save" : "Save$",
+    "delete" : "Delete$",
+    "cancel" : "Cancel$"
+  },
+  "roleEntityRes" :
+  {
+    "pageName" : "Role Entity$",
+    "rolePageDesc" : "Customize role entity$",
+    "roleId" : "Role Id$",
+    "roleName" : "Role Name$",
+    "organizationLevel" : "Organization Level$",
+    "roleDescription" : "Customize Role Entity$",
+    "addNewRole" : "Add New Role$",
+    "listOfRoles" : "List of Roles$",
+    "defaultOrgLevelSelectControl" : "Please select organisation level$",
+    "crudAction" : "Action$",
+    "noRoleData" : "No roles found.$",
+    "validRoleId" : "Role Id is mandatory.$",
+    "validRoleName" : "Role Name is mandatory.$",
+    "validRoleOrgLevel" : "Role Organization Level is mandatory.$"
+  },
+  "userListRes" :
+  {
+    "listOfUsers" : "List of Users$",
+    "addNewUser" : "Add New User$",
+    "filterUser" : "Filter$",
+    "noUserData" : "No users found.$",
+    "labels" : {
+      "userId" : "User Id$",
+      "firstName" : "First Name$",
+      "lastName" : "Last Name$",
+      "location" : "Location$",
+      "emailId" : "Email Id$",
+      "phoneNumber" : "Phone Number$",
+      "status" : "Status$",
+      "search" : "Search$",
+      "reset" : "Reset$"
+    }
+  },
+  "userRes" :
+  {
+    "pageNameAddMode" : "Add User$",
+    "pageNameEditMode" : "Edit User$",
+    "labels" :
+    {
+      "personalInfo" : "Personal Info$",
+      "title" : "Title$",
+      "firstName" : "First Name$",
+      "middleName" : "Middle Name$",
+      "lastName" : "Last Name$",
+      "gender" : "Gender$",
+      "genderMale" : "Male$",
+      "genderFemale" : "Female$",
+      "status" : "Status$",
+      "statusActive" : "Active$",
+      "statusInactive" : "Inactive$",
+      "email" : "Email Id$",
+      "contactNo" : "Contact No$",
+      "userId" : "User Id$",
+      "password" : "Password$",
+      "userInfo" : "User Info$",
+      "empId" : "Employee Id$",
+      "hireDate" : "Hire Date$",
+      "profImage" : "Profile Image$",
+      "dob" : "Date of Birth$",
+      "defaultLocale" : "Select Default Locale$",
+      "validFirstName" : "First Name is mandatory$",
+      "validLastName" : "Last Name is mandatory$",
+      "validEmail" : "Email Id is mandatory$",
+      "validUserId" : "User Id is mandatory$",
+      "validEmailType" : "Invalid Email Id$"
+    }
+  }
 }
