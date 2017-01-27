@@ -3830,7 +3830,8 @@ blockquote small {
 .table>thead>tr>th {
     position: relative;
     border-bottom: 1px solid #eee;
-    color: #2c2e2f
+    color: #2c2e2f;
+    background-color: #ddd;
 }
 .table>thead>tr>td:after,
 .table>thead>tr>th:after {

@@ -12,7 +12,8 @@ angular.module('apApp.adminModules.controllers')
 
 			function onSuccessGetAllUsers(response) {
 				if (STATUS_CODE.status_ok === response.status) {
-					vm.result = response.data;
+					console.log(response.data);
+					vm.result = response.data.body.body;
 					vm.totalItems = vm.result.count;
 					vm.pSize = vm.result.pageSize;
 				}
@@ -33,15 +34,6 @@ angular.module('apApp.adminModules.controllers')
 			}
 
 			vm.pageChanged = function(pageNo) {
-				// vm.currentPage = pageNo;
-				// if (vm.currentPage < vm.oldPage) {
-				// 	vm.fromData = parseInt(vm.fromData) - vm.maxSize;
-				// }
-				// else {
-				// 	vm.fromData = parseInt(vm.fromData) + vm.maxSize;
-				// }
-				//
-				// vm.toData = vm.maxSize + vm.maxSize;
 				AdminServices.getAllUsers(vm.maxSize, vm.currentPage - 1, onSuccessGetAllUsers, onErrorGetAllUsers);
 			};
 
@@ -49,9 +41,6 @@ angular.module('apApp.adminModules.controllers')
 				vm.selectedPageSize = vm.pageSizeObj[0];
 				vm.maxSize = vm.selectedPageSize.value;
 				vm.currentPage = 1;
-				// vm.oldPage = 1;
-				// vm.fromData = 1;
-				// vm.toData = vm.maxSize;
 				vm.expand = true;
 				AdminServices.getAllUsers(vm.maxSize, vm.currentPage - 1, onSuccessGetAllUsers, onErrorGetAllUsers);
 			};
@@ -63,7 +52,6 @@ angular.module('apApp.adminModules.controllers')
 			}
 
 			vm.changePageSize = function() {
-				// vm.fromData = 1;
 				vm.maxSize = vm.selectedPageSize.value;
 				AdminServices.getAllUsers(vm.maxSize, vm.currentPage - 1, onSuccessGetAllUsers, onErrorGetAllUsers);
 			}
@@ -98,11 +86,8 @@ angular.module('apApp.adminModules.controllers')
 					AdminServices.getAllFilteredUsers(vm.maxSize, vm.currentPage -1, searchStr, onSuccessGetAllUsers, onErrorGetAllUsers);
 				}
 				else {
-					alert = {
-						type: 'danger',
-						msg: 'Sorry, There\'s no any input data!'
-					};
-					$rootScope.alerts.push(alert);
+					vm.currentPage = 1;
+					AdminServices.getAllUsers(vm.maxSize, vm.currentPage - 1, onSuccessGetAllUsers, onErrorGetAllUsers);
 				}
 			}
 			vm.resetFilter = function() {

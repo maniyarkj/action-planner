@@ -6,7 +6,7 @@
   },
   "roleEntityRes" :
   {
-    "pageName" : "Role Entity",
+    "pageName" : "Roles",
     "rolePageDesc" : "Customize role entity",
     "roleId" : "Role Id",
     "roleName" : "Role Name",
@@ -23,7 +23,7 @@
   },
   "userListRes" :
   {
-    "listOfUsers" : "List of Users",
+    "listOfUsers" : "Users",
     "addNewUser" : "Add New User",
     "filterUser" : "Filter",
     "noUserData" : "No users found.",

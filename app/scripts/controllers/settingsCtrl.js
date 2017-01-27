@@ -150,8 +150,5 @@ angular.module('baseApp.controllers', []).
 				LocaleService.setLocaleByDisplayName(locale);
 				$scope.currentLocaleDisplayName = LocaleService.getLocaleDisplayName();
 			};
-
-			console.log($scope.currentLocaleDisplayName);
-			console.log($scope.localesDisplayNames);
 		}
 	])

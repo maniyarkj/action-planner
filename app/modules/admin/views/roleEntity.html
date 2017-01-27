@@ -1,4 +1,4 @@
-<page-title ng-if="layoutOptions.pageTitles" title="roleEntityRes.pageName" description="roleEntityRes.rolePageDesc"></page-title>
+<page-title ng-if="layoutOptions.pageTitles" title="roleEntityRes.pageName"></page-title>
 <div class="row">
 	<div class="col-sm-12">
 		<div class="panel panel-default">
@@ -42,7 +42,7 @@
 					<div class="form-group text-right">
 						<div class="col-xs-12">
 							<button class="btn btn-primary" ng-click="roleEntityForm.$valid && roleEntityCtrl.saveRoleEntity()">{{ "crud.save" | translate }}</button>
-							<button class="btn btn-primary">{{ "crud.cancel" | translate }}</button>
+							<button class="btn btn-primary" ng-click="roleEntityForm.$valid && roleEntityCtrl.cancelRoles()">{{ "crud.cancel" | translate }}</button>
 						</div>
 					</div>
 				</form>
@@ -63,31 +63,31 @@
 						<table cellspacing="0" class="table table-small-font table-bordered table-striped">
 							<thead>
 								<tr>
-									<th class="text-left col-xs-6 col-sm-2">{{ "roleEntityRes.roleId" | translate }}</th>
+									<th class="text-left col-xs-6 col-sm-3">{{ "roleEntityRes.roleId" | translate }}</th>
 									<th class="text-left col-xs-6 col-sm-4">{{ "roleEntityRes.roleName" | translate }}</th>
 									<th class="text-left col-xs-6 col-sm-3">{{ "roleEntityRes.organizationLevel" | translate}}</th>
-									<th class="text-center col-xs-6 col-sm-3">{{ "roleEntityRes.crudAction" | translate}}</th>
+									<th class="text-center col-xs-6 col-sm-2">{{ "roleEntityRes.crudAction" | translate}}</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr ng-repeat="role in roleEntityCtrl.allRoles">
-									<td class="col-xs-12 col-sm-2"
+									<td class="col-xs-12 col-sm-3"
 										ng-class="{'has-error' : (roleListForm.$submitted || roleListForm.list_role_id.$touched || submitted ) && roleListForm.list_role_id.$error.required }">
 										<span ng-if="roleEntityCtrl.selectedNodeId !== role._id">{{role.roleId}}</span>
-										<input ng-if="roleEntityCtrl.selectedNodeId === role._id" type="text" name="list_role_id{{role.roleId}}" class="form-control" id="txtRoleId" ng-model="role.roleId" placeholder=""/ ng-required="true" disabled="disabled">
+										<input ng-if="roleEntityCtrl.selectedNodeId === role._id" type="text" name="list_role_id{{role.roleId}}" class="form-control" id="txtRoleId" ng-model="role.roleId" placeholder="" ng-required="true" disabled="disabled">
 										<p class="help-block" ng-show="(roleListForm.$submitted || roleListForm.list_role_id.$touched || submitted ) && roleListForm.list_role_id.$invalid && roleListForm.list_role_id.$error.required && roleEntityCtrl.selectedNodeId === role._id">{{ "roleEntityRes.validRoleId" | translate }}</p>
 									</td>
 
-									<td class="col-xs-12 col-sm-5"
+									<td class="col-xs-12 col-sm-4"
 										ng-class="{'has-error' : (roleListForm.$submitted || roleListForm.list_role_name.$touched || submitted ) && roleListForm.list_role_name.$error.required }">
 										<span ng-if="roleEntityCtrl.selectedNodeId !== role._id">{{role.roleName}}</span>
-										<input ng-if="roleEntityCtrl.selectedNodeId === role._id" type="text" name="list_role_name" class="form-control" id="txtRoleName" ng-model="role.roleName" placeholder=""/ ng-required="true">
+										<input ng-if="roleEntityCtrl.selectedNodeId === role._id" type="text" name="list_role_name" class="form-control" id="txtRoleName" ng-model="role.roleName" placeholder="" ng-required="true">
 										<p class="help-block" ng-show="(roleListForm.$submitted || roleListForm.list_role_name.$touched || submitted ) && roleListForm.list_role_name.$invalid && roleListForm.list_role_name.$error.required && roleEntityCtrl.selectedNodeId === role._id">{{ "roleEntityRes.validRoleName" | translate }}</p>
 									</td>
 
 									<td class="col-xs-12 col-sm-3"
 										ng-class="{'has-error' : (roleListForm.$submitted || roleListForm.list_role_org_level.$touched || submitted ) && roleListForm.list_role_org_level.$error.required }">
-										<span ng-if="roleEntityCtrl.selectedNodeId !== role._id">{{role.roleOrgLevel}}</span>
+										<span ng-if="roleEntityCtrl.selectedNodeId !== role._id">{{role.roleOrgLevelName}}</span>
 										<select name="list_role_org_level" class="form-control" ng-required="true"
 											ng-if="roleEntityCtrl.selectedNodeId === role._id"
 											ng-model="roleEntityCtrl.selectedOrgLevel"

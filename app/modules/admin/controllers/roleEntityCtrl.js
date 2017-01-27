@@ -1,19 +1,21 @@
 'use strict';
 
 angular.module('apApp.adminModules.controllers')
-	.controller('RoleEntityCtrl', ['$scope', '$rootScope', 'AdminServices', 'STATUS_CODE', '$window',
-	function($scope, $rootScope, AdminServices, STATUS_CODE, $window)
+	.controller('RoleEntityCtrl', ['$scope', '$rootScope', 'AdminServices', 'STATUS_CODE', '$window', '_',
+	function($scope, $rootScope, AdminServices, STATUS_CODE, $window, _)
 	{
 		// Initialization
 		var vm = this;
 		vm.editRoleEntity = false;
 		$rootScope.alerts = [];
+		vm.allRoles = [];
 		var alert = {};
 
 		// GET API for Organization levels
 		function onSuccessGetOrganizationLevels(response) {
 			if (STATUS_CODE.status_ok === response.status) {
-				vm.roleOrgLevelList = response.data;
+				vm.roleOrgLevelList = response.data.body.body;
+				AdminServices.getRoles(onSuccessGetRoles, onErrorGetRoles);
 			}
 			else {
 				alert = {
@@ -30,9 +32,18 @@ angular.module('apApp.adminModules.controllers')
 			};
 			$rootScope.alerts.push(alert);
 		}
-		AdminServices.getOrganizationLevels(onSuccessGetOrganizationLevels, onErrorGetOrganizationLevels);
+		AdminServices.getOrganisationLevels(onSuccessGetOrganizationLevels, onErrorGetOrganizationLevels);
 
 		/* CRUD Operations for Roles */
+
+		vm.cancelRoles = function() {
+			$scope.roleEntityForm.$setPristine();
+			$scope.roleEntityForm.$setUntouched();
+
+			vm.roleId = '';
+			vm.roleName = '';
+			vm.roleOrgLevel = '';
+		};
 
 		// Save Role Details
 		function onSuccessSaveRoleEntity(response) {
@@ -43,6 +54,20 @@ angular.module('apApp.adminModules.controllers')
 					msg: 'Role entity saved successfully.'
 				};
 
+				vm.allRoles.push(
+					{
+						'_id' :	response.data.body.body._id,
+						'createdAt' : response.data.body.body.createdAt,
+						'deleted' : response.data.body.body.deleted,
+						'lastUser' : response.data.body.body.lastUser,
+						'roleId' : response.data.body.body.roleId,
+						'roleName' : response.data.body.body.roleName,
+						'roleOrgLevelName' : getRoleOrgLevelName(response.data.body.body.roleOrgLevel),
+						'roleOrgLevel' : response.data.body.body.roleOrgLevel,
+						'tenantId' : response.data.body.body.tenantId
+					}
+				);
+
 				// Reseting the Text Boxes
 				$scope.roleEntityForm.$setPristine();
 				$scope.roleEntityForm.$setUntouched();
@@ -52,7 +77,6 @@ angular.module('apApp.adminModules.controllers')
 				vm.roleOrgLevel = '';
 
 				$rootScope.alerts.push(alert);
-			 	AdminServices.getRoles(onSuccessGetRoles, onErrorGetRoles);
 			}
 			else {
 				alert = {
@@ -73,16 +97,45 @@ angular.module('apApp.adminModules.controllers')
 			var dataObject = {
 				'roleId' : vm.roleId,
 				'roleName' : vm.roleName,
-				'roleOrgLevel' : vm.roleOrgLevel.id,
+				'roleOrgLevel' : vm.roleOrgLevel.orgLevelId,
 				'tenantId' : "5"
 			};
 			AdminServices.saveRoleEntity(dataObject, onSuccessSaveRoleEntity, onErrorSaveRoleEntity);
 		}
 
+		function getRoleOrgLevelName(id) {
+			if (vm.roleOrgLevelList !== undefined && vm.roleOrgLevelList.length) {
+				var ind = _.findIndex(vm.roleOrgLevelList, {'orgLevelId' : id});
+				if (ind > -1) {
+					return vm.roleOrgLevelList[ind].name;
+				}
+				else {
+					return null;
+				}
+			}
+			return null;
+		}
 		// Get Roles
 		function onSuccessGetRoles(response) {
 			if (STATUS_CODE.status_ok === response.status) {
-				vm.allRoles = response.data;
+				var result = response.data.body.body;
+				if (result.length) {
+					_.each(result, function(data) {
+						vm.allRoles.push(
+							{
+								'_id' :	data._id,
+								'createdAt' : data.createdAt,
+								'deleted' : data.deleted,
+								'lastUser' : data.lastUser,
+								'roleId' : data.roleId,
+								'roleName' : data.roleName,
+								'roleOrgLevelName' : getRoleOrgLevelName(data.roleOrgLevel),
+								'roleOrgLevel' : data.roleOrgLevel,
+								'tenantId' : data.tenantId
+							}
+						);
+					});
+				}
 			}
 			else {
 				alert = {
@@ -99,7 +152,7 @@ angular.module('apApp.adminModules.controllers')
 			};
 			$rootScope.alerts.push(alert);
 		}
-		AdminServices.getRoles(onSuccessGetRoles, onErrorGetRoles);
+		// AdminServices.getRoles(onSuccessGetRoles, onErrorGetRoles);
 
 		// Update Role Details
 		function onSuccessUpdateRoleEntity(response) {
@@ -109,6 +162,20 @@ angular.module('apApp.adminModules.controllers')
 					type: 'success',
 					msg: 'Role Entity updated successfully.'
 				};
+
+				var ind = _.findIndex(vm.allRoles, {'_id' : vm.roleForUpdate});
+				if (ind > -1) {
+					vm.allRoles[ind]._id =	response.data.body.body._id;
+					vm.allRoles[ind].createdAt = response.data.body.body.createdAt;
+					vm.allRoles[ind].deleted = response.data.body.body.deleted;
+					vm.allRoles[ind].lastUser = response.data.body.body.lastUser;
+					vm.allRoles[ind].roleId = response.data.body.body.roleId;
+					vm.allRoles[ind].roleName = response.data.body.body.roleName;
+					vm.allRoles[ind].roleOrgLevelName = getRoleOrgLevelName(response.data.body.body.roleOrgLevel);
+					vm.allRoles[ind].roleOrgLevel = response.data.body.body.roleOrgLevel;
+					vm.allRoles[ind].tenantId = response.data.body.body.tenantId;
+				}
+
 				$rootScope.alerts.push(alert);
 				vm.removeEnable(); // Removing enable Mode.
 			}
@@ -131,10 +198,10 @@ angular.module('apApp.adminModules.controllers')
 		}
 		vm.updateRoleEntity = function(role) {
 			var dataObject = {
-				'roleId' : role.roleId,
 				'roleName' : role.roleName,
-				'roleOrgLevel' : vm.selectedOrgLevel.id
+				'roleOrgLevel' : vm.selectedOrgLevel.orgLevelId
 			};
+			vm.roleForUpdate = role._id;
 			AdminServices.updateRoleEntity(dataObject, role._id, onSuccessUpdateRoleEntity, onErrorUpdateRoleEntity);
 		}
 
@@ -145,8 +212,12 @@ angular.module('apApp.adminModules.controllers')
 					type: 'success',
 					msg: 'Role entity deleted successfully.'
 				};
+				var ind = _.findIndex(vm.allRoles, {'_id' : vm.roleForDelete});
+				if (ind > -1) {
+					vm.allRoles.splice(ind, 1);
+				}
 				$rootScope.alerts.push(alert);
-				AdminServices.getRoles(onSuccessGetRoles, onErrorGetRoles);
+				//AdminServices.getRoles(onSuccessGetRoles, onErrorGetRoles);
 			}
 			else {
 				alert = {
@@ -164,18 +235,24 @@ angular.module('apApp.adminModules.controllers')
 			$rootScope.alerts.push(alert);
 		}
 		vm.deleteRoleEntity = function(role) {
+			vm.roleForDelete = role._id;
 			AdminServices.deleteRoleEntity(role._id, onSuccessDeleteRoleEntity, onErrorDeleteRoleEntity);
 		}
 
 		vm.editEnable = function(role) {
 			vm.selectedNodeId = role._id;
+			if (vm.roleOrgLevelList.length) {
+				var ind = _.findIndex(vm.roleOrgLevelList, {'name' : role.roleOrgLevelName});
+				if (ind > -1) {
+					vm.selectedOrgLevel	= vm.roleOrgLevelList[ind];
+				}
+			}
 			vm.editRoleEntity = true;
 		};
 
 		vm.removeEnable = function(role) {
 			vm.selectedNodeId = {};
 			vm.editRoleEntity = false;
-			vm.roleOrgLevel = role.roleOrgLevel.id;
 		};
 
 

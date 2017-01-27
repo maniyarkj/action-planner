@@ -33,12 +33,18 @@ app.constant('LOCALES', {
 	}
 });
 app.constant('API_URL', {
-	'orgnizationLevel' : 'http://192.168.99.100:32772/',
-	'roles' : 'http://192.168.99.100:32773/',
-	'users' : 'http://192.168.99.100:32774/'
+	'organisationLevel' : 'http://192.168.99.100:32769/',
+	'roles' : 'http://192.168.99.100:32770/',
+	'users' : 'http://192.168.99.100:32771/'
+});
+app.constant('AWS_URL', {
+	'organisationLevel' : 'https://pkwtvdaw19.execute-api.us-east-1.amazonaws.com/',
+	'users' : 'https://076krg0cia.execute-api.us-east-1.amazonaws.com/',
+	'roles' : 'https://7jbg3t7p8f.execute-api.us-east-1.amazonaws.com/'
 });
 app.constant('STATUS_CODE', {
 	'status_ok' : 200,
 	'status_bad_request' : 400,
 	'status_no_found' : 404
 });
+app.constant('_', window._);

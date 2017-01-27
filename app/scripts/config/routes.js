@@ -58,4 +58,5 @@ app.config(['$translateProvider', function($translateProvider, LOCALES) {
 
   $translateProvider.preferredLanguage('en_US');
   $translateProvider.useLocalStorage();
+  $translateProvider.useSanitizeValueStrategy('sanitize');
 }]);

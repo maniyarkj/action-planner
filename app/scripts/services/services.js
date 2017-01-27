@@ -84,9 +84,8 @@ angular.module('apApp.services', []).
 		this.prepareSidebarMenu = function()
 		{
 			var adminModule  	 	 = this.addItem('Admin', 			'/admin', 				'linecons-params');
-			adminModule.addItem('Role Entities',		'-/role');
-			adminModule.addItem('User',		'-/user');
-			adminModule.addItem('User List',		'-/user-list');
+			adminModule.addItem('Roles',		'-/role');
+			adminModule.addItem('Users',		'-/user-list');
 			return this;
 		};
 

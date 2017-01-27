@@ -31,6 +31,5 @@ angular.module('apApp.controllers', []);
 angular.module('apApp.directives', []);
 angular.module('apApp.services', []);
 angular.module('apApp.factory', []);
-
 angular.module('apApp.adminModules.controllers', []);
 angular.module('apApp.adminModules.services', []);

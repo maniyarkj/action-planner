@@ -49,7 +49,7 @@ angular.module('apApp.adminModules.controllers')
       function onSuccessGetIndividualUser(response) {
         if (STATUS_CODE.status_ok === response.status) {
           // Prompt Role Detail is saved successfully.
-          vm.data = response.data;
+          vm.data = response.data.body.body;
 
           if (vm.data.dateOfBirth !== undefined || vm.data.dateOfBirth !== null || vm.data.dateOfBirth === '') {
             vm.data.dateOfBirth = new Date(vm.data.dateOfBirth);
@@ -61,12 +61,6 @@ angular.module('apApp.adminModules.controllers')
           if (vm.data.status !== undefined || vm.data.status !== null || vm.data.status === '') {
             vm.data.status = 'Active';
           }
-
-          alert = {
-            type: 'success',
-            msg: 'User data has been loaded successfully.'
-          };
-          $rootScope.alerts.push(alert);
         } else {
           alert = {
             type: 'danger',
@@ -185,6 +179,9 @@ angular.module('apApp.adminModules.controllers')
       vm.deleteUser = function() {
         AdminServices.deleteUser(id, onSuccessDeleteUser, onErrorGetDeleteUser);
       };
+      vm.cancelUsers = function() {
+        $window.history.back();
+      }
       $rootScope.closeAlert = function() {
         $rootScope.alerts = [];
       };
