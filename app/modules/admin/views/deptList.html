@@ -1,0 +1,120 @@
+<page-title ng-if="layoutOptions.pageTitles" title="deptListRes.listOfDept"></page-title>
+
+<!-- Responsive Table -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-xs-6 text-left">
+                <div class="text-left">
+                    <button class="btn btn-primary" ui-sref="app.admin-dept">{{ "deptListRes.addNewDept" | translate }}</button>
+                </div>
+            </div>
+            <div class="col-xs-6 text-right">
+                <div class="text-right">
+                    <button class="btn btn-primary" ng-click="deptListCtrl.expand = !deptListCtrl.expand"><span class="glyphicon glyphicon-filter"></span>&nbsp;{{ "deptListRes.filterDept" | translate }}</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default"  ng-if="deptListCtrl.expand">
+            <div class="filterUserList">
+                <form class="form-vertical" name="userListFilterForm" role="form" class="validate" novalidate>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="dept_id"> {{ "deptListRes.labels.deptId" | translate }}</label>
+                                <input type="text" ng-model="deptListCtrl.deptId" name="dept_id" class="form-control" placeholder="Department Id"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="dept_name"> {{ "deptListRes.labels.deptName" | translate }}</label>
+                                <input type="text" ng-model="deptListCtrl.deptName" name="dept_name" class="form-control" placeholder="Department Name"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="org_level"> {{ "deptListRes.labels.orgLevel" | translate }}</label>
+                                <input type="text" ng-model="deptListCtrl.orgLevel" name="org_level" class="form-control" placeholder="Organization Level"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group text-center">
+                                <label class="control-label" for="status">&nbsp;</label><br />
+                                <button class="btn btn-primary" ng-click="deptListCtrl.searchWithFilter()">{{ "deptListRes.labels.search" | translate }}</button>
+                                <button class="btn btn-primary" ng-click="deptListCtrl.resetFilter()">{{ "deptListRes.labels.reset" | translate }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="dataTables_length">
+                        <label>Show
+                            <select class="form-control input-sm" id="page_size"
+                                ng-model="deptListCtrl.selectedPageSize"
+                                ng-options="option.value for option in deptListCtrl.pageSizeObj track by option.value" ng-change="deptListCtrl.changePageSize()">
+                            </select>
+                            entries
+                        </label>
+                    </div>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <input type="text" ng-model="searchStr" class="form-control" placeholder="Search"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive" ng-if="deptListCtrl.result.length <= 0">
+                    <p>
+                        {{ "deptListRes.noDeptData" | translate }}
+                    </p>
+                </div>
+                <div class="table-responsive" ng-if="deptListCtrl.result.length > 0">
+                    <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                        <thead>
+                            <tr>
+                <th>{{ "deptListRes.labels.deptId" | translate }}</th>
+                                <th>{{ "deptListRes.labels.deptName" | translate }}</th>
+                                <th>{{ "deptListRes.labels.orgLevel" | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+              <tr ng-repeat="data in deptListCtrl.result | filter : searchStr">
+                <td>{{data.departmentId}}</td>
+                <td><a class="editModeRedirection" ng-click="deptListCtrl.redirectToEditMode(data)">{{data.deptName}}</a></td>
+                <td>{{data.orgLevel}}</td>
+              </tr>
+            </tbody>
+                    </table>
+                </div>
+
+                <div class="form-inline" ng-if="deptListCtrl.result.length > 0">
+                    <div class="col-xs-6 text-left">
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <ul uib-pagination
+                            boundary-links="false"
+                            total-items="deptListCtrl.totalItems"
+                            ng-model="deptListCtrl.currentPage"
+                            class="pagination-sm"
+                            items-per-page = "deptListCtrl.maxSize"
+                            previous-text="&lsaquo;"
+                            next-text="&rsaquo;"
+                            first-text="&laquo;"
+                            ng-change="deptListCtrl.pageChanged(deptListCtrl.currentPage)"
+                            last-text="&raquo;">
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

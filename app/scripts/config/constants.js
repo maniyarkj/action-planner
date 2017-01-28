@@ -40,7 +40,8 @@ app.constant('API_URL', {
 app.constant('AWS_URL', {
 	'organisationLevel' : 'https://pkwtvdaw19.execute-api.us-east-1.amazonaws.com/',
 	'users' : 'https://076krg0cia.execute-api.us-east-1.amazonaws.com/',
-	'roles' : 'https://7jbg3t7p8f.execute-api.us-east-1.amazonaws.com/'
+	'roles' : 'https://7jbg3t7p8f.execute-api.us-east-1.amazonaws.com/',
+	'departments': 'https://hla66fn4d7.execute-api.us-east-1.amazonaws.com/'
 });
 app.constant('STATUS_CODE', {
 	'status_ok' : 200,
