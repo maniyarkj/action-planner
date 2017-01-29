@@ -1,0 +1,132 @@
+<page-title ng-if="layoutOptions.pageTitles" title="locationListRes.listOfLoc"></page-title>
+
+<!-- Responsive Table -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-xs-6 text-left">
+                <div class="text-left">
+                    <button class="btn btn-primary" ui-sref="app.admin-loc">{{ "locationListRes.addNewLoc" | translate }}</button>
+                </div>
+            </div>
+            <div class="col-xs-6 text-right">
+                <div class="text-right">
+                    <button class="btn btn-primary" ng-click="locationListCtrl.expand = !locationListCtrl.expand"><span class="glyphicon glyphicon-filter"></span>&nbsp;{{ "locationListRes.filterLoc" | translate }}</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default"  ng-if="locationListCtrl.expand">
+            <div class="filterUserList">
+                <form class="form-vertical" name="userListFilterForm" role="form" class="validate" novalidate>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="location_id"> {{ "locationListRes.labels.locationId" | translate }}</label>
+                                <input type="text" ng-model="locationListCtrl.locationId" name="location_id" class="form-control" placeholder="Location Id"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="location_name"> {{ "locationListRes.labels.locationName" | translate }}</label>
+                                <input type="text" ng-model="locationListCtrl.locationName" name="location_name" class="form-control" placeholder="Location Name"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="parent_location_id"> {{ "locationListRes.labels.parentLocationId" | translate }}</label>
+                                <input type="text" ng-model="locationListCtrl.parentLocationId" name="parent_location_id" class="form-control" placeholder="Parent Location Id"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="location_org_level"> {{ "locationListRes.labels.locationOrgLevel" | translate }}</label>
+                                <input type="text" ng-model="locationListCtrl.locationOrgLevel" name="location_org_level" class="form-control" placeholder="Organization Level"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="status"> {{ "locationListRes.labels.status" | translate }}</label>
+                                <input type="text" ng-model="locationListCtrl.status" name="status" class="form-control" placeholder="Status"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group text-center">
+                                <label class="control-label" for="status">&nbsp;</label><br />
+                                <button class="btn btn-primary" ng-click="locationListCtrl.searchWithFilter()">{{ "locationListRes.labels.search" | translate }}</button>
+                                <button class="btn btn-primary" ng-click="locationListCtrl.resetFilter()">{{ "locationListRes.labels.reset" | translate }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="dataTables_length">
+                        <label>Show
+                            <select class="form-control input-sm" id="page_size"
+                                ng-model="locationListCtrl.selectedPageSize"
+                                ng-options="option.value for option in locationListCtrl.pageSizeObj track by option.value" ng-change="locationListCtrl.changePageSize()">
+                            </select>
+                            entries
+                        </label>
+                    </div>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <input type="text" ng-model="searchStr" class="form-control" placeholder="Search"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive" ng-if="locationListCtrl.result.length <= 0">
+                    <p>
+                        {{ "locationListRes.noLocData" | translate }}
+                    </p>
+                </div>
+                <div class="table-responsive" ng-if="locationListCtrl.result.length > 0">
+                    <table cellspacing="0" class="table table-small-font table-bordered table-striped">
+                        <thead>
+                            <tr>
+                <th>{{ "locationListRes.labels.locationId" | translate }}</th>
+                                <th>{{ "locationListRes.labels.locationName" | translate }}</th>
+                                <th>{{ "locationListRes.labels.status" | translate }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+              <tr ng-repeat="data in locationListCtrl.result | filter : searchStr">
+                <td>{{data.locationId}}</td>
+                <td><a class="editModeRedirection" ng-click="locationListCtrl.redirectToEditMode(data)">{{data.locationName}}</a></td>
+                <td>{{data.status}}</td>
+              </tr>
+            </tbody>
+                    </table>
+                </div>
+
+                <div class="form-inline" ng-if="locationListCtrl.result.length > 0">
+                    <div class="col-xs-6 text-left">
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <ul uib-pagination
+                            boundary-links="false"
+                            total-items="locationListCtrl.totalItems"
+                            ng-model="locationListCtrl.currentPage"
+                            class="pagination-sm"
+                            items-per-page = "locationListCtrl.maxSize"
+                            previous-text="&lsaquo;"
+                            next-text="&rsaquo;"
+                            first-text="&laquo;"
+                            ng-change="locationListCtrl.pageChanged(locationListCtrl.currentPage)"
+                            last-text="&raquo;">
+                        </ul>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

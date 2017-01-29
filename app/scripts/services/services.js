@@ -87,6 +87,7 @@ angular.module('apApp.services', []).
 			adminModule.addItem('Roles',		'-/role');
 			adminModule.addItem('Users',		'-/user-list');
 			adminModule.addItem('Department',   '-/dept-list');
+			adminModule.addItem('Locations',   '-/loc-list');
 			return this;
 		};
 

@@ -275,6 +275,43 @@
           });
         },
 
+         //get all department
+        getAllLocs : function(pageSize, pageNumber, successCallback, errorCallback) {
+          $http({
+            method: 'GET',
+            url: AWS_URL.locations + 'dev/locations/',
+            // url: API_URL.users + 'v1/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : 'oOSWkaB20Y2xW6QDSHBeS4xSFeAP9kKTCgj8Tuqa'
+            }
+          })
+          .then(function onSuccess(response) {
+            successCallback(response);
+          },
+          function onError(response) {
+            errorCallback(response);
+          });
+        },
+
+        getAllFilteredLocs : function(pageSize, pageNumber, searchStr, successCallback, errorCallback) {
+          $http({
+            method: 'GET',
+            url: AWS_URL.locations + 'dev/locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
+           
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : 'oOSWkaB20Y2xW6QDSHBeS4xSFeAP9kKTCgj8Tuqa'
+            }
+          })
+          .then(function onSuccess(response) {
+            successCallback(response);
+          },
+          function onError(response) {
+            errorCallback(response);
+          });
+        },
+
       };
     }]);
 })();

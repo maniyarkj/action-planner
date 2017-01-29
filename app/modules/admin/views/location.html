@@ -1,0 +1,145 @@
+<page-title ng-if="layoutOptions.pageTitles && locationCtrl.newLoc" title="locationRes.pageNameAddMode"></page-title>
+<page-title ng-if="layoutOptions.pageTitles && !locationCtrl.newLoc" title="locationRes.pageNameEditMode"></page-title>
+
+<form role="forl" id="rootwizard" class="form-wizard validate" name="locForm" novalidate>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ "locationRes.labels.locationId" | translate }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="no-margin">
+
+                        <div class="row">
+                            <div class="col-md-12"  ng-class="{'has-error' : (locForm.$submitted || locForm.loc_id.$touched || submitted ) && locForm.loc_id.$error.required }">
+                                <div class="form-group">
+                                    <label class="control-label" for="loc_id"> {{ "locationRes.labels.locationId" | translate }}</label>
+                                    <input class="form-control" name="loc_id" ng-model="locationCtrl.data.locId" id="loc_id" type="text" placeholder="Location Id" ng-required="true"/>
+                                    <p class="help-block" ng-show="(locForm.$submitted || locForm.loc_id.$touched || submitted ) && locForm.loc_id.$invalid && locForm.loc_id.$error.required">{{ "locationRes.labels.validLocId" | translate }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-12" ng-class="{'has-error' : (locForm.$submitted || locForm.loc_name.$touched || submitted ) && locForm.loc_name.$error.required }">
+                                <div class="form-group">
+                                    <label class="control-label" for="loc_name"> {{ "locationRes.labels.locationName" | translate }}</label>
+                                    <input class="form-control" name="loc_name" ng-model="locationCtrl.data.locationName" id="loc_name" type="text" placeholder="Location Name" ng-required="true"/>
+                                    <p class="help-block" ng-show="(locForm.$submitted || locForm.loc_name.$touched || submitted ) && locForm.loc_name.$invalid && locForm.loc_name.$error.required">{{ "locationRes.labels.validLocName" | translate }}</p>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12" ng-class="{'has-error' : (locForm.$submitted || locForm.org_level.$touched || submitted ) && locForm.org_level.$error.required }">
+                                <div class="form-group">
+                                    <label class="control-label" for="org_level"> {{ "locationRes.labels.locationOrgLevel" | translate }}</label>
+                                    <input class="form-control" name="org_level" ng-model="locationCtrl.data.orgLevel" id="org_level" type="text" placeholder="Organization Level" ng-required="true"/>
+                                    <p class="help-block" ng-show="(locForm.$submitted || locForm.org_level.$touched || submitted ) && locForm.org_level.$invalid && locForm.org_level.$error.required">{{ "locationRes.labels.validOrgLevel" | translate }}</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" ng-class="{'has-error' : (locForm.$submitted || locForm.parentLocationId.$touched || submitted ) && locForm.parentLocationId.$error.required }">
+                                <div class="form-group">
+                                    <label class="control-label" for="parentLocationId"> {{ "locationRes.labels.parentLocationId" | translate }}</label>
+                                    <input class="form-control" name="parentLocationId" ng-model="locationCtrl.data.parentLocationId" id="parentLocationId" type="text" placeholder="Parent Location Id" ng-required="true"/>
+                                    <p class="help-block" ng-show="(locForm.$submitted || locForm.parentLocationId.$touched || submitted ) && locForm.parentLocationId.$invalid && locForm.parentLocationId.$error.required">{{ "locationRes.labels.validParentLocationId" | translate }}</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12" ng-class="{'has-error' : (locForm.$submitted || locForm.status.$touched || submitted ) && locForm.status.$error.required }">
+                                <div class="form-group">
+                                    <label class="control-label" for="status"> {{ "locationRes.labels.status" | translate }}</label>
+                                    <input class="form-control" name="status" ng-model="locationCtrl.data.status" id="status" type="text" placeholder="Parent Location Id" ng-required="true"/>
+                                    <p class="help-block" ng-show="(locForm.$submitted || locForm.status.$touched || submitted ) && locForm.status.$invalid && locForm.status.$error.required">{{ "locationRes.labels.validStatus" | translate }}</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="streetName"> {{ "locationRes.labels.streetName" | translate }}</label>
+                                    <input class="form-control" name="streetName" ng-model="locationCtrl.data.streetName" id="streetName" type="text" placeholder="Street Name"/>
+                                   
+                                </div>
+                            </div>
+
+                             <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="streetNumber"> {{ "locationRes.labels.streetNumber" | translate }}</label>
+                                    <input class="form-control" name="streetNumber" ng-model="locationCtrl.data.streetNumber" id="streetNumber" type="text" placeholder="Street Number"/>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="postalCode"> {{ "locationRes.labels.postalCode" | translate }}</label>
+                                    <input class="form-control" name="postalCode" ng-model="locationCtrl.data.postalCode" id="postalCode" type="text" placeholder="Postal Code"/>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="city"> {{ "locationRes.labels.city" | translate }}</label>
+                                    <input class="form-control" name="city" ng-model="locationCtrl.data.city" id="city" type="text" placeholder="City"/>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="state"> {{ "locationRes.labels.state" | translate }}</label>
+                                    <input class="form-control" name="state" ng-model="locationCtrl.data.state" id="state" type="text" placeholder="State"/>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="country"> {{ "locationRes.labels.country" | translate }}</label>
+                                    <input class="form-control" name="country" ng-model="locationCtrl.data.country" id="country" type="text" placeholder="Country"/>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="phoneNumber"> {{ "locationRes.labels.phoneNumber" | translate }}</label>
+                                    <input class="form-control" name="phoneNumber" ng-model="locationCtrl.data.phoneNumber" id="phoneNumber" type="text" placeholder="PhoneNumber"/>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="faxNumber"> {{ "locationRes.labels.faxNumber" | translate }}</label>
+                                    <input class="form-control" name="faxNumber" ng-model="locationCtrl.data.faxNumber" id="faxNumber" type="text" placeholder="faxNumber"/>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="timeZone"> {{ "locationRes.labels.timeZone" | translate }}</label>
+                                    <input class="form-control" name="timeZone" ng-model="locationCtrl.data.timeZone" id="timeZone" type="text" placeholder="timeZone"/>
+                                   
+                                </div>
+                            </div>
+
+                            
+                        </div>
+
+                        <!-- Tabs Pager -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class='col-sm-12'>
+            <div class="form-group-separator"></div>
+            <div class="form-group text-right">
+                <button class="btn btn-primary" ng-click="locForm.$valid && locationCtrl.saveLoc()">{{ "crud.save" | translate }}</button>
+                <button ng-if="!locationCtrl.newLoc" class="btn btn-primary" ng-click="locationCtrl.deleteDept()">{{ "crud.delete" | translate }}</button>
+                <button class="btn btn-primary" ng-click="locationCtrl.cancelLoc()">{{ "crud.cancel" | translate }}</button>
+            </div>
+        </div>
+    </div>
+</form>

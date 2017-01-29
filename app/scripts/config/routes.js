@@ -61,6 +61,19 @@ app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
     templateUrl: 'modules/admin/views/department.html',
     controller: 'DeptCtrl',
     controllerAs: 'deptCtrl'
+  }).
+
+  state('app.admin-loc-list', {
+    url: '/admin-loc-list',
+    templateUrl: 'modules/admin/views/locationList.html',
+    controller: 'LocationListCtrl',
+    controllerAs: 'locationListCtrl'
+  }).
+  state('app.admin-loc', {
+    url: '/admin-loc?selectedLocId=id',
+    templateUrl: 'modules/admin/views/location.html',
+    controller: 'LocationCtrl',
+    controllerAs: 'locationCtrl'
   });
 });
 // Angular Translate

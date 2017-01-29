@@ -103,5 +103,58 @@
       "search" : "Search",
       "reset" : "Reset"
     }
+  },
+  "locationRes" :
+  {
+    "pageNameAddMode" : "Add Location",
+    "pageNameEditMode" : "Edit Location",
+    "labels" :
+    {
+      "locationId" : "Location Id",
+      "locationName" : "Location Name",
+      "parentLocationId" : "Parent Location Id",
+      "locationOrgLevel" : "Organisation Level",
+      "status": "Status",
+      "streetName": "Street Name",
+      "streetNumber": "Street Number",
+      "postalCode": "Postal Code",
+      "city": "City",
+      "state": "State",
+      "country": "Country",
+      "phoneNumber": "Phone Number",
+      "faxNumber": "Fax Number",
+      "timeZone": "TimeZone",
+      "defaultLocale" : "Select Default Locale",
+      "validLocId" : "Location Id is mandatory",
+      "validLocName" : "Location Name is mandatory",
+      "validParentLocationId" : "Parent Location Id is mandatory",
+      "validOrgLevel" : "Organisation Level is mandatory",
+      "validStatus" : "Status is mandatory"
+    }
+  },
+  "locationListRes" :
+  {
+    "listOfLoc" : "Location",
+    "addNewLoc" : "Add New Location",
+    "filterLoc" : "Filter",
+    "noLocData" : "No Location found.",
+    "labels" : {
+      "locationId" : "Location Id",
+      "locationName" : "Location Name",
+      "parentLocationId" : "Parent Location Id",
+      "locationOrgLevel" : "Organisation Level",
+      "status": "Status",
+      "streetName": "Street Name",
+      "streetNumber": "Street Number",
+      "postalCode": "Postal Code",
+      "city": "City",
+      "state": "State",
+      "country": "Country",
+      "phoneNumber": "Phone Number",
+      "faxNumber": "Fax Number",
+      "timeZone": "TimeZone",
+      "search" : "Search",
+      "reset" : "Reset"
+    }
   }
 }
