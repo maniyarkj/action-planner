@@ -31,8 +31,8 @@
 							ng-class="{'has-error' : (roleEntityForm.$submitted || roleEntityForm.role_org_level.$touched || submitted ) && roleEntityForm.role_org_level.$error.required }">
               <select class="form-control" id="role_org_level" name="role_org_level"
 								ng-required="true"
-                ng-model="roleEntityCtrl.roleOrgLevel"
-              	ng-options="option.name for option in roleEntityCtrl.roleOrgLevelList track by option.id">
+                ng-model="roleEntityCtrl.roleOrgLevelNew"
+              	ng-options="option.name for option in roleEntityCtrl.roleOrgLevelList track by option.orgLevelId">
       				  <option value="">{{ "roleEntityRes.defaultOrgLevelSelectControl" | translate}}</option>
       				</select>
 							<p class="help-block" ng-show="(roleEntityForm.$submitted || roleEntityForm.role_org_level.$touched || submitted ) && roleEntityForm.role_org_level.$invalid && roleEntityForm.role_org_level.$error.required">{{ "roleEntityRes.validRoleOrgLevel" | translate }}</p>
@@ -59,18 +59,18 @@
 			</div>
 			<div class="panel-body" ng-if="roleEntityCtrl.allRoles.length > 0">
 				<form role="form" class="form-horizontal" name="roleListForm" role="form" class="validate">
-					<div class="table-responsive">
+					<div class="table-responsive dataTables_wrapper">
 						<table cellspacing="0" class="table table-small-font table-bordered table-striped">
 							<thead>
 								<tr>
-									<th class="text-left col-xs-6 col-sm-3">{{ "roleEntityRes.roleId" | translate }}</th>
-									<th class="text-left col-xs-6 col-sm-4">{{ "roleEntityRes.roleName" | translate }}</th>
-									<th class="text-left col-xs-6 col-sm-3">{{ "roleEntityRes.organizationLevel" | translate}}</th>
+									<th class="sorting_asc text-left col-xs-6 col-sm-3" ng-click="roleEntityCtrl.setSortingType('roleId', $event)">{{ "roleEntityRes.roleId" | translate }}</th>
+									<th class="sorting text-left col-xs-6 col-sm-4" ng-click="roleEntityCtrl.setSortingType('roleName', $event)">{{ "roleEntityRes.roleName" | translate }}</th>
+									<th class="sorting text-left col-xs-6 col-sm-3" ng-click="roleEntityCtrl.setSortingType('roleOrgLevelName', $event)">{{ "roleEntityRes.organizationLevel" | translate}}</th>
 									<th class="text-center col-xs-6 col-sm-2">{{ "roleEntityRes.crudAction" | translate}}</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr ng-repeat="role in roleEntityCtrl.allRoles">
+								<tr ng-repeat="role in roleEntityCtrl.allRoles | orderBy:roleEntityCtrl.sortTypeField:roleEntityCtrl.sortReverse">
 									<td class="col-xs-12 col-sm-3"
 										ng-class="{'has-error' : (roleListForm.$submitted || roleListForm.list_role_id.$touched || submitted ) && roleListForm.list_role_id.$error.required }">
 										<span ng-if="roleEntityCtrl.selectedNodeId !== role._id">{{role.roleId}}</span>
@@ -91,7 +91,7 @@
 										<select name="list_role_org_level" class="form-control" ng-required="true"
 											ng-if="roleEntityCtrl.selectedNodeId === role._id"
 											ng-model="roleEntityCtrl.selectedOrgLevel"
-											ng-options="option as option.name for option in roleEntityCtrl.roleOrgLevelList track by option.id">
+											ng-options="option as option.name for option in roleEntityCtrl.roleOrgLevelList track by option.orgLevelId">
 											<option value="">{{ "roleEntityRes.defaultOrgLevelSelectControl" | translate}}</option>
 										</select>
 										<p class="help-block" ng-show="(roleListForm.$submitted || roleListForm.list_role_org_level.$touched || submitted ) && roleListForm.list_role_org_level.$invalid && roleListForm.list_role_org_level.$error.required && roleEntityCtrl.selectedNodeId === role._id">{{ "roleEntityRes.validRoleOrgLevel" | translate }}</p>

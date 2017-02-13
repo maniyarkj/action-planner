@@ -12,7 +12,6 @@ angular.module('apApp.adminModules.controllers')
 
 			function onSuccessGetAllUsers(response) {
 				if (STATUS_CODE.status_ok === response.status) {
-					console.log(response.data);
 					vm.result = response.data.body.body;
 					vm.totalItems = vm.result.count;
 					vm.pSize = vm.result.pageSize;

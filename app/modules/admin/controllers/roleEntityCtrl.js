@@ -1,13 +1,15 @@
 'use strict';
 
 angular.module('apApp.adminModules.controllers')
-	.controller('RoleEntityCtrl', ['$scope', '$rootScope', 'AdminServices', 'STATUS_CODE', '$window', '_',
-	function($scope, $rootScope, AdminServices, STATUS_CODE, $window, _)
+	.controller('RoleEntityCtrl',
+	['$scope', '$rootScope', 'AdminServices', 'STATUS_CODE', '$window', '_', '$uibModal', 'CONFIRM',
+	function($scope, $rootScope, AdminServices, STATUS_CODE, $window, _, $uibModal, CONFIRM)
 	{
 		// Initialization
 		var vm = this;
 		vm.editRoleEntity = false;
 		$rootScope.alerts = [];
+		$rootScope.loading = false;
 		vm.allRoles = [];
 		var alert = {};
 
@@ -42,7 +44,7 @@ angular.module('apApp.adminModules.controllers')
 
 			vm.roleId = '';
 			vm.roleName = '';
-			vm.roleOrgLevel = '';
+			vm.roleOrgLevelNew = '';
 		};
 
 		// Save Role Details
@@ -74,7 +76,7 @@ angular.module('apApp.adminModules.controllers')
 
 				vm.roleId = '';
 				vm.roleName = '';
-				vm.roleOrgLevel = '';
+				vm.roleOrgLevelNew = '';
 
 				$rootScope.alerts.push(alert);
 			}
@@ -97,7 +99,7 @@ angular.module('apApp.adminModules.controllers')
 			var dataObject = {
 				'roleId' : vm.roleId,
 				'roleName' : vm.roleName,
-				'roleOrgLevel' : vm.roleOrgLevel.orgLevelId,
+				'roleOrgLevel' : vm.roleOrgLevelNew.orgLevelId,
 				'tenantId' : "5"
 			};
 			AdminServices.saveRoleEntity(dataObject, onSuccessSaveRoleEntity, onErrorSaveRoleEntity);
@@ -235,8 +237,19 @@ angular.module('apApp.adminModules.controllers')
 			$rootScope.alerts.push(alert);
 		}
 		vm.deleteRoleEntity = function(role) {
-			vm.roleForDelete = role._id;
-			AdminServices.deleteRoleEntity(role._id, onSuccessDeleteRoleEntity, onErrorDeleteRoleEntity);
+			var modalInstance = $uibModal.open({
+				templateUrl: 'views/layout/confirm-box.html',
+				controller: 'ConfirmBoxCtrl',
+				size: 'sm'
+			});
+
+			modalInstance.result.then(function (response) {
+	      if (response === CONFIRM.confirm_yes) {
+					vm.roleForDelete = role._id;
+					AdminServices.deleteRoleEntity(role._id, onSuccessDeleteRoleEntity, onErrorDeleteRoleEntity);
+				}
+	    }, function () {
+	    });
 		}
 
 		vm.editEnable = function(role) {
@@ -255,6 +268,36 @@ angular.module('apApp.adminModules.controllers')
 			vm.editRoleEntity = false;
 		};
 
+		vm.sortTypeField = 'roleId';
+    vm.prevSortType = 'roleId';
+    vm.sortReverse = false;
+
+    vm.setSortingType = function(sortByName, $event) {
+      vm.sortTypeField = sortByName;
+      if (vm.prevSortType === vm.sortTypeField) {
+        vm.sortReverse = !vm.sortReverse;
+				if (angular.element($event.target).hasClass('sorting_asc')) {
+					angular.element($event.target).removeClass('sorting_asc').addClass('sorting_desc');
+				}
+				else {
+					angular.element($event.target).removeClass('sorting_desc').addClass('sorting_asc');
+				}
+      }
+      else {
+        vm.prevSortType = vm.sortTypeField;
+        vm.sortReverse = false;
+				angular.element($event.target).removeClass('sorting').addClass('sorting_desc');
+				var siblings = angular.element($event.target).siblings();
+				_.each(siblings, function(data) {
+					if (angular.element(data).hasClass('sorting_asc')) {
+						angular.element(data).removeClass('sorting_asc').addClass('sorting');
+					}
+					else if (angular.element(data).hasClass('sorting_desc')){
+						angular.element(data).removeClass('sorting_desc').addClass('sorting');
+					}
+				});
+      }
+    };
 
 		$rootScope.closeAlert = function() {
      	$rootScope.alerts = [];

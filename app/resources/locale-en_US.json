@@ -70,7 +70,9 @@
       "validLastName" : "Last Name is mandatory",
       "validEmail" : "Email Id is mandatory",
       "validUserId" : "User Id is mandatory",
-      "validEmailType" : "Invalid Email Id"
+      "validEmailType" : "Invalid Email Id",
+      "validHireDate" : "Hire Date is mandatory",
+      "validBirthDate" : "Birth Date is mandatory"
     }
   }
 }

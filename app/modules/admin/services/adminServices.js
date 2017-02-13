@@ -1,14 +1,15 @@
 (function(){
   'use strict';
   angular.module('apApp.adminModules.services')
-    .service('AdminServices', ['$http', 'API_URL', 'AWS_URL',
-      function($http, API_URL, AWS_URL) {
+    .service('AdminServices', ['$http', 'API_URL', 'AWS_URL', '$rootScope',
+      function($http, API_URL, AWS_URL, $rootScope) {
 
       return {
         // CRUD Operations for Role
 
         // Save Role Entity
         saveRoleEntity : function(dataObject, successCallback, errorCallback) {
+          $rootScope.loading = true;
           $http({
             method: 'POST',
             url: AWS_URL.roles + 'dev/roles/',
@@ -21,9 +22,11 @@
             }
           })
           .then(function onSuccess(response) {
+            $rootScope.loading = false;
             successCallback(response);
           },
           function onError(response) {
+            $rootScope.loading = false;
             errorCallback(response);
           });
         },
@@ -31,6 +34,7 @@
 
         // Update Role Entity
         updateRoleEntity : function(dataObject, roleId, successCallback, errorCallback) {
+          $rootScope.loading = true;
           $http({
             method: 'PUT',
             url: AWS_URL.roles + 'dev/roles/' + roleId,
@@ -41,15 +45,18 @@
             }
           })
           .then(function onSuccess(response) {
+            $rootScope.loading = false;
             successCallback(response);
           },
           function onError(response) {
+            $rootScope.loading = false;
             errorCallback(response);
           });
         },
 
         // Delete Role Entity
         deleteRoleEntity : function(roleId, successCallback, errorCallback) {
+          $rootScope.loading = true;
           $http({
             method: 'DELETE',
             url: AWS_URL.roles + 'dev/roles/' + roleId,
@@ -59,15 +66,18 @@
             }
           })
           .then(function onSuccess(response) {
+            $rootScope.loading = false;
             successCallback(response);
           },
           function onError(response) {
+            $rootScope.loading = false;
             errorCallback(response);
           });
         },
 
         // Get All Roles
         getRoles : function(successCallback, errorCallback) {
+          $rootScope.loading = true;
           $http({
             method: 'GET',
             url: AWS_URL.roles + 'dev/roles',
@@ -78,15 +88,18 @@
             }
           })
           .then(function onSuccess(response) {
+            $rootScope.loading = false;
             successCallback(response);
           },
           function onError(response) {
+            $rootScope.loading = false;
             errorCallback(response);
           });
         },
 
         // CRUD Operations for Organization Levels
         getOrganisationLevels : function(successCallback, errorCallback) {
+          $rootScope.loading = true;
           $http({
             method: 'GET',
             url: AWS_URL.organisationLevel + 'dev/organizationLevels',
@@ -97,15 +110,18 @@
             }
           })
           .then(function onSuccess(response) {
+            $rootScope.loading = false;
             successCallback(response);
           },
           function onError(response) {
+            $rootScope.loading = false;
             errorCallback(response);
           });
         },
 
         // CRUD Operations for Users
         saveUser : function(dataObject, successCallback, errorCallback) {
+          $rootScope.loading = true;
           $http({
             method: 'POST',
             url: AWS_URL.users + 'dev/users/',
@@ -117,14 +133,17 @@
             }
           })
           .then(function onSuccess(response) {
+            $rootScope.loading = false;
             successCallback(response);
           },
           function onError(response) {
+            $rootScope.loading = false;
             errorCallback(response);
           });
         },
 
         getIndividualUser : function(id, successCallback, errorCallback) {
+          $rootScope.loading = true;
           $http({
             method: 'GET',
             url: AWS_URL.users + 'dev/users/'+ id,
@@ -135,14 +154,17 @@
             }
           })
           .then(function onSuccess(response) {
+            $rootScope.loading = false;
             successCallback(response);
           },
           function onError(response) {
+            $rootScope.loading = false;
             errorCallback(response);
           });
         },
 
         getAllUsers : function(pageSize, pageNumber, successCallback, errorCallback) {
+          $rootScope.loading = true;
           $http({
             method: 'GET',
             url: AWS_URL.users + 'dev/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
@@ -153,14 +175,17 @@
             }
           })
           .then(function onSuccess(response) {
+            $rootScope.loading = false;
             successCallback(response);
           },
           function onError(response) {
+            $rootScope.loading = false;
             errorCallback(response);
           });
         },
 
         getAllFilteredUsers : function(pageSize, pageNumber, searchStr, successCallback, errorCallback) {
+          $rootScope.loading = true;
           $http({
             method: 'GET',
             url: AWS_URL.users + 'dev/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
@@ -171,15 +196,18 @@
             }
           })
           .then(function onSuccess(response) {
+            $rootScope.loading = false;
             successCallback(response);
           },
           function onError(response) {
+            $rootScope.loading = false;
             errorCallback(response);
           });
         },
 
         // Update User
         updateUser : function(dataObject, userId, successCallback, errorCallback) {
+          $rootScope.loading = true;
           $http({
             method: 'PUT',
             url: AWS_URL.users + 'dev/users/' + userId,
@@ -192,15 +220,18 @@
             }
           })
           .then(function onSuccess(response) {
+            $rootScope.loading = false;
             successCallback(response);
           },
           function onError(response) {
+            $rootScope.loading = false;
             errorCallback(response);
           });
         },
 
         // Delete Role Entity
         deleteUser : function(userId, successCallback, errorCallback) {
+          $rootScope.loading = true;
           // var url = API_URL.users + 'v1/users/' + userId;
           $http({
             method: 'DELETE',
@@ -211,9 +242,11 @@
             }
           })
           .then(function onSuccess(response) {
+            $rootScope.loading = false;
             successCallback(response);
           },
           function onError(response) {
+            $rootScope.loading = false;
             errorCallback(response);
           });
         },

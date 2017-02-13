@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('apApp.adminModules.controllers')
-  .controller('UserCtrl', ['$scope', '$stateParams', 'AdminServices', '$state', 'STATUS_CODE', '$window', '$rootScope', 'LocaleService',
-    function($scope, $stateParams, AdminServices, $state, STATUS_CODE, $window, $rootScope, LocaleService) {
+  .controller('UserCtrl',
+    ['$scope', '$stateParams', 'AdminServices', '$state', 'STATUS_CODE', '$window', '$rootScope', 'LocaleService', '$uibModal', 'CONFIRM',
+    function($scope, $stateParams, AdminServices, $state, STATUS_CODE, $window, $rootScope, LocaleService, $uibModal, CONFIRM) {
       var vm = this,
         id = $stateParams.id,
         alert = {};
@@ -140,6 +141,7 @@ angular.module('apApp.adminModules.controllers')
           'dateOfBirth': vm.data.dateOfBirth,
           'gender': vm.data.gender,
           'userId': vm.data.userId,
+          'status': vm.data.status,
           'tenantId': "5",
           'clientId': "5",
           'hintQuestionAnswers': "Hello"
@@ -177,7 +179,18 @@ angular.module('apApp.adminModules.controllers')
         $rootScope.alerts.push(alert);
       }
       vm.deleteUser = function() {
-        AdminServices.deleteUser(id, onSuccessDeleteUser, onErrorGetDeleteUser);
+        var modalInstance = $uibModal.open({
+  				templateUrl: 'views/layout/confirm-box.html',
+  				controller: 'ConfirmBoxCtrl',
+  				size: 'sm'
+  			});
+
+  			modalInstance.result.then(function (response) {
+  	      if (response === CONFIRM.confirm_yes) {
+  					AdminServices.deleteUser(id, onSuccessDeleteUser, onErrorGetDeleteUser);
+  				}
+  	    }, function () {
+  	    });
       };
       vm.cancelUsers = function() {
         $window.history.back();

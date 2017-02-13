@@ -133,10 +133,10 @@
 								</div>
 							</div>
 
-							<div class="col-md-12">
+							<div class="col-md-12" ng-class="{'has-error' : (userForm.$submitted || userForm.hireDate.$touched || submitted ) && userForm.hireDate.$error.required }">
 								<div class="form-group">
 									<label class="control-label" for="hire_date"> {{ "userRes.labels.hireDate" | translate }}</label>
-									<input type="text" class="form-control" name="hiredate"
+									<input type="text" class="form-control" name="hireDate"
 				            uib-datepicker-popup="{{userCtrl.format}}" id="dtpPostDate"
 				            ng-model="userCtrl.data.hireDate"
 				            is-open="userCtrl.openedHireDate"
@@ -147,6 +147,7 @@
 			            <span class="input-group-btn">
 			              <button type="button" class="btn btn-primary openCalendarIcon" ng-click="userCtrl.openCalendarHireDate()"><i class="glyphicon glyphicon-calendar"></i></button>
 			            </span>
+									<p class="help-block" ng-show="(userForm.$submitted || userForm.hireDate.$touched || submitted ) && userForm.hireDate.$invalid && userForm.hireDate.$error.required">{{ "userRes.labels.validHireDate" | translate }}</p>
 								</div>
 							</div>
 
@@ -159,7 +160,7 @@
 									<input type="file" class="form-control" id="profile-image" value="Upload profile image" ng-model="userCtrl.data.profileImage" placeholder="Upload profile image" ngf-select ngf-max-size="2MB" ngf-model-invalid="errorFile">
 								</div>
 							</div>
-							<div class="col-md-12">
+							<div class="col-md-12" ng-class="{'has-error' : (userForm.$submitted || userForm.birthdate.$touched || submitted ) && userForm.birthdate.$error.required }">
 								<div class="form-group">
 									<label class="control-label" for="birthdate"> {{ "userRes.labels.dob" | translate }}</label>
 									<!-- <input class="form-control" inputmask name="birthdate" ng-model="userCtrl.data.dateOfBirth" id="birthdate" data-mask="date" placeholder="Pre-formatted birth date" /> -->
@@ -174,6 +175,7 @@
 			            <span class="input-group-btn">
 			              <button type="button" class="btn btn-primary openCalendarIcon" ng-click="userCtrl.openCalendarBirthDate()"><i class="glyphicon glyphicon-calendar"></i></button>
 			            </span>
+									<p class="help-block" ng-show="(userForm.$submitted || userForm.birthdate.$touched || submitted ) && userForm.birthdate.$invalid && userForm.birthdate.$error.required">{{ "userRes.labels.validBirthDate" | translate }}</p>
 								</div>
 							</div>
 						</div>

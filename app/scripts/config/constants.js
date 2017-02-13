@@ -22,6 +22,7 @@ app.constant('PAGE_SIZE', {
 		}
 	]
 });
+
 app.constant('LOCALES', {
 	'locales': {
 		'en_US': 'English',
@@ -48,3 +49,7 @@ app.constant('STATUS_CODE', {
 	'status_no_found' : 404
 });
 app.constant('_', window._);
+app.constant('CONFIRM', {
+	'confirm_yes' : 'YES',
+	'confirm_no' : 'NO'
+})
