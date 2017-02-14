@@ -80,11 +80,10 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.pincode + 'q=delhi',
-            // url: API_URL.roles + 'v1/roles',
+            url: API_URL.roles + 'v1/roles',
             headers: {
               'Content-Type' : 'application/json'
-              // 'x-api-key' : AWS_URL.roleXKey
+              'x-api-key' : AWS_URL.roleXKey
             }
           })
           .then(function onSuccess(response) {
