@@ -12,13 +12,13 @@
           $rootScope.loading = true;
           $http({
             method: 'POST',
-            url: AWS_URL.roles + 'dev/roles/',
+            url: AWS_URL.roles + 'roles/',
             // url: API_URL.roles + 'v1/roles/',
             data: JSON.stringify(dataObject),
             headers: {
               // 'authToken': AuthService.getToken(),
               'Content-Type' : 'application/json',
-              'x-api-key' : '0PoqEC0SZv3xfyjWlnrKz5N2XPu6IPA89ybTQjzf'
+              'x-api-key' : AWS_URL.roleXKey
             }
           })
           .then(function onSuccess(response) {
@@ -37,11 +37,11 @@
           $rootScope.loading = true;
           $http({
             method: 'PUT',
-            url: AWS_URL.roles + 'dev/roles/' + roleId,
+            url: AWS_URL.roles + 'roles/' + roleId,
             data : dataObject,
             headers: {
               'Content-Type' : 'application/json',
-              'x-api-key' : '0PoqEC0SZv3xfyjWlnrKz5N2XPu6IPA89ybTQjzf'
+              'x-api-key' : AWS_URL.roleXKey
             }
           })
           .then(function onSuccess(response) {
@@ -59,10 +59,10 @@
           $rootScope.loading = true;
           $http({
             method: 'DELETE',
-            url: AWS_URL.roles + 'dev/roles/' + roleId,
+            url: AWS_URL.roles + 'roles/' + roleId,
             headers: {
               'Content-Type' : 'application/json',
-              'x-api-key' : '0PoqEC0SZv3xfyjWlnrKz5N2XPu6IPA89ybTQjzf'
+              'x-api-key' : AWS_URL.roleXKey
             }
           })
           .then(function onSuccess(response) {
@@ -80,11 +80,11 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.roles + 'dev/roles',
+            url: AWS_URL.roles + 'roles',
             // url: API_URL.roles + 'v1/roles',
             headers: {
               'Content-Type' : 'application/json',
-              'x-api-key' : '0PoqEC0SZv3xfyjWlnrKz5N2XPu6IPA89ybTQjzf'
+              'x-api-key' : AWS_URL.roleXKey
             }
           })
           .then(function onSuccess(response) {
@@ -102,11 +102,11 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.organisationLevel + 'dev/organizationLevels',
+            url: AWS_URL.organisationLevel + 'organizationLevels',
             // url: API_URL.organisationLevel + 'v1/orglevels',
             headers: {
               'Content-Type' : 'application/json',
-              'x-api-key' : '4wA98CgTvK1qYvTFYIxGS2RV20Hf3Rf58DXAsVda'
+              'x-api-key' : AWS_URL.orgLevelXKey
             }
           })
           .then(function onSuccess(response) {
@@ -124,12 +124,12 @@
           $rootScope.loading = true;
           $http({
             method: 'POST',
-            url: AWS_URL.users + 'dev/users/',
+            url: AWS_URL.users + 'users/',
             // url: API_URL.users + 'v1/users/',
             data: JSON.stringify(dataObject),
             headers: {
               'Content-Type' : 'application/json',
-              'x-api-key' : '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1'
+              'x-api-key' : AWS_URL.userXKey
             }
           })
           .then(function onSuccess(response) {
@@ -146,11 +146,11 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.users + 'dev/users/'+ id,
+            url: AWS_URL.users + 'users/'+ id,
             // url: API_URL.users + 'v1/users/'+ id,
             headers: {
               'Content-Type' : 'application/json',
-              'x-api-key' : '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1'
+              'x-api-key' : AWS_URL.userXKey
             }
           })
           .then(function onSuccess(response) {
@@ -167,11 +167,11 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.users + 'dev/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
+            url: AWS_URL.users + 'users?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
             // url: API_URL.users + 'v1/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
             headers: {
               'Content-Type' : 'application/json',
-              'x-api-key' : '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1'
+              'x-api-key' : AWS_URL.userXKey
             }
           })
           .then(function onSuccess(response) {
@@ -188,11 +188,11 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.users + 'dev/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
+            url: AWS_URL.users + 'users?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
             // url: API_URL.users + 'v1/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
             headers: {
               'Content-Type' : 'application/json',
-              'x-api-key' : '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1'
+              'x-api-key' : AWS_URL.userXKey
             }
           })
           .then(function onSuccess(response) {
@@ -210,13 +210,13 @@
           $rootScope.loading = true;
           $http({
             method: 'PUT',
-            url: AWS_URL.users + 'dev/users/' + userId,
+            url: AWS_URL.users + 'users/' + userId,
             // url: API_URL.users + 'v1/users/' + userId,
             data: JSON.stringify(dataObject),
             headers: {
               // 'authToken': AuthService.getToken(),
               'Content-Type' : 'application/json',
-              'x-api-key' : '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1'
+              'x-api-key' : AWS_URL.userXKey
             }
           })
           .then(function onSuccess(response) {
@@ -235,10 +235,10 @@
           // var url = API_URL.users + 'v1/users/' + userId;
           $http({
             method: 'DELETE',
-            url: AWS_URL.users + 'dev/users/' + userId,
+            url: AWS_URL.users + 'users/' + userId,
             headers: {
               'Content-Type' : 'application/json',
-              'x-api-key' : '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1'
+              'x-api-key' : AWS_URL.userXKey
             }
           })
           .then(function onSuccess(response) {
