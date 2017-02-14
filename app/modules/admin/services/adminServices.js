@@ -297,6 +297,64 @@
             errorCallback(response);
           });
         },
+
+        //get all department
+        getAllDepts : function(pageSize, pageNumber, successCallback, errorCallback) {
+          $http({
+            method: 'GET',
+            url: AWS_URL.departments + 'dev/departments?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
+            // url: API_URL.users + 'v1/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx'
+            }
+          })
+          .then(function onSuccess(response) {
+            successCallback(response);
+          },
+          function onError(response) {
+            errorCallback(response);
+          });
+        },
+
+        getAllFilteredDepts : function(pageSize, pageNumber, searchStr, successCallback, errorCallback) {
+          $http({
+            method: 'GET',
+            url: AWS_URL.departments + 'dev/departments?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
+
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx'
+            }
+          })
+          .then(function onSuccess(response) {
+            successCallback(response);
+          },
+          function onError(response) {
+            errorCallback(response);
+          });
+        },
+
+        // CRUD Operations for dept
+        saveDept : function(dataObject, successCallback, errorCallback) {
+          $http({
+            method: 'POST',
+            url: AWS_URL.users + 'dev/departments',
+            // url: API_URL.users + 'v1/users/',
+            data: JSON.stringify(dataObject),
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx'
+            }
+          })
+          .then(function onSuccess(response) {
+            successCallback(response);
+          },
+          function onError(response) {
+            errorCallback(response);
+          });
+        },
+
       };
     }]);
 })();

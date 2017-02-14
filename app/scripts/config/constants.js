@@ -46,8 +46,7 @@ app.constant('AWS_URL', {
 	'orgLevelXKey' : '4wA98CgTvK1qYvTFYIxGS2RV20Hf3Rf58DXAsVda',
 	'roleXKey' : '0PoqEC0SZv3xfyjWlnrKz5N2XPu6IPA89ybTQjzf',
 	'userXKey' : '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1',
-	'departmentXKey' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx',
-	'pincode' :   'http://www.getpincode.info/api/pincode?'
+	'departmentXKey' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx'
 });
 app.constant('STATUS_CODE', {
 	'status_ok' : 200,

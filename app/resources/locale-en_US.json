@@ -109,5 +109,36 @@
       "search" : "Search",
       "reset" : "Reset"
     }
+  },
+  "deptRes" :
+  {
+    "pageNameAddMode" : "Add Department",
+    "pageNameEditMode" : "Edit Department",
+    "labels" :
+    {
+      "deptId" : "Department Id",
+      "deptName" : "Department Name",
+      "orgLevel" : "Organisation Level",
+      "parentDeptId" : "Parent Department Id",
+      "defaultLocale" : "Select Default Locale",
+      "validDeptId" : "Department Id is mandatory",
+      "validDeptName" : "Department Name is mandatory",
+      "validOrgLevel" : "Organisation Level is mandatory"
+    }
+  },
+  "deptListRes" :
+  {
+    "listOfDept" : "Departments",
+    "addNewDept" : "Add New Department",
+    "filterDept" : "Filter",
+    "noDeptData" : "No Departments found.",
+    "labels" : {
+      "deptId" : "Department Id",
+      "deptName" : "Department Name",
+      "orgLevel" : "Organisation Level",
+      "parentDeptId" : "Parent Department Id",
+      "search" : "Search",
+      "reset" : "Reset"
+    }
   }
 }
