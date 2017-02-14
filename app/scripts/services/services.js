@@ -86,6 +86,7 @@ angular.module('apApp.services', []).
 			var adminModule  	 	 = this.addItem('Admin', 			'/admin', 				'linecons-params');
 			adminModule.addItem('Roles',		'-/role');
 			adminModule.addItem('Users',		'-/user-list');
+			adminModule.addItem('Departments',		'-/department-list');
 			return this;
 		};
 

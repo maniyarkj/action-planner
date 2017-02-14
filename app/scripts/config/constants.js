@@ -39,9 +39,15 @@ app.constant('API_URL', {
 	'users' : 'http://192.168.99.100:32771/'
 });
 app.constant('AWS_URL', {
-	'organisationLevel' : 'https://pkwtvdaw19.execute-api.us-east-1.amazonaws.com/',
-	'users' : 'https://076krg0cia.execute-api.us-east-1.amazonaws.com/',
-	'roles' : 'https://7jbg3t7p8f.execute-api.us-east-1.amazonaws.com/'
+	'organisationLevel' : 'https://pkwtvdaw19.execute-api.us-east-1.amazonaws.com/dev/',
+	'users' : 'https://076krg0cia.execute-api.us-east-1.amazonaws.com/dev/',
+	'roles' : 'https://7jbg3t7p8f.execute-api.us-east-1.amazonaws.com/dev/',
+	'departments' : 'https://hla66fn4d7.execute-api.us-east-1.amazonaws.com/dev/',
+	'orgLevelXKey' : '4wA98CgTvK1qYvTFYIxGS2RV20Hf3Rf58DXAsVda',
+	'roleXKey' : '0PoqEC0SZv3xfyjWlnrKz5N2XPu6IPA89ybTQjzf',
+	'userXKey' : '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1',
+	'departmentXKey' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx',
+	'pincode' :   'http://www.getpincode.info/api/pincode?'
 });
 app.constant('STATUS_CODE', {
 	'status_ok' : 200,
