@@ -80,9 +80,9 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: API_URL.roles + 'v1/roles',
+            url: AWS_URL.roles + '/roles',
             headers: {
-              'Content-Type' : 'application/json'
+              'Content-Type' : 'application/json',
               'x-api-key' : AWS_URL.roleXKey
             }
           })
