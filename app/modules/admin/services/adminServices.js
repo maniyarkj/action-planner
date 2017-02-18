@@ -250,6 +250,118 @@
             errorCallback(response);
           });
         },
+
+        // Locations APIs
+        // Get All Locations
+        getAllLocations : function(pageSize, pageNumber, successCallback, errorCallback) {
+          $rootScope.loading = true;
+          $http({
+            method: 'GET',
+            url: AWS_URL.locations + 'locations',
+            // url: AWS_URL.locations + 'locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
+            // url: API_URL.locations + 'v1/locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : AWS_URL.locationXKey
+            }
+          })
+          .then(function onSuccess(response) {
+            $rootScope.loading = false;
+            successCallback(response);
+          },
+          function onError(response) {
+            $rootScope.loading = false;
+            errorCallback(response);
+          });
+        },
+
+        // getAllLocations : function(pageSize, pageNumber, successCallback, errorCallback) {
+        getAllParentLocations : function(successCallback, errorCallback) {
+          $rootScope.loading = true;
+          $http({
+            method: 'GET',
+            url: AWS_URL.locations + 'locations',
+            // url: AWS_URL.locations + 'locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
+            // url: API_URL.locations + 'v1/locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : AWS_URL.locationXKey
+            }
+          })
+          .then(function onSuccess(response) {
+            $rootScope.loading = false;
+            successCallback(response);
+          },
+          function onError(response) {
+            $rootScope.loading = false;
+            errorCallback(response);
+          });
+        },
+
+        // Get Filtered Location
+        getAllFilteredLocations : function(pageSize, pageNumber, searchStr, successCallback, errorCallback) {
+          $rootScope.loading = true;
+          $http({
+            method: 'GET',
+            url: AWS_URL.locations + 'locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
+            // url: API_URL.locations + 'v1/locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : AWS_URL.locationXKey
+            }
+          })
+          .then(function onSuccess(response) {
+            $rootScope.loading = false;
+            successCallback(response);
+          },
+          function onError(response) {
+            $rootScope.loading = false;
+            errorCallback(response);
+          });
+        },
+
+        // Get Specific Location
+        getSpecificLocation : function(id, successCallback, errorCallback) {
+          $rootScope.loading = true;
+          $http({
+            method: 'GET',
+            url: AWS_URL.locations + 'locations/'+ id,
+            // url: API_URL.users + 'v1/users/'+ id,
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : AWS_URL.locationXKey
+            }
+          })
+          .then(function onSuccess(response) {
+            $rootScope.loading = false;
+            successCallback(response);
+          },
+          function onError(response) {
+            $rootScope.loading = false;
+            errorCallback(response);
+          });
+        },
+        // Save Location
+        saveLocation : function(dataObject, successCallback, errorCallback) {
+          $rootScope.loading = true;
+          $http({
+            method: 'POST',
+            url: AWS_URL.locations + 'locations/',
+            data: JSON.stringify(dataObject),
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : AWS_URL.locationXKey
+            }
+          })
+          .then(function onSuccess(response) {
+            $rootScope.loading = false;
+            successCallback(response);
+          },
+          function onError(response) {
+            $rootScope.loading = false;
+            errorCallback(response);
+          });
+        },
       };
     }]);
 })();

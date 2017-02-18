@@ -1,0 +1,209 @@
+<page-title ng-if="layoutOptions.pageTitles && locationCtrl.newLocation" title="locationRes.pageNameAddMode"></page-title>
+<page-title ng-if="layoutOptions.pageTitles && !locationCtrl.newLocation" title="locationRes.pageNameEditMode"></page-title>
+
+<form name="mainForm" class="tab-form-demo">
+	 <uib-tabset active="activeForm">
+		 <uib-tab index="0" heading="Details">
+			 <ng-form name="locationForm">
+				 <div class="row">
+					 <div class="col-sm-6">
+						 <div class="panel panel-default">
+							 <div class="panel-body">
+								 <div class="no-margin">
+									 <div class="row">
+
+										 <div class="col-md-12" ng-class="{'has-error' : (locationForm.$submitted || locationForm.location_id.$touched || submitted ) && locationForm.location_id.$error.required }">
+											 <div class="form-group">
+												 <label class="control-label" for="location_id"> {{ "locationRes.labels.locationId" | translate }}</label>
+												 <input class="form-control" name="location_id" ng-model="locationCtrl.data.locationId" id="location_id" type="text" placeholder="Location Id" ng-required="true" />
+												 <p class="help-block" ng-show="(locationForm.$submitted || locationForm.location_id.$touched || submitted ) && locationForm.location_id.$invalid && locationForm.location_id.$error.required">{{ "locationRes.labels.validLocationId" | translate }}</p>
+											 </div>
+										 </div>
+
+										 <div class="col-md-12" ng-class="{'has-error' : (locationForm.$submitted || locationForm.location_name.$touched || submitted ) && locationForm.location_name.$error.required }">
+											 <div class="form-group">
+												 <label class="control-label" for="location_name"> {{ "locationRes.labels.locationName" | translate }}</label>
+												 <input class="form-control" name="location_name" ng-model="locationCtrl.data.locationName" id="location_name" type="text" placeholder="Location Name" ng-required="true" />
+												 <p class="help-block" ng-show="(locationForm.$submitted || locationForm.location_name.$touched || submitted ) && locationForm.location_name.$invalid && locationForm.location_name.$error.required">{{ "locationRes.labels.validLocationName" | translate }}</p>
+											 </div>
+										 </div>
+
+										 <div class="col-md-12"
+											 ng-class="{'has-error' : (locationRes.$submitted || locationRes.org_level.$touched || submitted ) && locationRes.org_level.$error.required }">
+											 <div class="form-group">
+												 <label class="control-label" for="default-locale"> {{ "locationRes.labels.locationOrgLevel" | translate }}</label>
+												 <select class="form-control" id="org_level" name="org_level"
+					 								ng-required="true"
+					                ng-model="locationCtrl.orgLevelNew"
+					               	ng-options="option.name for option in locationCtrl.orgLevelList track by option.orgLevelId">
+					       				  <option value="">{{ "locationRes.labels.defaultOrgLevelSelectControl" | translate}}</option>
+					       				</select>
+												<p class="help-block" ng-show="(locationRes.$submitted || locationRes.org_level.$touched || submitted ) && locationRes.org_level.$invalid && locationRes.org_level.$error.required">{{ "locationRes.labels.validOrgLevel" | translate }}</p>
+											 </div>
+										 </div>
+
+										 <div class="col-md-12" ng-class="{'has-error' : (locationForm.$submitted || locationForm.parent_location.$touched || submitted ) && locationForm.parent_location.$error.required }">
+											 <div class="form-group">
+												 <label class="control-label" for="parent-location"> {{ "locationRes.labels.parentLocation" | translate }}</label>
+												 <select class="form-control" id="parent-location" name="parent_location"
+												 ng-required="true"
+												 ng-options="option.locationName for option in locationCtrl.locationList track by option.parentLocationId"
+												 ng-model="locationCtrl.parentLocation">
+												 </select>
+											 </div>
+										 </div>
+
+										 <div class="col-md-12">
+											 <div class="form-group">
+												 <label class="control-label" for="status"> {{ "locationRes.labels.status" | translate }}</label>
+												 <div class="form-group">
+													 <div class="btn-group">
+														 <label class="btn btn-primary" ng-model="locationCtrl.data.status" uib-btn-radio="'Active'">Active</label>
+														 <label class="btn btn-primary" ng-model="locationCtrl.data.status" uib-btn-radio="'Inactive'">Inactive</label>
+													 </div>
+												 </div>
+											 </div>
+										 </div>
+
+										 <div class="col-md-12">
+											 <div class="form-group">
+												 <label class="control-label" for="time-zone"> {{ "locationRes.labels.timeZone" | translate }}</label>
+												 <select class="form-control" id="time-zone" ng-model="locationCtrl.data.timeZone">
+												 </select>
+											 </div>
+										 </div>
+
+									 </div>
+								 </div>
+							 </div>
+						 </div>
+					 </div>
+					 <div class="col-sm-6">
+						 <div class="panel panel-default">
+							 <div class="panel-body">
+								 <div class="tab-content no-margin">
+									 <div class="row">
+
+										 <div class="col-md-12">
+											 <div class="form-group">
+												 <label class="control-label" for="street-name"> {{ "locationRes.labels.streetName" | translate }}</label>
+												 <input class="form-control" name="street-name" ng-model="locationCtrl.data.streetName" id="street-name" placeholder="Street Name" />
+											 </div>
+										 </div>
+
+										 <div class="col-md-12">
+											 <div class="form-group">
+												 <label class="control-label" for="street-umber"> {{ "locationRes.labels.streetNumber" | translate }}</label>
+												 <input class="form-control" name="street-umber" ng-model="locationCtrl.data.streetNumber" id="street-umber" placeholder="Street Number" />
+											 </div>
+										 </div>
+
+
+										 <div class="col-md-12">
+											 <div class="form-group">
+												 <label class="control-label" for="postal-code"> {{ "locationRes.labels.postalCode" | translate }}</label>
+												 <input class="form-control" name="postal-code" ng-model="locationCtrl.data.postalCode" id="postal-code" placeholder="Postal Code" />
+											 </div>
+									   </div>
+
+										 <div class="col-md-12">
+											 <div class="form-group">
+												 <label class="control-label" for="city"> {{ "locationRes.labels.city" | translate }}</label>
+												 <input class="form-control" name="city" ng-model="locationCtrl.data.city" id="city" placeholder="City" />
+											 </div>
+										 </div>
+
+										 <div class="col-md-12">
+											 <div class="form-group">
+												 <label class="control-label" for="country"> {{ "locationRes.labels.country" | translate }}</label>
+												 <input class="form-control" name="country" ng-model="locationCtrl.data.country" id="country" placeholder="Country" />
+											 </div>
+										 </div>
+
+										 <div class="col-md-12">
+											 <div class="form-group">
+												 <label class="control-label" for="state"> {{ "locationRes.labels.state" | translate }}</label>
+												 <input class="form-control" name="state" ng-model="locationCtrl.data.state" id="state" placeholder="State" />
+											 </div>
+										 </div>
+
+										 <div class="col-md-12">
+											 <div class="form-group">
+												 <label class="control-label" for="phone_number"> {{ "locationRes.labels.phoneNumber" | translate }}</label>
+												 <input class="form-control" name="phone_number" ng-model="locationCtrl.data.phoneNumber" id="phone_number" placeholder="Phone Number" />
+											 </div>
+										 </div>
+
+										 <div class="col-md-12">
+											 <div class="form-group">
+												 <label class="control-label" for="faxNumber"> {{ "locationRes.labels.faxNumber" | translate }}</label>
+												 <input class="form-control" name="faxNumber" ng-model="locationCtrl.data.faxNumber" id="faxNumber" placeholder="Fax Number" />
+											 </div>
+										 </div>
+
+									 </div>
+								 </div>
+							 </div>
+						 </div>
+					 </div>
+				 </div>
+				 <div class="row">
+					 <div class='col-sm-12'>
+						 <div class="form-group-separator"></div>
+						 <div class="form-group text-right">
+							 <button class="btn btn-primary" ng-click="locationForm.$valid && locationCtrl.saveLocation()">{{ "crud.save" | translate }}</button>
+							 <button ng-if="!locationCtrl.newLocation" class="btn btn-primary" ng-click="locationCtrl.deleteLocation()">{{ "crud.delete" | translate }}</button>
+							 <button class="btn btn-primary" ng-click="locationCtrl.cancelLocations()">{{ "crud.cancel" | translate }}</button>
+						 </div>
+					 </div>
+				 </div>
+			 </ng-form>
+		 </uib-tab>
+		 <uib-tab index="1" heading="Properties">
+			 Some Tab Content
+		 </uib-tab>
+		 <uib-tab index="2" heading="Operating Hours">
+			 <ng-form name="locationForm">
+				 <div class="row">
+					 <div class="col-sm-12">
+						 <div class="panel panel-default">
+							 <div class="panel-body">
+								 <div class="no-margin">
+									 <div class="row">
+										 <div class="col-xs-12 col-sm-3">Week</div>
+										 <div class="col-xs-12 col-sm-3">Status</div>
+										 <div class="col-xs-12 col-sm-3">Opening Time</div>
+										 <div class="col-xs-12 col-sm-3">Closing Time</div>
+									 </div>
+									 <div class="row" ng-repeat="data in locationCtrl.weekDays">
+										 <div class="col-xs-12 col-sm-3">{{data.day}}</div>
+										 <div class="col-xs-12 col-sm-3">
+											 <div class="form-group">
+												 <div class="btn-group">
+													 <label class="btn btn-primary" ng-model="locationCtrl.data.status" uib-btn-radio="'Active'">Active</label>
+													 <label class="btn btn-primary" ng-model="locationCtrl.data.status" uib-btn-radio="'Inactive'">Inactive</label>
+												 </div>
+											 </div>
+										 </div>
+										 <div class="col-xs-12 col-sm-3"><div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div></div>
+										 <div class="col-xs-12 col-sm-3"><div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div></div>
+									 </div>
+								 </div>
+							 </div>
+						 </div>
+					 </div>
+				 </div>
+				 <div class="row">
+					 <div class='col-sm-12'>
+						 <div class="form-group-separator"></div>
+						 <div class="form-group text-right">
+							 <button class="btn btn-primary" ng-click="locationForm.$valid && locationCtrl.saveLocation()">{{ "crud.save" | translate }}</button>
+							 <button ng-if="!locationCtrl.newLocation" class="btn btn-primary" ng-click="locationCtrl.deleteLocation()">{{ "crud.delete" | translate }}</button>
+							 <button class="btn btn-primary" ng-click="locationCtrl.cancelLocations()">{{ "crud.cancel" | translate }}</button>
+						 </div>
+					 </div>
+				 </div>
+			 </ng-form>
+		 </uib-tab>
+	 </uib-tabset>
+ </form>

@@ -77,5 +77,57 @@
       "validHireDate" : "Hire Date is mandatory",
       "validBirthDate" : "Birth Date is mandatory"
     }
+  },
+  "locationListRes" :
+  {
+    "listOfLocations" : "Locations",
+    "addNewLocation" : "Add New Location",
+    "filterLocation" : "Filter",
+    "noUserData" : "No locations found.",
+    "labels" : {
+      "locationId" : "Location Id",
+      "locationName" : "Location Name",
+      "defaultOrgLevelSelectControl" : "Please select organisation level",
+      "defaultParentLocation" : "Please select parent location",
+      "defaultStatus" : "Please select status",
+      "parentLocationName" : "Parent Location Name",
+      "orgLevel" : "Org Level",
+      "status" : "Status",
+      "search" : "Search",
+      "reset" : "Reset"
+    }
+  },
+  "locationRes" :
+  {
+    "pageNameAddMode" : "Add Location",
+    "pageNameEditMode" : "Edit Location",
+    "labels" :
+    {
+      "locationId" : "Location Id",
+      "locationName" : "Location Name",
+      "locationOrgLevel" : "Organization Level",
+      "defaultOrgLevelSelectControl" : "Please select organisation level",
+      "parentLocation" : "Parent Location",
+      "status" : "Status",
+      "statusActive" : "Active",
+      "statusInactive" : "Inactive",
+      "statusOpenClose" : "Status",
+      "statusOpen" : "Open",
+      "statusClose" : "Close",
+      "timeZone" : "Time Zone",
+      "streetName" : "Street Name",
+      "streetNumber" : "Street Number",
+      "postalCode" : "Postal Code",
+      "city" : "City",
+      "country" : "Country",
+      "state" : "State",
+      "phoneNumber" : "Phone Number",
+      "faxNumber" : "Fax Number",
+      "validEmail" : "Email Id is mandatory",
+      "validUserId" : "User Id is mandatory",
+      "validEmailType" : "Invalid Email Id",
+      "validHireDate" : "Hire Date is mandatory",
+      "validBirthDate" : "Birth Date is mandatory"
+    }
   }
 }

@@ -47,7 +47,20 @@ app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
     templateUrl: 'modules/admin/views/userList.html',
     controller: 'UserListCtrl',
     controllerAs: 'userListCtrl'
-  });
+  }).
+  state('app.admin-location', {
+    url: '/admin-location?selectedId=id',
+    templateUrl: 'modules/admin/views/location.html',
+    controller: 'LocationCtrl',
+    controllerAs: 'locationCtrl'
+  }).
+  state('app.admin-location-list', {
+    url: '/admin-location-list',
+    templateUrl: 'modules/admin/views/locationList.html',
+    controller: 'LocationListCtrl',
+    controllerAs: 'locationListCtrl'
+  })
+  ;
 });
 // Angular Translate
 app.config(['$translateProvider', function($translateProvider, LOCALES) {
