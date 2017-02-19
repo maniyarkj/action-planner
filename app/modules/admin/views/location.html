@@ -160,7 +160,28 @@
 			 </ng-form>
 		 </uib-tab>
 		 <uib-tab index="1" heading="Properties">
-			 Some Tab Content
+		 	<div class="row">
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="tab-content no-margin">
+							<div class="row">
+								<div class="col-md-12">
+								<div class="form-group">
+									 <label class="control-label" for="mallStore"> {{ "locationRes.labels.mallStore" | translate }}</label>
+									 <input class="form-control" name="mallStore" ng-model="locationCtrl.data.mallStore" id="mallStore" placeholder="Mall Store" />
+								 </div>
+								 <div class="form-group">
+									 <label class="control-label" for="superStore"> {{ "locationRes.labels.superStore" | translate }}</label>
+									 <input class="form-control" name="superStore" ng-model="locationCtrl.data.superStore" id="superStore" placeholder="Super Store" />
+								 </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
 		 </uib-tab>
 		 <uib-tab index="2" heading="Operating Hours">
 			 <ng-form name="locationForm">

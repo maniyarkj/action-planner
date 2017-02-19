@@ -362,6 +362,28 @@
             errorCallback(response);
           });
         },
+
+         // Update Role Entity
+        updateLocation : function(dataObject, locationId, successCallback, errorCallback) {
+          $rootScope.loading = true;
+          $http({
+            method: 'PUT',
+            url: AWS_URL.locations + 'locations/' + locationId,
+            data : dataObject,
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : AWS_URL.locationXKey
+            }
+          })
+          .then(function onSuccess(response) {
+            $rootScope.loading = false;
+            successCallback(response);
+          },
+          function onError(response) {
+            $rootScope.loading = false;
+            errorCallback(response);
+          });
+        },
       };
     }]);
 })();

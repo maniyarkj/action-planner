@@ -22,9 +22,11 @@ var app = angular.module('apApp', [
 
 	// Module wise Controllers & Services
 	'apApp.adminModules.controllers',
-	'apApp.adminModules.services'
+	'apApp.adminModules.services',
 	// Added in v1.3
 	//'FBAngular'
+
+    'ui.tree'
 ]);
 
 angular.module('apApp.controllers', []);

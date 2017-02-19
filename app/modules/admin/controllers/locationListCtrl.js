@@ -3,13 +3,70 @@
 angular.module('apApp.adminModules.controllers')
 	.controller('LocationListCtrl',
 		['$scope', '$rootScope', 'AdminServices', '$state', 'PAGE_SIZE', '$log', '$timeout', 'STATUS_CODE', 'STATUS_ARRAY',
-		function($scope, $rootScope, AdminServices, $state, PAGE_SIZE, $log, $timeout, STATUS_CODE, STATUS_ARRAY)
-		{
+		function($scope, $rootScope, AdminServices, $state, PAGE_SIZE, $log, $timeout, STATUS_CODE, STATUS_ARRAY){
 			var vm = this,
-					alert = {};
+			alert = {};
 			$rootScope.alerts = [];
 			vm.pageSizeObj = PAGE_SIZE.rows;
 			vm.statusList = STATUS_ARRAY.data;
+
+			vm.testdata = [{
+		        'id': 1,
+		        'title': 'node1',
+		        'nodes': [
+		          {
+		            'id': 11,
+		            'title': 'node1.1',
+		            'nodes': [
+		              {
+		                'id': 111,
+		                'title': 'node1.1.1',
+		                'nodes': []
+		              }
+		            ]
+		          },
+		          {
+		            'id': 12,
+		            'title': 'node1.2',
+		            'nodes': []
+		          }
+		        ]
+		      }, {
+		        'id': 2,
+		        'title': 'node2',
+		        'nodrop': true, // An arbitrary property to check in custom template for nodrop-enabled
+		        'nodes': [
+		          {
+		            'id': 21,
+		            'title': 'node2.1',
+		            'nodes': []
+		          },
+		          {
+		            'id': 22,
+		            'title': 'node2.2',
+		            'nodes': []
+		          }
+		        ]
+		      }, {
+		        'id': 3,
+		        'title': 'node3',
+		        'nodes': [
+		          {
+		            'id': 31,
+		            'title': 'node3.1',
+		            'nodes': []
+		          }
+		        ]
+		      }];
+				
+
+			vm.collapseAll = function () {
+		        $scope.$broadcast('angular-ui-tree:collapse-all');
+		    };
+
+		    vm.expandAll = function () {
+		    	$scope.$broadcast('angular-ui-tree:expand-all');
+		    };
 
 			function onSuccessGetOrganizationLevels(response) {
 				if (STATUS_CODE.status_ok === response.status) {
@@ -142,6 +199,7 @@ angular.module('apApp.adminModules.controllers')
 
 			$rootScope.closeAlert = function() {
 	     	$rootScope.alerts = [];
+
 	   	};
 			vm.init();
 		}

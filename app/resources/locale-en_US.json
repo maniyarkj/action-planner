@@ -123,6 +123,8 @@
       "state" : "State",
       "phoneNumber" : "Phone Number",
       "faxNumber" : "Fax Number",
+      "mallStore" : "Mall Store",
+      "superStore" : "Super Store",
       "validEmail" : "Email Id is mandatory",
       "validUserId" : "User Id is mandatory",
       "validEmailType" : "Invalid Email Id",
