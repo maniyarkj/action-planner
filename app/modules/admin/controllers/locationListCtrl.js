@@ -9,56 +9,7 @@ angular.module('apApp.adminModules.controllers')
 			$rootScope.alerts = [];
 			vm.pageSizeObj = PAGE_SIZE.rows;
 			vm.statusList = STATUS_ARRAY.data;
-
-			vm.testdata = [{
-		        'id': 1,
-		        'title': 'node1',
-		        'nodes': [
-		          {
-		            'id': 11,
-		            'title': 'node1.1',
-		            'nodes': [
-		              {
-		                'id': 111,
-		                'title': 'node1.1.1',
-		                'nodes': []
-		              }
-		            ]
-		          },
-		          {
-		            'id': 12,
-		            'title': 'node1.2',
-		            'nodes': []
-		          }
-		        ]
-		      }, {
-		        'id': 2,
-		        'title': 'node2',
-		        'nodrop': true, // An arbitrary property to check in custom template for nodrop-enabled
-		        'nodes': [
-		          {
-		            'id': 21,
-		            'title': 'node2.1',
-		            'nodes': []
-		          },
-		          {
-		            'id': 22,
-		            'title': 'node2.2',
-		            'nodes': []
-		          }
-		        ]
-		      }, {
-		        'id': 3,
-		        'title': 'node3',
-		        'nodes': [
-		          {
-		            'id': 31,
-		            'title': 'node3.1',
-		            'nodes': []
-		          }
-		        ]
-		      }];
-				
+			vm.testdata = [];
 
 			vm.collapseAll = function () {
 		        $scope.$broadcast('angular-ui-tree:collapse-all');
@@ -118,6 +69,7 @@ angular.module('apApp.adminModules.controllers')
 				if (STATUS_CODE.status_ok === response.status) {
 					if (response.data.body.body !== undefined || response.data.body.body !== null) {
 						vm.result = response.data.body.body;
+						vm.testdata = treeData(vm.result);
 						vm.totalItems = vm.result.count;
 						vm.pSize = vm.result.pageSize;
 					}
@@ -145,7 +97,7 @@ angular.module('apApp.adminModules.controllers')
 				vm.maxSize = vm.selectedPageSize.value;
 				vm.currentPage = 1;
 				vm.expand = true;
-				AdminServices.getAllLocations(vm.maxSize, vm.currentPage - 1, onSuccessGetAllLocations, onErrorGetAllLocations);
+				AdminServices.getAllLocations(vm.maxSize, vm.currentPage - 1, onSuccessGetAllLocations, onErrorGetAllLocations);				
 			};
 
 			vm.redirectToEditMode = function(location) {
@@ -196,7 +148,29 @@ angular.module('apApp.adminModules.controllers')
 				vm.status.value = '';
 				AdminServices.getAllLocations(vm.maxSize, vm.currentPage - 1, onSuccessGetAllLocations, onErrorGetAllLocations);
 			}
-
+			function treeData(data) {
+				var groupData = _.groupBy(data, 'locationOrgLevel');
+				var mainObj = [];
+				var i=0;
+				_.forEach(groupData,function(d,k){
+				  var obj = {};
+				  obj.id = i;
+				  obj.title =k; 
+				  obj.nodes = [];
+				  var j = 0;
+					_.forEach(d,function(innerData){
+				      var tmp = {};
+				      tmp.id = j;
+				      tmp.title = innerData.parentLocationId;
+				  	  console.log(innerData.parentLocationId);
+				      obj.nodes.push(tmp);
+				      j++;
+				  });
+				  i++;
+				  mainObj.push(obj);
+				});
+				return mainObj;
+			}
 			$rootScope.closeAlert = function() {
 	     	$rootScope.alerts = [];
 
