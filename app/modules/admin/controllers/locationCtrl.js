@@ -2,13 +2,16 @@
 
 angular.module('apApp.adminModules.controllers')
   .controller('LocationCtrl',
-    ['$scope', '$stateParams', 'AdminServices', '$state', '$window', '$rootScope', 'LocaleService', '$uibModal', 'STATUS_CODE', 'CONFIRM', 'WEEK',
-    function($scope, $stateParams, AdminServices, $state, $window, $rootScope, LocaleService, $uibModal, STATUS_CODE, CONFIRM, WEEK) {
+    ['$scope', '$stateParams', 'AdminServices', '$state', '$window', '$rootScope', 'LocaleService', '$uibModal', '$timeout', 'STATUS_CODE', 'CONFIRM', 'WEEK', 'TIMEZONE',
+    function($scope, $stateParams, AdminServices, $state, $window, $rootScope, LocaleService, $uibModal, $timeout, STATUS_CODE, CONFIRM, WEEK, TIMEZONE) {
       var vm = this,
         id = $stateParams.id,
         alert = {};
       $rootScope.alerts = [];
       vm.weekDays = WEEK.data;
+      vm.timeZoneList = TIMEZONE.data;
+
+
       function onSuccessGetOrganizationLevels(response) {
   			if (STATUS_CODE.status_ok === response.status) {
   				vm.orgLevelList = response.data.body.body;
@@ -33,8 +36,7 @@ angular.module('apApp.adminModules.controllers')
       function onSuccessGetAllParentLocations(response) {
         if (STATUS_CODE.status_ok === response.status) {
           if (response.data.body.body !== undefined || response.data.body.body !== null) {
-    				vm.locationList = response.data.body.body;
-            vm.data.parentLocation = vm.locationList[0];
+    				vm.parentLocationList = response.data.body.body;
           }
   			}
   			else {
@@ -53,40 +55,36 @@ angular.module('apApp.adminModules.controllers')
         $rootScope.alerts.push(alert);
       }
       AdminServices.getAllParentLocations(onSuccessGetAllParentLocations, onErrorGetAllParentLocations);
-      $scope.mytime = new Date();
 
-        $scope.hstep = 1;
-        $scope.mstep = 15;
+      var sTime = new Date();
+      sTime.setHours(9);
+      sTime.setMinutes(0);
+      $scope.startTime = sTime;
 
-        $scope.options = {
-          hstep: [1, 2, 3],
-          mstep: [1, 5, 10, 15, 25, 30]
-        };
+      var eTime = new Date();
+      eTime.setHours(21);
+      eTime.setMinutes(0);
+      $scope.endTime = eTime;
 
-        $scope.ismeridian = true;
-        $scope.toggleMode = function() {
-          $scope.ismeridian = ! $scope.ismeridian;
-        };
+      $scope.hstep = 1;
+      $scope.mstep = 15;
 
-        $scope.update = function() {
-          var d = new Date();
-          d.setHours( 14 );
-          d.setMinutes( 0 );
-          $scope.mytime = d;
-        };
+      $scope.ismeridian = true;
+      $scope.toggleMode = function() {
+        $scope.ismeridian = ! $scope.ismeridian;
+      };
 
-        $scope.changed = function () {
-          $log.log('Time changed to: ' + $scope.mytime);
-        };
+      vm.changedStartTime = function(data) {
+        console.log(data);
+        console.log($scope.startTime);
+      };
 
-        $scope.clear = function() {
-          $scope.mytime = null;
-        };
       vm.init = function() {
         vm.newLocation = true;
 				vm.data = {};
 				vm.data.gender = 'Male';
 				vm.data.status = 'Active';
+        vm.data.timeZone = vm.timeZoneList[0];
 				// Checking whether new form or edit mode.
         if (id !== undefined) {
           vm.newLocation = false;
@@ -97,9 +95,16 @@ angular.module('apApp.adminModules.controllers')
 
       function onSuccessGetSpecificLocation(response) {
         if (STATUS_CODE.status_ok === response.status) {
-          // Prompt Role Detail is saved successfully.
           vm.data = response.data.body.body;
           console.log(vm.data);
+
+          $timeout(function() {
+            var orgLevel = _.findIndex(vm.orgLevelList, {'level' : vm.data.locationOrgLevel });
+  					orgLevel > -1 ? vm.orgLevelNew = vm.orgLevelList[orgLevel] : '';
+
+            var parentId = _.findIndex(vm.parentLocationList, {'parentLocationId' : vm.data.parentLocationId });
+  					parentId > -1 ? vm.parentLocation = vm.parentLocationList[parentId] : '';
+          }, 100);
 
           if (vm.data.status !== undefined || vm.data.status !== null || vm.data.status === '') {
             vm.data.status = 'Active';
@@ -112,7 +117,6 @@ angular.module('apApp.adminModules.controllers')
           $rootScope.alerts.push(alert);
         }
       }
-
       function onErrorGetSpecificLocation() {
         alert = {
           type: 'danger',
@@ -138,7 +142,6 @@ angular.module('apApp.adminModules.controllers')
           $rootScope.alerts.push(alert);
         }
       }
-
       function onErrorEditLocation(response) {
         alert = {
           type: 'danger',
@@ -163,7 +166,6 @@ angular.module('apApp.adminModules.controllers')
           $rootScope.alerts.push(alert);
         }
       }
-
       function onErrorSaveLocation(response) {
         alert = {
           type: 'danger',
@@ -222,7 +224,6 @@ angular.module('apApp.adminModules.controllers')
           $rootScope.alerts.push(alert);
         }
       }
-
       function onErrorGetDeleteLocation() {
         alert = {
           type: 'danger',
@@ -238,6 +239,7 @@ angular.module('apApp.adminModules.controllers')
   			});
 
   			modalInstance.result.then(function (response) {
+          console.log(response);
   	      if (response === CONFIRM.confirm_yes) {
   					AdminServices.deleteLocation(id, onSuccessDeleteLocation, onErrorGetDeleteLocation);
   				}

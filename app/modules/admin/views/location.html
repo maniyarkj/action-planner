@@ -7,7 +7,7 @@
 			 <ng-form name="locationForm">
 				 <div class="row">
 					 <div class="col-sm-6">
-						 <div class="panel panel-default">
+						 <div class="">
 							 <div class="panel-body">
 								 <div class="no-margin">
 									 <div class="row">
@@ -47,7 +47,7 @@
 												 <label class="control-label" for="parent-location"> {{ "locationRes.labels.parentLocation" | translate }}</label>
 												 <select class="form-control" id="parent-location" name="parent_location"
 												 ng-required="true"
-												 ng-options="option.locationName for option in locationCtrl.locationList track by option.parentLocationId"
+												 ng-options="option.locationName for option in locationCtrl.parentLocationList track by option.parentLocationId"
 												 ng-model="locationCtrl.parentLocation">
 												 </select>
 											 </div>
@@ -68,7 +68,9 @@
 										 <div class="col-md-12">
 											 <div class="form-group">
 												 <label class="control-label" for="time-zone"> {{ "locationRes.labels.timeZone" | translate }}</label>
-												 <select class="form-control" id="time-zone" ng-model="locationCtrl.data.timeZone">
+												 <select class="form-control" id="time-zone" ng-model="locationCtrl.data.timeZone"
+												 ng-init="locationCtrl.data.timeZone = locationCtrl.timeZoneList[0]"
+												 ng-options="options.title for options in locationCtrl.timeZoneList track by options.value">
 												 </select>
 											 </div>
 										 </div>
@@ -79,7 +81,7 @@
 						 </div>
 					 </div>
 					 <div class="col-sm-6">
-						 <div class="panel panel-default">
+						 <div class="">
 							 <div class="panel-body">
 								 <div class="tab-content no-margin">
 									 <div class="row">
@@ -140,7 +142,6 @@
 												 <input class="form-control" name="faxNumber" ng-model="locationCtrl.data.faxNumber" id="faxNumber" placeholder="Fax Number" />
 											 </div>
 										 </div>
-
 									 </div>
 								 </div>
 							 </div>
@@ -148,12 +149,13 @@
 					 </div>
 				 </div>
 				 <div class="row">
-					 <div class='col-sm-12'>
-						 <div class="form-group-separator"></div>
-						 <div class="form-group text-right">
-							 <button class="btn btn-primary" ng-click="locationForm.$valid && locationCtrl.saveLocation()">{{ "crud.save" | translate }}</button>
-							 <button ng-if="!locationCtrl.newLocation" class="btn btn-primary" ng-click="locationCtrl.deleteLocation()">{{ "crud.delete" | translate }}</button>
-							 <button class="btn btn-primary" ng-click="locationCtrl.cancelLocations()">{{ "crud.cancel" | translate }}</button>
+					 <div class="col-sm-12">
+						 <div class="col-sm-12">
+							 <div class="form-group paddingTopBotton text-right">
+								 <button class="btn btn-primary" ng-click="locationForm.$valid && locationCtrl.saveLocation()">{{ "crud.save" | translate }}</button>
+								 <button ng-if="!locationCtrl.newLocation" class="btn btn-primary" ng-click="locationCtrl.deleteLocation()">{{ "crud.delete" | translate }}</button>
+								 <button class="btn btn-primary" ng-click="locationCtrl.cancelLocations()">{{ "crud.cancel" | translate }}</button>
+							 </div>
 						 </div>
 					 </div>
 				 </div>
@@ -162,7 +164,7 @@
 		 <uib-tab index="1" heading="Properties">
 		 	<div class="row">
 			<div class="col-sm-6">
-				<div class="panel panel-default">
+				<div class="">
 					<div class="panel-body">
 						<div class="tab-content no-margin">
 							<div class="row">
@@ -183,31 +185,42 @@
 			</div>
 			</div>
 		 </uib-tab>
-		 <uib-tab index="2" heading="Operating Hours">
+		 <uib-tab index="2" heading="Hours">
 			 <ng-form name="locationForm">
 				 <div class="row">
 					 <div class="col-sm-12">
-						 <div class="panel panel-default">
+						 <div class="">
 							 <div class="panel-body">
 								 <div class="no-margin">
-									 <div class="row">
-										 <div class="col-xs-12 col-sm-3">Week</div>
-										 <div class="col-xs-12 col-sm-3">Status</div>
-										 <div class="col-xs-12 col-sm-3">Opening Time</div>
-										 <div class="col-xs-12 col-sm-3">Closing Time</div>
+									 <div class="row paddingTopBotton hidden-xs">
+										 <div class="col-xs-12 col-sm-3"><strong>Week</strong></div>
+										 <div class="col-xs-12 col-sm-3"><strong>Opening Time</strong></div>
+										 <div class="col-xs-12 col-sm-3"><strong>Closing Time</strong></div>
+										 <div class="col-xs-12 col-sm-3"><strong>Status</strong></div>
 									 </div>
+									 <pre>{{ startTime | json }}
 									 <div class="row" ng-repeat="data in locationCtrl.weekDays">
-										 <div class="col-xs-12 col-sm-3">{{data.day}}</div>
+										 <div class="valign col-xs-12 col-sm-3">
+											 <span>{{data.day}}</span>
+										 </div>
 										 <div class="col-xs-12 col-sm-3">
-											 <div class="form-group">
-												 <div class="btn-group">
-													 <label class="btn btn-primary" ng-model="locationCtrl.data.status" uib-btn-radio="'Active'">Active</label>
-													 <label class="btn btn-primary" ng-model="locationCtrl.data.status" uib-btn-radio="'Inactive'">Inactive</label>
-												 </div>
+											 <div uib-timepicker ng-model="startTime" ng-change="locationCtrl.changedStartTime(data)" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian">
 											 </div>
 										 </div>
-										 <div class="col-xs-12 col-sm-3"><div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div></div>
-										 <div class="col-xs-12 col-sm-3"><div uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div></div>
+										 <div class="col-xs-12 col-sm-3">
+											 <div uib-timepicker ng-model="endTime[$index]" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian">
+											 </div>
+										 </div>
+										 <div class="col-xs-12 col-sm-3">
+											 <div class="valign form-group">
+												 <span>
+													 <input type="checkbox" class="cbr" name="chk-rules" id="chk-status">
+ 											 		<label for="chk-status">Closed</label>
+												</span>
+											 </div>
+										 </div>
+										 <div class="clearfix"></div>
+										 <div class="form-group-separator"></div>
 									 </div>
 								 </div>
 							 </div>
@@ -216,7 +229,6 @@
 				 </div>
 				 <div class="row">
 					 <div class='col-sm-12'>
-						 <div class="form-group-separator"></div>
 						 <div class="form-group text-right">
 							 <button class="btn btn-primary" ng-click="locationForm.$valid && locationCtrl.saveLocation()">{{ "crud.save" | translate }}</button>
 							 <button ng-if="!locationCtrl.newLocation" class="btn btn-primary" ng-click="locationCtrl.deleteLocation()">{{ "crud.delete" | translate }}</button>

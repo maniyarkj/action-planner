@@ -1,8 +1,8 @@
 (function(){
   'use strict';
   angular.module('apApp.adminModules.services')
-    .service('AdminServices', ['$http', 'API_URL', 'AWS_URL', '$rootScope',
-      function($http, API_URL, AWS_URL, $rootScope) {
+    .service('AdminServices', ['$http', 'AWS_URL', 'AWS', 'STATE', 'ENVIRONMENT', '$rootScope',
+      function($http, AWS_URL, AWS, STATE, ENVIRONMENT, $rootScope) {
 
       return {
         // CRUD Operations for Role
@@ -12,7 +12,7 @@
           $rootScope.loading = true;
           $http({
             method: 'POST',
-            url: AWS_URL.roles + 'roles/',
+            url: AWS  + STATE.role + ENVIRONMENT,
             // url: API_URL.roles + 'v1/roles/',
             data: JSON.stringify(dataObject),
             headers: {
@@ -37,7 +37,7 @@
           $rootScope.loading = true;
           $http({
             method: 'PUT',
-            url: AWS_URL.roles + 'roles/' + roleId,
+            url: AWS  + STATE.role + ENVIRONMENT + roleId,
             data : dataObject,
             headers: {
               'Content-Type' : 'application/json',
@@ -59,7 +59,7 @@
           $rootScope.loading = true;
           $http({
             method: 'DELETE',
-            url: AWS_URL.roles + 'roles/' + roleId,
+            url: AWS  + STATE.role + ENVIRONMENT + roleId,
             headers: {
               'Content-Type' : 'application/json',
               'x-api-key' : AWS_URL.roleXKey
@@ -80,7 +80,7 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.roles + 'roles',
+            url: AWS  + STATE.role + ENVIRONMENT + '?tenantId=tenant1',
             // url: API_URL.roles + 'v1/roles',
             headers: {
               'Content-Type' : 'application/json',
@@ -102,7 +102,7 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.organisationLevel + 'organizationLevels',
+            url: AWS  + STATE.orgLevel + ENVIRONMENT + '?tenantId=tenant1',
             // url: API_URL.organisationLevel + 'v1/orglevels',
             headers: {
               'Content-Type' : 'application/json',
@@ -124,7 +124,7 @@
           $rootScope.loading = true;
           $http({
             method: 'POST',
-            url: AWS_URL.users + 'users/',
+            url: AWS  + STATE.user + ENVIRONMENT,
             // url: API_URL.users + 'v1/users/',
             data: JSON.stringify(dataObject),
             headers: {
@@ -146,7 +146,7 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.users + 'users/'+ id,
+            url: AWS  + STATE.user + ENVIRONMENT + id,
             // url: API_URL.users + 'v1/users/'+ id,
             headers: {
               'Content-Type' : 'application/json',
@@ -167,7 +167,7 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.users + 'users?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
+            url: AWS  + STATE.user + ENVIRONMENT + '?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
             // url: API_URL.users + 'v1/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
             headers: {
               'Content-Type' : 'application/json',
@@ -188,7 +188,7 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.users + 'users?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
+            url: AWS  + STATE.user + ENVIRONMENT + '?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
             // url: API_URL.users + 'v1/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
             headers: {
               'Content-Type' : 'application/json',
@@ -210,7 +210,7 @@
           $rootScope.loading = true;
           $http({
             method: 'PUT',
-            url: AWS_URL.users + 'users/' + userId,
+            url: AWS  + STATE.user + ENVIRONMENT + userId,
             // url: API_URL.users + 'v1/users/' + userId,
             data: JSON.stringify(dataObject),
             headers: {
@@ -235,7 +235,7 @@
           // var url = API_URL.users + 'v1/users/' + userId;
           $http({
             method: 'DELETE',
-            url: AWS_URL.users + 'users/' + userId,
+            url: AWS  + STATE.user + ENVIRONMENT + userId,
             headers: {
               'Content-Type' : 'application/json',
               'x-api-key' : AWS_URL.userXKey
@@ -257,7 +257,7 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.locations + 'locations',
+            url: AWS  + STATE.location + ENVIRONMENT,
             // url: AWS_URL.locations + 'locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
             // url: API_URL.locations + 'v1/locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
             headers: {
@@ -280,7 +280,7 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.locations + 'locations',
+            url: AWS  + STATE.location + ENVIRONMENT,
             // url: AWS_URL.locations + 'locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
             // url: API_URL.locations + 'v1/locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
             headers: {
@@ -303,7 +303,7 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.locations + 'locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
+            url: AWS  + STATE.location + ENVIRONMENT + '?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
             // url: API_URL.locations + 'v1/locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
             headers: {
               'Content-Type' : 'application/json',
@@ -325,7 +325,7 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS_URL.locations + 'locations/'+ id,
+            url: AWS  + STATE.location + ENVIRONMENT + id,
             // url: API_URL.users + 'v1/users/'+ id,
             headers: {
               'Content-Type' : 'application/json',
@@ -346,7 +346,7 @@
           $rootScope.loading = true;
           $http({
             method: 'POST',
-            url: AWS_URL.locations + 'locations/',
+            url: AWS  + STATE.location + ENVIRONMENT,
             data: JSON.stringify(dataObject),
             headers: {
               'Content-Type' : 'application/json',
@@ -368,8 +368,29 @@
           $rootScope.loading = true;
           $http({
             method: 'PUT',
-            url: AWS_URL.locations + 'locations/' + locationId,
+            url: AWS  + STATE.location + ENVIRONMENT + locationId,
             data : dataObject,
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : AWS_URL.locationXKey
+            }
+          })
+          .then(function onSuccess(response) {
+            $rootScope.loading = false;
+            successCallback(response);
+          },
+          function onError(response) {
+            $rootScope.loading = false;
+            errorCallback(response);
+          });
+        },
+
+        deleteLocation : function(locationId, successCallback, errorCallback) {
+          $rootScope.loading = true;
+          // var url = API_URL.users + 'v1/users/' + locationId;
+          $http({
+            method: 'DELETE',
+            url: AWS  + STATE.location + ENVIRONMENT + locationId,
             headers: {
               'Content-Type' : 'application/json',
               'x-api-key' : AWS_URL.locationXKey

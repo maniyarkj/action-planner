@@ -70,6 +70,7 @@ angular.module('apApp.adminModules.controllers')
 					if (response.data.body.body !== undefined || response.data.body.body !== null) {
 						vm.result = response.data.body.body;
 						vm.testdata = treeData(vm.result);
+
 						vm.totalItems = vm.result.count;
 						vm.pSize = vm.result.pageSize;
 					}
@@ -97,7 +98,7 @@ angular.module('apApp.adminModules.controllers')
 				vm.maxSize = vm.selectedPageSize.value;
 				vm.currentPage = 1;
 				vm.expand = true;
-				AdminServices.getAllLocations(vm.maxSize, vm.currentPage - 1, onSuccessGetAllLocations, onErrorGetAllLocations);				
+				AdminServices.getAllLocations(vm.maxSize, vm.currentPage - 1, onSuccessGetAllLocations, onErrorGetAllLocations);
 			};
 
 			vm.redirectToEditMode = function(location) {
@@ -120,13 +121,13 @@ angular.module('apApp.adminModules.controllers')
 				if (vm.locationName !== undefined && vm.locationName !== '' && vm.locationName !== null) {
 					searchStr += 'locationName=' + vm.locationName + '&';
 				}
-				if (vm.parentLocation !== undefined && vm.parentLocation !== '' && vm.parentLocation !== null) {
+				if (vm.parentLocation !== undefined && vm.parentLocation !== '' && vm.parentLocation !== null && vm.parentLocation.parentLocationId !== undefined) {
 					searchStr += 'parentLocationId=' + vm.parentLocation.parentLocationId + '&';
 				}
-				if (vm.locationOrgLevel !== undefined && vm.locationOrgLevel !== '' && vm.locationOrgLevel !== null) {
-					searchStr += 'locationOrgLevel=' + vm.locationOrgLevel.orgLevelId + '&';
+				if (vm.locationOrgLevel !== undefined && vm.locationOrgLevel !== '' && vm.locationOrgLevel !== null && vm.locationOrgLevel.level !== undefined) {
+					searchStr += 'locationOrgLevel=' + vm.locationOrgLevel.level + '&';
 				}
-				if (vm.status !== undefined && vm.status !== '' && vm.status !== null) {
+				if (vm.status !== undefined && vm.status !== '' && vm.status !== null && vm.status.value !== undefined) {
 					searchStr += 'status=' + vm.status.value + '&';
 				}
 
@@ -143,9 +144,9 @@ angular.module('apApp.adminModules.controllers')
 				// Reseting the Text Boxes
 				vm.locationId = '';
 				vm.locationName = '';
-				vm.parentLocation.parentLocationId = '';
-				vm.locationOrgLevel.orgLevelId = '';
-				vm.status.value = '';
+				vm.parentLocation = {} //.parentLocationId = '';
+				vm.locationOrgLevel = {} // .orgLevelId = '';
+				vm.status = {} // .value = '';
 				AdminServices.getAllLocations(vm.maxSize, vm.currentPage - 1, onSuccessGetAllLocations, onErrorGetAllLocations);
 			}
 			function treeData(data) {
@@ -155,14 +156,19 @@ angular.module('apApp.adminModules.controllers')
 				_.forEach(groupData,function(d,k){
 				  var obj = {};
 				  obj.id = i;
-				  obj.title =k; 
+				  obj.title =k;
+					console.log(k);
+					console.log(d);
 				  obj.nodes = [];
 				  var j = 0;
 					_.forEach(d,function(innerData){
 				      var tmp = {};
 				      tmp.id = j;
-				      tmp.title = innerData.parentLocationId;
-				  	  console.log(innerData.parentLocationId);
+							tmp.locationId = innerData.locationId,
+							tmp.locationName = innerData.locationName,
+							tmp.locationOrgLevel = innerData.locationOrgLevel,
+							tmp.parentLocationId = innerData.parentLocationId;
+							tmp.status = innerData.status
 				      obj.nodes.push(tmp);
 				      j++;
 				  });
@@ -171,6 +177,7 @@ angular.module('apApp.adminModules.controllers')
 				});
 				return mainObj;
 			}
+
 			$rootScope.closeAlert = function() {
 	     	$rootScope.alerts = [];
 

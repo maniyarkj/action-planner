@@ -164,3 +164,24 @@ ul.crudActionTable li {
     margin-top: -32px;  /* -1 * image height / 2 */
     display: block;
 }
+
+.panel {
+  margin-bottom: 0;
+}
+
+.paddingTopBotton {
+  padding: 10px 0;
+}
+.nav > li > a {
+  padding: 10px !important;
+}
+
+.uib-increment.hours .btn, .uib-increment.minutes .btn,
+.uib-decrement.hours .btn, .uib-decrement.minutes .btn,
+.uib-time .btn {
+  margin-bottom: 0;
+  padding: 0;
+}
+.valign {
+  padding-top: 30px;
+}
