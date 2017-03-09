@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('apApp.adminModules.controllers')
-    .controller('DeptListCtrl', ['$scope', '$rootScope', 'AdminServices', '$state', 'PAGE_SIZE', '$log', '$timeout', 'STATUS_CODE',
+    .controller('DepartmentListCtrl', ['$scope', '$rootScope', 'AdminServices', '$state', 'PAGE_SIZE', '$log', '$timeout', 'STATUS_CODE',
         function($scope, $rootScope, AdminServices, $state, PAGE_SIZE, $log, $timeout, STATUS_CODE)
         {
             var vm = this;
@@ -9,10 +9,30 @@ angular.module('apApp.adminModules.controllers')
             var alert = {};
 
             vm.pageSizeObj = PAGE_SIZE.rows;
-
+            function onSuccessGetOrganizationLevels(response) {
+              if (STATUS_CODE.status_ok === response.status) {
+                vm.orgLevelList = response.data.body.body;
+              }
+              else {
+                alert = {
+                  type: 'danger',
+                  msg: 'Sorry, No data found!'
+                };
+                $rootScope.alerts.push(alert);
+              }
+            }
+            function onErrorGetOrganizationLevels(response) {
+              alert = {
+                type: 'danger',
+                msg: 'Sorry, something went wrong, please try again!'
+              };
+              $rootScope.alerts.push(alert);
+            }
+            AdminServices.getOrganisationLevels(onSuccessGetOrganizationLevels, onErrorGetOrganizationLevels);
+            
             function onSuccessgetAllDepts(response) {
                 if (STATUS_CODE.status_ok === response.status) {
-                    vm.result = response.data.body.body;
+                    vm.result = response.data.body.body.data;
                     console.log("vm.result",vm.result);
                     vm.totalItems = vm.result.count;
                     vm.pSize = vm.result.pageSize;
@@ -45,9 +65,9 @@ angular.module('apApp.adminModules.controllers')
                 AdminServices.getAllDepts(vm.maxSize, vm.currentPage - 1, onSuccessgetAllDepts, onErrorgetAllDepts);
             };
 
-            vm.redirectToEditMode = function(user) {
-                $state.go('app.admin-user', {
-                    'id' : user._id
+            vm.redirectToEditMode = function(dept) {
+                $state.go('app.admin-department', {
+                    'id' : dept._id
                 });
             }
 
@@ -66,9 +86,8 @@ angular.module('apApp.adminModules.controllers')
                     searchStr += 'deptName=' + vm.deptName + '&';
                 }
                 if (vm.orgLevel !== undefined && vm.orgLevel !== '' && vm.orgLevel !== null) {
-                    searchStr += 'orgLevel=' + vm.orgLevel + '&';
+                    searchStr += 'orgLevel=' + vm.orgLevel.level + '&';
                 }
-                
                 if (searchStr.length) {
                     searchStr = searchStr.substring(0, searchStr.length - 1);
                     AdminServices.getAllFilteredDepts(vm.maxSize, vm.currentPage -1, searchStr, onSuccessgetAllDepts, onErrorgetAllDepts);

@@ -48,6 +48,21 @@ app.constant('AWS_URL', {
 	'userXKey' : '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1',
 	'departmentXKey' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx'
 });
+
+app.constant('AWS', 'https://api.outmarch.io/');
+app.constant('ENVIRONMENT', 'dev/');
+app.constant('STATE', {
+	'organisations' : 'organizationLevels/',
+	'users' : 'users/',
+	'roles' : 'roles/',
+	'departments' : 'departments/',
+	'orgLevelXKey' : '4wA98CgTvK1qYvTFYIxGS2RV20Hf3Rf58DXAsVda',
+	'roleXKey' : '0PoqEC0SZv3xfyjWlnrKz5N2XPu6IPA89ybTQjzf',
+	'userXKey' : '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1',
+	'departmentXKey' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx'
+});
+
+
 app.constant('STATUS_CODE', {
 	'status_ok' : 200,
 	'status_bad_request' : 400,

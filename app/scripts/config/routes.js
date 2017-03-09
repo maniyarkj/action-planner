@@ -61,7 +61,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
 
   state('app.admin-department-list', {
     url: '/admin-department-list',
-    templateUrl: 'modules/admin/views/departmentList.html',
+    templateUrl: 'modules/admin/views/deptList.html',
     controller: 'DepartmentListCtrl',
     controllerAs: 'departmentListCtrl'
   });

@@ -1,68 +1,77 @@
 'use strict';
 
 angular.module('apApp.adminModules.controllers')
-  .controller('DeptCtrl', ['$scope', '$stateParams', 'AdminServices', '$state', 'STATUS_CODE', '$window', '$rootScope', 'LocaleService',
-    function($scope, $stateParams, AdminServices, $state, STATUS_CODE, $window, $rootScope, LocaleService) {
+  .controller('DepartmentCtrl',
+    ['$scope', '$stateParams', 'AdminServices', '$state', 'STATUS_CODE', '$window', '$rootScope', 'LocaleService', '$uibModal', 'CONFIRM',
+    function($scope, $stateParams, AdminServices, $state, STATUS_CODE, $window, $rootScope, LocaleService, $uibModal, CONFIRM) {
       var vm = this,
-      id = $stateParams.id,
-      alert = {};
+        id = $stateParams.id,
+        alert = {};
 
       $rootScope.alerts = [];
+
+      function onSuccessGetOrganizationLevels(response) {
+  			if (STATUS_CODE.status_ok === response.status) {
+  				vm.orgLevelList = response.data.body.body;
+  			}
+  			else {
+  				alert = {
+  					type: 'danger',
+  					msg: 'Sorry, No data found!'
+  				};
+  				$rootScope.alerts.push(alert);
+  			}
+  		}
+  		function onErrorGetOrganizationLevels(response) {
+  			alert = {
+  				type: 'danger',
+  				msg: 'Sorry, something went wrong, please try again!'
+  			};
+  			$rootScope.alerts.push(alert);
+  		}
+
       vm.init = function() {
-        vm.newDept = true;        
-        vm.data = {};
-
-        // Checking whether new form or edit mode.
+        vm.newDepartment = true;
+        AdminServices.getOrganisationLevels(onSuccessGetOrganizationLevels, onErrorGetOrganizationLevels);
+				// Checking whether new form or edit mode.
         if (id !== undefined) {
-          vm.newDept = false;
+          vm.newDepartment = false;
           // Calling Data of detached Id
-          AdminServices.getIndividualUser(id, onSuccessGetIndividualUser, onErrorGetIndividualUser)
+          AdminServices.getIndividualDept(id, onSuccessGetIndividualDept, onErrorGetIndividualDept)
         }
-
         vm.localeList = LocaleService.getLocalesDisplayNames();
       };
 
-      function onSuccessGetIndividualUser(response) {
+      function onSuccessGetIndividualDept(response) {
         if (STATUS_CODE.status_ok === response.status) {
           // Prompt Role Detail is saved successfully.
           vm.data = response.data.body.body;
-
-          if (vm.data.dateOfBirth !== undefined || vm.data.dateOfBirth !== null || vm.data.dateOfBirth === '') {
-            vm.data.dateOfBirth = new Date(vm.data.dateOfBirth);
-          }
-          if (vm.data.hireDate !== undefined || vm.data.hireDate !== null || vm.data.hireDate === '') {
-            vm.data.hireDate = new Date(vm.data.hireDate);
-          }
-
-          if (vm.data.status !== undefined || vm.data.status !== null || vm.data.status === '') {
-            vm.data.status = 'Active';
-          }
         } else {
           alert = {
             type: 'danger',
-            msg: 'Sorry, Something went wrong. Could not load user data.'
+            msg: 'Sorry, Something went wrong. Could not load department data.'
           };
           $rootScope.alerts.push(alert);
         }
       }
 
-      function onErrorGetIndividualUser() {
+      function onErrorGetIndividualDept() {
         alert = {
           type: 'danger',
-          msg: 'Sorry, Something went wrong. Could not load user data.'
+          msg: 'Sorry, Something went wrong. Could not load department data.'
         };
         $rootScope.alerts.push(alert);
       }
 
-      function onSuccessEditUser(response) {
+      function onSuccessEditDept(response) {
         if (STATUS_CODE.status_ok === response.status) {
           // Prompt Role Detail is saved successfully.
           alert = {
             type: 'success',
-            msg: 'User data modified successfully.'
+            msg: 'Department data modified successfully.'
           };
           $rootScope.alerts.push(alert);
-          $state.go('app.admin-user-list');
+          $state.go('app.admin-department-list');
         } else {
           alert = {
             type: 'danger',
@@ -72,7 +81,7 @@ angular.module('apApp.adminModules.controllers')
         }
       }
 
-      function onErrorEditUser(response) {
+      function onErrorEditDept(response) {
         alert = {
           type: 'danger',
           msg: 'Sorry, Something went wrong. Please try again!'
@@ -80,14 +89,14 @@ angular.module('apApp.adminModules.controllers')
         $rootScope.alerts.push(alert);
       }
 
-      function onSuccessSaveUser(response) {
+      function onSuccessSaveDept(response) {
         if (STATUS_CODE.status_ok === response.status) {
           alert = {
             type: 'success',
-            msg: 'User saved successfully.'
+            msg: 'Department saved successfully.'
           };
           $rootScope.alerts.push(alert);
-          $state.go('app.admin-user-list');
+          $state.go('app.admin-department-list');
         } else {
           alert = {
             type: 'danger',
@@ -97,37 +106,35 @@ angular.module('apApp.adminModules.controllers')
         }
       }
 
-      function onErrorSaveUser(response) {
+      function onErrorSaveDept(response) {
         alert = {
           type: 'danger',
           msg: 'Sorry, Something went wrong. Please try again!'
         };
         $rootScope.alerts.push(alert);
       }
-      vm.saveDept = function() {
-        
-        var dataObject = [{
-          'departmentId': vm.data.deptId,
-          'deptName': vm.data.deptName,
-          'orgLevel': vm.data.orgLevel,
-          'tenantId': vm.data.parentDeptId
-        }];
-
-        if (vm.newDept) {
-          AdminServices.saveDept(dataObject, onSuccessSaveUser, onErrorSaveUser);
+      vm.saveDepartment = function() {
+        var dataObject = {
+          'deptId': vm.data.departmentId,
+          'deptName': vm.data.departmentName,
+          'orgLevel': vm.orgLevelNew.level,
+          'tenantId': '5'
+        };
+        if (vm.newDepartment) {
+          AdminServices.saveDepartment(dataObject, onSuccessSaveDept, onErrorSaveDept);
         } else {
-          AdminServices.updateDept(dataObject, id, onSuccessEditUser, onErrorEditUser);
+          AdminServices.updateDepartment(dataObject, id, onSuccessEditDept, onErrorEditDept);
         }
       }
 
-      function onSuccessDeleteUser(response) {
+      function onSuccessDeleteDept(response) {
         if (STATUS_CODE.status_ok === response.status) {
           alert = {
             type: 'success',
-            msg: 'User deleted successfully.'
+            msg: 'Department deleted successfully.'
           };
           $rootScope.alerts.push(alert);
-          $state.go('app.admin-user-list');
+          $state.go('app.admin-department-list');
         } else {
           alert = {
             type: 'danger',
@@ -137,17 +144,28 @@ angular.module('apApp.adminModules.controllers')
         }
       }
 
-      function onErrorGetDeleteUser() {
+      function onErrorGetDeleteDept() {
         alert = {
           type: 'danger',
           msg: 'Sorry, Something went wrong. Please try again!'
         };
         $rootScope.alerts.push(alert);
       }
-      vm.deleteUser = function() {
-        AdminServices.deleteUser(id, onSuccessDeleteUser, onErrorGetDeleteUser);
+      vm.deleteDepartment = function() {
+        var modalInstance = $uibModal.open({
+  				templateUrl: 'views/layout/confirm-box.html',
+  				controller: 'ConfirmBoxCtrl',
+  				size: 'sm'
+  			});
+
+  			modalInstance.result.then(function (response) {
+  	      if (response === CONFIRM.confirm_yes) {
+  					AdminServices.deleteDepartment(id, onSuccessDeleteDept, onErrorGetDeleteDept);
+  				}
+  	    }, function () {
+  	    });
       };
-      vm.cancelDept = function() {
+      vm.cancelDepartments = function() {
         $window.history.back();
       }
       $rootScope.closeAlert = function() {
