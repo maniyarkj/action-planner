@@ -97,6 +97,20 @@
       "reset" : "Reset"
     }
   },
+  "departmentListRes" :
+  {
+    "listOfDepartments" : "Departments",
+    "addNewDepartment" : "Add New Department",
+    "filterDepartment" : "Filter",
+    "noDepartmentData" : "No departments found.",
+    "labels" : {
+      "departmentId" : "Department Id",
+      "departmentName" : "Department Name",
+      "orgLevel" : "Organization Level",
+      "search" : "Search",
+      "reset" : "Reset"
+    }
+  },
   "locationRes" :
   {
     "pageNameAddMode" : "Add Location",
@@ -131,5 +145,23 @@
       "validHireDate" : "Hire Date is mandatory",
       "validBirthDate" : "Birth Date is mandatory"
     }
+  },
+  "departmentRes" :
+  {
+    "pageNameAddMode" : "Add Department",
+    "pageNameEditMode" : "Edit Department",
+    "departmentPageDesc" : "Customize department entity",
+    "departmentId" : "Department Id",
+    "departmentName" : "Department Name",
+    "organizationLevel" : "Organization Level",
+    "departmentDescription" : "Customize Department Entity",
+    "addNewDepartment" : "Add New Department",
+    "listOfDepartments" : "List of Departments",
+    "defaultOrgLevelSelectControl" : "Please select organisation level",
+    "crudAction" : "Action",
+    "noDepartmentData" : "No departments found.",
+    "validDepartmentId" : "Department Id is mandatory.",
+    "validDepartmentName" : "Department Name is mandatory.",
+    "validOrgLevel" : "Organization Level is mandatory."
   }
 }

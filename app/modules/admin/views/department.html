@@ -1,0 +1,51 @@
+<page-title ng-if="layoutOptions.pageTitles && departmentCtrl.newDepartment" title="departmentRes.pageNameAddMode"></page-title>
+<page-title ng-if="layoutOptions.pageTitles && !departmentCtrl.newDepartment" title="departmentRes.pageNameEditMode"></page-title>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form role="form" class="form-horizontal" name="departmentForm" role="form" class="validate" novalidate>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="department_id">{{ "departmentRes.departmentId" | translate }}</label>
+						<div class="col-sm-10"
+							ng-class="{'has-error' : (departmentForm.$submitted || departmentForm.department_id.$touched || submitted ) && departmentForm.department_id.$error.required }">
+							<input type="text" class="form-control" ng-model="departmentCtrl.data.departmentId" id="department_id" name="department_id" ng-required="true" placeholder="Enter Department Id">
+							<p class="help-block" ng-show="(departmentForm.$submitted || departmentForm.department_id.$touched || submitted ) && departmentForm.department_id.$invalid && departmentForm.department_id.$error.required">{{ "departmentRes.validDepartmentId" | translate }}</p>
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="department_name">{{ "departmentRes.departmentName" | translate }}</label>
+						<div class="col-sm-10"
+							ng-class="{'has-error' : (departmentForm.$submitted || departmentForm.department_name.$touched || submitted ) && departmentForm.department_name.$error.required }">
+							<input type="text" class="form-control" id="department_name" name="department_name" ng-model="departmentCtrl.data.departmentName" placeholder="Enter Department Name" ng-required="true">
+							<p class="help-block" ng-show="(departmentForm.$submitted || departmentForm.department_name.$touched || submitted ) && departmentForm.department_name.$invalid && departmentForm.department_name.$error.required">{{ "departmentRes.validDepartmentName" | translate }}</p>
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="org_level">{{ "departmentRes.organizationLevel" | translate }}</label>
+						<div class="col-sm-10"
+							ng-class="{'has-error' : (departmentForm.$submitted || departmentForm.org_level.$touched || submitted ) && departmentForm.org_level.$error.required }">
+							<select class="form-control" id="org_level" name="org_level"
+								ng-required="true"
+								ng-model="departmentCtrl.orgLevelNew"
+								ng-options="option.name for option in departmentCtrl.orgLevelList track by option.orgLevelId">
+								<option value="">{{ "departmentRes.defaultOrgLevelSelectControl" | translate}}</option>
+							</select>
+							<p class="help-block" ng-show="(departmentForm.$submitted || departmentForm.org_level.$touched || submitted ) && departmentForm.org_level.$invalid && departmentForm.org_level.$error.required">{{ "departmentRes.validOrgLevel" | translate }}</p>
+						</div>
+					</div>
+					<div class="form-group-separator"></div>
+					<div class="form-group text-right">
+						<div class='col-sm-12'>
+							<button class="btn btn-primary" ng-click="departmentForm.$valid && departmentCtrl.saveDepartment()">{{ "crud.save" | translate }}</button>
+							<button ng-if="!departmentCtrl.newDepartment" class="btn btn-primary" ng-click="departmentCtrl.deleteDepartment()">{{ "crud.delete" | translate }}</button>
+							<button class="btn btn-primary" ng-click="departmentCtrl.cancelDepartments()">{{ "crud.cancel" | translate }}</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

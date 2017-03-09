@@ -1,9 +1,8 @@
 (function(){
   'use strict';
   angular.module('apApp.adminModules.services')
-    .service('AdminServices', ['$http', 'AWS_URL', 'AWS', 'STATE', 'ENVIRONMENT', '$rootScope',
-      function($http, AWS_URL, AWS, STATE, ENVIRONMENT, $rootScope) {
-
+    .service('AdminServices', ['$http', 'API_URL', 'AWS_URL', '$rootScope', 'AWS', 'ENVIRONMENT', 'STATE',
+      function($http, API_URL, AWS_URL, $rootScope, AWS, ENVIRONMENT, STATE) {
       return {
         // CRUD Operations for Role
 
@@ -12,7 +11,8 @@
           $rootScope.loading = true;
           $http({
             method: 'POST',
-            url: AWS  + STATE.role + ENVIRONMENT,
+            url: AWS + STATE.roles + ENVIRONMENT,
+            // url: AWS_URL.roles + 'roles/',
             // url: API_URL.roles + 'v1/roles/',
             data: JSON.stringify(dataObject),
             headers: {
@@ -37,7 +37,8 @@
           $rootScope.loading = true;
           $http({
             method: 'PUT',
-            url: AWS  + STATE.role + ENVIRONMENT + roleId,
+            url: AWS + STATE.roles + ENVIRONMENT + roleId + '?tenantId=5',
+            // url: AWS_URL.roles + 'roles/' + roleId,
             data : dataObject,
             headers: {
               'Content-Type' : 'application/json',
@@ -59,7 +60,7 @@
           $rootScope.loading = true;
           $http({
             method: 'DELETE',
-            url: AWS  + STATE.role + ENVIRONMENT + roleId,
+            url: AWS + STATE.roles + ENVIRONMENT + roleId + '?tenantId=5',
             headers: {
               'Content-Type' : 'application/json',
               'x-api-key' : AWS_URL.roleXKey
@@ -80,8 +81,7 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS  + STATE.role + ENVIRONMENT + '?tenantId=tenant1',
-            // url: API_URL.roles + 'v1/roles',
+            url: AWS +  STATE.roles + ENVIRONMENT + '?tenantId=5',
             headers: {
               'Content-Type' : 'application/json',
               'x-api-key' : AWS_URL.roleXKey
@@ -102,7 +102,8 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS  + STATE.orgLevel + ENVIRONMENT + '?tenantId=tenant1',
+            url: AWS + STATE.organisations + ENVIRONMENT + '?tenantId=tenant1',
+            // url: AWS_URL.organisationLevel + 'organizationLevels',
             // url: API_URL.organisationLevel + 'v1/orglevels',
             headers: {
               'Content-Type' : 'application/json',
@@ -124,7 +125,8 @@
           $rootScope.loading = true;
           $http({
             method: 'POST',
-            url: AWS  + STATE.user + ENVIRONMENT,
+            url: AWS + STATE.users + ENVIRONMENT,
+            // url: AWS_URL.users + 'users/',
             // url: API_URL.users + 'v1/users/',
             data: JSON.stringify(dataObject),
             headers: {
@@ -146,7 +148,8 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS  + STATE.user + ENVIRONMENT + id,
+            url: AWS + STATE.users + ENVIRONMENT + id + '?tenantId=5',
+            // url: AWS_URL.users + 'users/'+ id,
             // url: API_URL.users + 'v1/users/'+ id,
             headers: {
               'Content-Type' : 'application/json',
@@ -167,7 +170,8 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS  + STATE.user + ENVIRONMENT + '?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
+            url: AWS + STATE.users + ENVIRONMENT + '?pageSize=' + pageSize + '&pageNumber=' + pageNumber + '&tenantId=5',
+            // url: AWS_URL.users + 'users?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
             // url: API_URL.users + 'v1/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
             headers: {
               'Content-Type' : 'application/json',
@@ -188,7 +192,8 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS  + STATE.user + ENVIRONMENT + '?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
+            url: AWS + STATE.users + ENVIRONMENT + '?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr + '&tenantId=5',
+            // url: AWS_URL.users + 'users?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
             // url: API_URL.users + 'v1/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber + "&" + searchStr,
             headers: {
               'Content-Type' : 'application/json',
@@ -210,7 +215,8 @@
           $rootScope.loading = true;
           $http({
             method: 'PUT',
-            url: AWS  + STATE.user + ENVIRONMENT + userId,
+            url: AWS + STATE.users + ENVIRONMENT + userId + '?tenantId=5',
+            // url: AWS_URL.users + 'users/' + userId,
             // url: API_URL.users + 'v1/users/' + userId,
             data: JSON.stringify(dataObject),
             headers: {
@@ -229,13 +235,14 @@
           });
         },
 
-        // Delete Role Entity
+        // Delete User
         deleteUser : function(userId, successCallback, errorCallback) {
           $rootScope.loading = true;
-          // var url = API_URL.users + 'v1/users/' + userId;
           $http({
             method: 'DELETE',
-            url: AWS  + STATE.user + ENVIRONMENT + userId,
+            url: AWS + STATE.users + ENVIRONMENT + userId + '?tenantId=5',
+            // url: AWS_URL.users + 'users/' + userId,
+            // url: AWS_URL.users + 'users/' + userId,
             headers: {
               'Content-Type' : 'application/json',
               'x-api-key' : AWS_URL.userXKey
@@ -275,7 +282,7 @@
           });
         },
 
-        // getAllLocations : function(pageSize, pageNumber, successCallback, errorCallback) {
+        // Get all Parent Location
         getAllParentLocations : function(successCallback, errorCallback) {
           $rootScope.loading = true;
           $http({
@@ -341,6 +348,7 @@
             errorCallback(response);
           });
         },
+
         // Save Location
         saveLocation : function(dataObject, successCallback, errorCallback) {
           $rootScope.loading = true;
@@ -363,16 +371,60 @@
           });
         },
 
-         // Update Role Entity
-        updateLocation : function(dataObject, locationId, successCallback, errorCallback) {
+        // Update Location
+       updateLocation : function(dataObject, locationId, successCallback, errorCallback) {
+         $rootScope.loading = true;
+         $http({
+           method: 'PUT',
+           url: AWS  + STATE.location + ENVIRONMENT + locationId,
+           data : dataObject,
+           headers: {
+             'Content-Type' : 'application/json',
+             'x-api-key' : AWS_URL.locationXKey
+           }
+         })
+         .then(function onSuccess(response) {
+           $rootScope.loading = false;
+           successCallback(response);
+         },
+         function onError(response) {
+           $rootScope.loading = false;
+           errorCallback(response);
+         });
+       },
+
+       deleteLocation : function(locationId, successCallback, errorCallback) {
+         $rootScope.loading = true;
+         // var url = API_URL.users + 'v1/users/' + locationId;
+         $http({
+           method: 'DELETE',
+           url: AWS  + STATE.location + ENVIRONMENT + locationId,
+           headers: {
+             'Content-Type' : 'application/json',
+             'x-api-key' : AWS_URL.locationXKey
+           }
+         })
+         .then(function onSuccess(response) {
+           $rootScope.loading = false;
+           successCallback(response);
+         },
+         function onError(response) {
+           $rootScope.loading = false;
+           errorCallback(response);
+         });
+       },
+
+        // Departments CRUD
+        getIndividualDept : function(id, successCallback, errorCallback) {
           $rootScope.loading = true;
           $http({
-            method: 'PUT',
-            url: AWS  + STATE.location + ENVIRONMENT + locationId,
-            data : dataObject,
+            method: 'GET',
+            url: AWS + STATE.departments + ENVIRONMENT + id + '?tenantId=5',
+            // url: AWS_URL.users + 'users/'+ id,
+            // url: API_URL.users + 'v1/users/'+ id,
             headers: {
               'Content-Type' : 'application/json',
-              'x-api-key' : AWS_URL.locationXKey
+              'x-api-key' : AWS_URL.departmentXKey
             }
           })
           .then(function onSuccess(response) {
@@ -385,15 +437,17 @@
           });
         },
 
-        deleteLocation : function(locationId, successCallback, errorCallback) {
+        // Save Departments
+        saveDepartment : function(dataObject, successCallback, errorCallback) {
           $rootScope.loading = true;
-          // var url = API_URL.users + 'v1/users/' + locationId;
           $http({
-            method: 'DELETE',
-            url: AWS  + STATE.location + ENVIRONMENT + locationId,
+            method: 'POST',
+            url: AWS + STATE.departments + ENVIRONMENT,
+            // url: AWS_URL.departments + 'departments/',
+            data: JSON.stringify(dataObject),
             headers: {
               'Content-Type' : 'application/json',
-              'x-api-key' : AWS_URL.locationXKey
+              'x-api-key' : AWS_URL.departmentXKey
             }
           })
           .then(function onSuccess(response) {
@@ -405,6 +459,92 @@
             errorCallback(response);
           });
         },
+
+        // Get all department
+        getAllDepts : function(pageSize, pageNumber, successCallback, errorCallback) {
+          $http({
+            method: 'GET',
+            url: AWS + STATE.departments + ENVIRONMENT + '?pageSize=' + pageSize + "&pageNumber=" + pageNumber + '&tenantId=tenantIdTest_5',
+            // url: API_URL.users + 'v1/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx'
+            }
+          })
+          .then(function onSuccess(response) {
+            successCallback(response);
+          },
+          function onError(response) {
+            errorCallback(response);
+          });
+        },
+
+        // Get All Filtered Department
+        getAllFilteredDepts : function(pageSize, pageNumber, searchStr, successCallback, errorCallback) {
+          $http({
+            method: 'GET',
+            url: AWS + STATE.departments + ENVIRONMENT + '?pageSize=' + pageSize + '&pageNumber=' + pageNumber + '&' + searchStr + '&tenantId=tenantIdTest_5',
+
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx'
+            }
+          })
+          .then(function onSuccess(response) {
+            successCallback(response);
+          },
+          function onError(response) {
+            errorCallback(response);
+          });
+        },
+
+        // Update Department
+        updateDepartment : function(dataObject, departmentId, successCallback, errorCallback) {
+          $rootScope.loading = true;
+          $http({
+            method: 'PUT',
+            url: AWS + STATE.departments + ENVIRONMENT + departmentId + '?tenantId=5',
+            // url: AWS_URL.departments + 'departments/' + departmentId,
+            // url: API_URL.departments + 'v1/departments/' + departmentId,
+            data: JSON.stringify(dataObject),
+            headers: {
+              // 'authToken': AuthService.getToken(),
+              'Content-Type' : 'application/json',
+              'x-api-key' : AWS_URL.departmentXKey
+            }
+          })
+          .then(function onSuccess(response) {
+            $rootScope.loading = false;
+            successCallback(response);
+          },
+          function onError(response) {
+            $rootScope.loading = false;
+            errorCallback(response);
+          });
+        },
+
+        // Delete Department
+        deleteDepartment : function(departmentId, successCallback, errorCallback) {
+          $rootScope.loading = true;
+          $http({
+            method: 'DELETE',
+            url: AWS + STATE.departments + ENVIRONMENT + departmentId + '?tenantId=5',
+            // url: AWS_URL.departments + 'departments/' + departmentId,
+            // url: AWS_URL.departments + 'departments/' + departmentId,
+            headers: {
+              'Content-Type' : 'application/json',
+              'x-api-key' : AWS_URL.departmentXKey
+            }
+          })
+          .then(function onSuccess(response) {
+            $rootScope.loading = false;
+            successCallback(response);
+          },
+          function onError(response) {
+            $rootScope.loading = false;
+            errorCallback(response);
+          });
+        }
       };
     }]);
 })();

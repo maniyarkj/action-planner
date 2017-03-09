@@ -541,15 +541,31 @@ app.constant('ENVIRONMENT', 'dev');
 
 
 app.constant('AWS_URL', {
-  'organisationLevel': 'https://api.outmarch.io/organizationLevels/dev?tenantId=tenant1',
-  'users': 'https://api.outmarch.io/users/dev/',
-  'roles': 'https://7jbg3t7p8f.execute-api.us-east-1.amazonaws.com/dev/',
-  'locations': 'https://8m1xgf6zpa.execute-api.us-east-1.amazonaws.com/dev/',
-  'orgLevelXKey': '4wA98CgTvK1qYvTFYIxGS2RV20Hf3Rf58DXAsVda',
-  'roleXKey': '0PoqEC0SZv3xfyjWlnrKz5N2XPu6IPA89ybTQjzf',
-  'userXKey': '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1',
+	'organisationLevel' : 'https://pkwtvdaw19.execute-api.us-east-1.amazonaws.com/dev/',
+	'users' : 'https://076krg0cia.execute-api.us-east-1.amazonaws.com/dev/',
+	'roles' : 'https://7jbg3t7p8f.execute-api.us-east-1.amazonaws.com/dev/',
+	'departments' : 'https://hla66fn4d7.execute-api.us-east-1.amazonaws.com/dev/',
+	'orgLevelXKey' : '4wA98CgTvK1qYvTFYIxGS2RV20Hf3Rf58DXAsVda',
+	'roleXKey' : '0PoqEC0SZv3xfyjWlnrKz5N2XPu6IPA89ybTQjzf',
+	'userXKey' : '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1',
   'locationXKey': 'FsLOxN6Wg8puVPWzv8lqZqSeGH4XIR8Q4SjyDDa0'
+	'departmentXKey' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx'
 });
+
+app.constant('AWS', 'https://api.outmarch.io/');
+app.constant('ENVIRONMENT', 'dev/');
+app.constant('STATE', {
+	'organisations' : 'organizationLevels/',
+	'users' : 'users/',
+	'roles' : 'roles/',
+	'departments' : 'departments/',
+	'orgLevelXKey' : '4wA98CgTvK1qYvTFYIxGS2RV20Hf3Rf58DXAsVda',
+	'roleXKey' : '0PoqEC0SZv3xfyjWlnrKz5N2XPu6IPA89ybTQjzf',
+	'userXKey' : '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1',
+	'departmentXKey' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx'
+});
+
+
 app.constant('STATUS_CODE', {
   'status_ok': 200,
   'status_bad_request': 400,

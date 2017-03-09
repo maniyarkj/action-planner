@@ -28,6 +28,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
   }).
 
   // Administration Module
+  // Roles
   state('app.admin-role', {
     url: '/admin-role',
     templateUrl: 'modules/admin/views/roleEntity.html',
@@ -35,6 +36,7 @@ app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
     controllerAs: 'roleEntityCtrl'
   }).
 
+  // Users
   state('app.admin-user', {
     url: '/admin-user?selectedId=id',
     templateUrl: 'modules/admin/views/user.html',
@@ -48,6 +50,8 @@ app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
     controller: 'UserListCtrl',
     controllerAs: 'userListCtrl'
   }).
+
+  // Departments
   state('app.admin-location', {
     url: '/admin-location?selectedId=id',
     templateUrl: 'modules/admin/views/location.html',
@@ -59,8 +63,23 @@ app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
     templateUrl: 'modules/admin/views/locationList.html',
     controller: 'LocationListCtrl',
     controllerAs: 'locationListCtrl'
-  })
-  ;
+  }).
+
+  // Departments
+  state('app.admin-department', {
+    url: '/admin-department?selectedId=id',
+    templateUrl: 'modules/admin/views/department.html',
+    controller: 'DepartmentCtrl',
+    controllerAs: 'departmentCtrl'
+  }).
+
+  state('app.admin-department-list', {
+    url: '/admin-department-list',
+    templateUrl: 'modules/admin/views/deptList.html',
+    controller: 'DepartmentListCtrl',
+    controllerAs: 'departmentListCtrl'
+  });
+  
 });
 // Angular Translate
 app.config(['$translateProvider', function($translateProvider, LOCALES) {
