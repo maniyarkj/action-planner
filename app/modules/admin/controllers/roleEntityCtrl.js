@@ -56,19 +56,22 @@ angular.module('apApp.adminModules.controllers')
 					msg: 'Role entity saved successfully.'
 				};
 
-				vm.allRoles.push(
-					{
-						'_id' :	response.data.body.body._id,
-						'createdAt' : response.data.body.body.createdAt,
-						'deleted' : response.data.body.body.deleted,
-						'lastUser' : response.data.body.body.lastUser,
-						'roleId' : response.data.body.body.roleId,
-						'roleName' : response.data.body.body.roleName,
-						'roleOrgLevelName' : getRoleOrgLevelName(response.data.body.body.roleOrgLevel),
-						'roleOrgLevel' : response.data.body.body.roleOrgLevel,
-						'tenantId' : response.data.body.body.tenantId
-					}
-				);
+				vm.allRoles = [];
+				AdminServices.getRoles(onSuccessGetRoles, onErrorGetRoles);
+				
+				// vm.allRoles.push(
+				// 	{
+				// 		'_id' :	response.data.body.body._id,
+				// 		'createdAt' : response.data.body.body.createdAt,
+				// 		'deleted' : response.data.body.body.deleted,
+				// 		'lastUser' : response.data.body.body.lastUser,
+				// 		'roleId' : response.data.body.body.roleId,
+				// 		'roleName' : response.data.body.body.roleName,
+				// 		'roleOrgLevelName' : getRoleOrgLevelName(response.data.body.body.roleOrgLevel),
+				// 		'roleOrgLevel' : response.data.body.body.roleOrgLevel,
+				// 		'tenantId' : response.data.body.body.tenantId
+				// 	}
+				// );
 
 				// Reseting the Text Boxes
 				$scope.roleEntityForm.$setPristine();
@@ -164,22 +167,26 @@ angular.module('apApp.adminModules.controllers')
 					type: 'success',
 					msg: 'Role Entity updated successfully.'
 				};
-
-				var ind = _.findIndex(vm.allRoles, {'_id' : vm.roleForUpdate});
-				if (ind > -1) {
-					vm.allRoles[ind]._id =	response.data.body.body._id;
-					vm.allRoles[ind].createdAt = response.data.body.body.createdAt;
-					vm.allRoles[ind].deleted = response.data.body.body.deleted;
-					vm.allRoles[ind].lastUser = response.data.body.body.lastUser;
-					vm.allRoles[ind].roleId = response.data.body.body.roleId;
-					vm.allRoles[ind].roleName = response.data.body.body.roleName;
-					vm.allRoles[ind].roleOrgLevelName = getRoleOrgLevelName(response.data.body.body.roleOrgLevel);
-					vm.allRoles[ind].roleOrgLevel = response.data.body.body.roleOrgLevel;
-					vm.allRoles[ind].tenantId = response.data.body.body.tenantId;
-				}
-
 				$rootScope.alerts.push(alert);
 				vm.removeEnable(); // Removing enable Mode.
+
+				vm.allRoles = [];
+				AdminServices.getRoles(onSuccessGetRoles, onErrorGetRoles);
+
+				// This code is usefull when we have data in Body
+				// if (response.body)
+				// var ind = _.findIndex(vm.allRoles, {'_id' : vm.roleForUpdate});
+				// if (ind > -1) {
+				// 	vm.allRoles[ind]._id =	response.data.body.body._id;
+				// 	vm.allRoles[ind].createdAt = response.data.body.body.createdAt;
+				// 	vm.allRoles[ind].deleted = response.data.body.body.deleted;
+				// 	vm.allRoles[ind].lastUser = response.data.body.body.lastUser;
+				// 	vm.allRoles[ind].roleId = response.data.body.body.roleId;
+				// 	vm.allRoles[ind].roleName = response.data.body.body.roleName;
+				// 	vm.allRoles[ind].roleOrgLevelName = getRoleOrgLevelName(response.data.body.body.roleOrgLevel);
+				// 	vm.allRoles[ind].roleOrgLevel = response.data.body.body.roleOrgLevel;
+				// 	vm.allRoles[ind].tenantId = response.data.body.body.tenantId;
+				// }
 			}
 			else {
 				alert = {
@@ -201,7 +208,8 @@ angular.module('apApp.adminModules.controllers')
 		vm.updateRoleEntity = function(role) {
 			var dataObject = {
 				'roleName' : role.roleName,
-				'roleOrgLevel' : vm.selectedOrgLevel.orgLevelId
+				'roleOrgLevel' : vm.selectedOrgLevel.orgLevelId,
+				'tenantId' : 5
 			};
 			vm.roleForUpdate = role._id;
 			AdminServices.updateRoleEntity(dataObject, role._id, onSuccessUpdateRoleEntity, onErrorUpdateRoleEntity);
@@ -214,10 +222,13 @@ angular.module('apApp.adminModules.controllers')
 					type: 'success',
 					msg: 'Role entity deleted successfully.'
 				};
-				var ind = _.findIndex(vm.allRoles, {'_id' : vm.roleForDelete});
-				if (ind > -1) {
-					vm.allRoles.splice(ind, 1);
-				}
+				// var ind = _.findIndex(vm.allRoles, {'_id' : vm.roleForDelete});
+				// if (ind > -1) {
+				// 	vm.allRoles.splice(ind, 1);
+				// }
+				vm.allRoles = [];
+				AdminServices.getRoles(onSuccessGetRoles, onErrorGetRoles);
+
 				$rootScope.alerts.push(alert);
 				//AdminServices.getRoles(onSuccessGetRoles, onErrorGetRoles);
 			}

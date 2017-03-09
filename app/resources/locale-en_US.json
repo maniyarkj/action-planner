@@ -77,5 +77,68 @@
       "validHireDate" : "Hire Date is mandatory",
       "validBirthDate" : "Birth Date is mandatory"
     }
+  },
+  "departmentRes" :
+  {
+    "pageNameAddMode" : "Add Department",
+    "pageNameEditMode" : "Edit Department",
+    "departmentPageDesc" : "Customize department entity",
+    "departmentId" : "Department Id",
+    "departmentName" : "Department Name",
+    "organizationLevel" : "Organization Level",
+    "departmentDescription" : "Customize Department Entity",
+    "addNewDepartment" : "Add New Department",
+    "listOfDepartments" : "List of Departments",
+    "defaultOrgLevelSelectControl" : "Please select organisation level",
+    "crudAction" : "Action",
+    "noDepartmentData" : "No departments found.",
+    "validDepartmentId" : "Department Id is mandatory.",
+    "validDepartmentName" : "Department Name is mandatory.",
+    "validOrgLevel" : "Organization Level is mandatory."
+  },
+  "departmentListRes" :
+  {
+    "listOfDepartments" : "Departments",
+    "addNewDepartment" : "Add New Department",
+    "filterDepartment" : "Filter",
+    "noDepartmentData" : "No departments found.",
+    "labels" : {
+      "departmentId" : "Department Id",
+      "departmentName" : "Department Name",
+      "orgLevel" : "Organization Level",
+      "search" : "Search",
+      "reset" : "Reset"
+    }
+  },
+  "deptRes" :
+  {
+    "pageNameAddMode" : "Add Department",
+    "pageNameEditMode" : "Edit Department",
+    "labels" :
+    {
+      "deptId" : "Department Id",
+      "deptName" : "Department Name",
+      "orgLevel" : "Organisation Level",
+      "parentDeptId" : "Parent Department Id",
+      "defaultLocale" : "Select Default Locale",
+      "validDeptId" : "Department Id is mandatory",
+      "validDeptName" : "Department Name is mandatory",
+      "validOrgLevel" : "Organisation Level is mandatory"
+    }
+  },
+  "deptListRes" :
+  {
+    "listOfDept" : "Departments",
+    "addNewDept" : "Add New Department",
+    "filterDept" : "Filter",
+    "noDeptData" : "No Departments found.",
+    "labels" : {
+      "deptId" : "Department Id",
+      "deptName" : "Department Name",
+      "orgLevel" : "Organisation Level",
+      "parentDeptId" : "Parent Department Id",
+      "search" : "Search",
+      "reset" : "Reset"
+    }
   }
 }
