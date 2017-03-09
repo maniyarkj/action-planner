@@ -36,7 +36,7 @@ angular.module('apApp.adminModules.controllers')
       function onSuccessGetAllParentLocations(response) {
         if (STATUS_CODE.status_ok === response.status) {
           if (response.data.body.body !== undefined || response.data.body.body !== null) {
-    				vm.parentLocationList = response.data.body.body;
+    				vm.parentLocationList = response.data.body.body.data;
           }
   			}
   			else {
@@ -178,11 +178,11 @@ angular.module('apApp.adminModules.controllers')
         {
           'locations' : [
             {
-              'tenantId': 5,
+              'tenantId': 'tenantId',
               'locationId': vm.data.locationId,
               'locationName': vm.data.locationName,
               'parentLocationId': vm.parentLocation.locationId,
-              'locationOrgLevel': vm.orgLevelNew.orgLevelId,
+              'locationOrgLevel': vm.orgLevelNew.level,
               'status': vm.data.status,
               'streetName': vm.data.streetName,
               'streetNumber': vm.data.streetNumber,
@@ -192,7 +192,7 @@ angular.module('apApp.adminModules.controllers')
               'country' : vm.data.country,
               'phoneNumber' : vm.data.phoneNumber,
               'faxNumber' : vm.data.faxNumber,
-              'timeZone' : vm.data.timeZone,
+              'timeZone' : vm.data.timeZone.utctAdjustment,
               "operatingHours": {
                     "endTime": "@!39",
                     "closed": 129

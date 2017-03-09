@@ -22,7 +22,7 @@ angular.module('apApp.adminModules.controllers')
 			function onSuccessGetOrganizationLevels(response) {
 				if (STATUS_CODE.status_ok === response.status) {
 					if (response.data.body.body !== undefined || response.data.body.body !== null) {
-						vm.orgLevelList = response.data.body.body;
+						vm.orgLevelList = response.data.body.body.data;
 					}
 				}
 				else {
@@ -45,7 +45,7 @@ angular.module('apApp.adminModules.controllers')
 			function onSuccessGetAllParentLocations(response) {
 				if (STATUS_CODE.status_ok === response.status) {
 					if (response.data.body.body !== undefined || response.data.body.body !== null) {
-						vm.locationList = response.data.body.body;
+						vm.locationList = response.data.body.body.data;
 					}
 				}
 				else {
@@ -68,7 +68,7 @@ angular.module('apApp.adminModules.controllers')
 			function onSuccessGetAllLocations(response) {
 				if (STATUS_CODE.status_ok === response.status) {
 					if (response.data.body.body !== undefined || response.data.body.body !== null) {
-						vm.result = response.data.body.body;
+						vm.result = response.data.body.body.data;
 						vm.testdata = treeData(vm.result);
 
 						vm.totalItems = vm.result.count;

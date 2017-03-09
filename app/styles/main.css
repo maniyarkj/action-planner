@@ -185,3 +185,10 @@ ul.crudActionTable li {
 .valign {
   padding-top: 30px;
 }
+
+.dataTables_wrapper {
+  padding-top: 7px;
+}
+.locationTabs {
+  padding-top: 15px;
+}
