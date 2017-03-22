@@ -267,7 +267,7 @@
           $rootScope.loading = true;
           $http({
             method: 'GET',
-            url: AWS  + STATE.locations + ENVIRONMENT + '?tenantId=tenantId',
+            url: AWS  + STATE.locations + ENVIRONMENT + '?tenantId=tenantId&pageSize=' + pageSize + '&pageNumber=' + pageNumber,
             // url: AWS_URL.locations + 'locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
             // url: API_URL.locations + 'v1/locations?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
             headers: {
@@ -494,7 +494,7 @@
             // url: API_URL.users + 'v1/users?pageSize=' + pageSize + "&pageNumber=" + pageNumber,
             headers: {
               'Content-Type' : 'application/json',
-              'x-api-key' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx'
+              'x-api-key' : AWS_URL.departmentXKey
             }
           })
           .then(function onSuccess(response) {
@@ -513,7 +513,7 @@
 
             headers: {
               'Content-Type' : 'application/json',
-              'x-api-key' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx'
+              'x-api-key' : AWS_URL.departmentXKey
             }
           })
           .then(function onSuccess(response) {

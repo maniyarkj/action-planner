@@ -549,7 +549,7 @@ app.constant('AWS_URL', {
 	'roleXKey' : '0PoqEC0SZv3xfyjWlnrKz5N2XPu6IPA89ybTQjzf',
 	'userXKey' : '6M9hgzFoVs76jpp7JDRsO5MavisvNOpI3Lv5Wjf1',
   'locationXKey': 'FsLOxN6Wg8puVPWzv8lqZqSeGH4XIR8Q4SjyDDa0',
-	'departmentXKey' : 'DypckSDIon1qJN2nGc8Wa7R0hwDhZiOq7kEPiFVx',
+	'departmentXKey' : 'rUZ6WNOl1t7OxLRxNaadm8K4s48OiSNLar6IsohM',
   'locationPropsXKey': 'zam3OX8fgVnGX4K0ILm15FRIouxPJ6P4NyFPFlrh'
 });
 app.constant('STATUS_CODE', {
