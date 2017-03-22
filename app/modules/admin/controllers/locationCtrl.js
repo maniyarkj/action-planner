@@ -10,7 +10,22 @@ angular.module('apApp.adminModules.controllers')
       $rootScope.alerts = [];
       vm.weekDays = WEEK.data;
       vm.timeZoneList = TIMEZONE.data;
+      function onSuccessGetAllLocationProperties(response) {
+        if (STATUS_CODE.status_ok === response.status) {
+  				vm.locationProperties = response.data.body.body;
+  			}
+  			else {
+  				alert = {
+  					type: 'danger',
+  					msg: 'Sorry, No data found!'
+  				};
+  				$rootScope.alerts.push(alert);
+  			}
+      }
+      function onErrorGetAllLocationProperties(response) {
 
+      }
+      AdminServices.getAllLocationProperties(onSuccessGetAllLocationProperties, onErrorGetAllLocationProperties);
 
       function onSuccessGetOrganizationLevels(response) {
   			if (STATUS_CODE.status_ok === response.status) {

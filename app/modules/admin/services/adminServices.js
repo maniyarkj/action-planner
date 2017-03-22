@@ -417,6 +417,29 @@
          });
        },
 
+       // Location Properties CRUD
+       getAllLocationProperties : function(successCallback, errorCallback) {
+         $rootScope.loading = true;
+         $http({
+           method: 'GET',
+           url: AWS + STATE.locationProps + ENVIRONMENT + '?tenantId=customer1',
+           // url: AWS_URL.users + 'users/'+ id,
+           // url: API_URL.users + 'v1/users/'+ id,
+           headers: {
+             'Content-Type' : 'application/json',
+             'x-api-key' : AWS_URL.locationPropsXKey
+           }
+         })
+         .then(function onSuccess(response) {
+           $rootScope.loading = false;
+           successCallback(response);
+         },
+         function onError(response) {
+           $rootScope.loading = false;
+           errorCallback(response);
+         });
+       },
+
         // Departments CRUD
         getIndividualDept : function(id, successCallback, errorCallback) {
           $rootScope.loading = true;

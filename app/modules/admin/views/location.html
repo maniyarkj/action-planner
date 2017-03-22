@@ -169,14 +169,10 @@
 						<div class="tab-content no-margin">
 							<div class="row">
 								<div class="col-md-12">
-								<div class="form-group">
-									 <label class="control-label" for="mallStore"> {{ "locationRes.labels.mallStore" | translate }}</label>
-									 <input class="form-control" name="mallStore" ng-model="locationCtrl.data.mallStore" id="mallStore" placeholder="Mall Store" />
-								 </div>
-								 <div class="form-group">
-									 <label class="control-label" for="superStore"> {{ "locationRes.labels.superStore" | translate }}</label>
-									 <input class="form-control" name="superStore" ng-model="locationCtrl.data.superStore" id="superStore" placeholder="Super Store" />
-								 </div>
+									<div class="form-group" ng-repeat="locProp in locationCtrl.locationProperties">
+										 <label class="control-label"> {{ locProp.propertyName }}</label>
+										 <input class="form-control" ng-model="" placeholder="" />
+									 </div>
 								</div>
 							</div>
 						</div>
@@ -194,13 +190,20 @@
 								 <div class="no-margin">
 									 <div class="row paddingTopBotton hidden-xs">
 										 <div class="col-xs-12 col-sm-3"><strong>Week</strong></div>
+										 <div class="col-xs-12 col-sm-3"><strong>Closed</strong></div>
 										 <div class="col-xs-12 col-sm-3"><strong>Opening Time</strong></div>
 										 <div class="col-xs-12 col-sm-3"><strong>Closing Time</strong></div>
-										 <div class="col-xs-12 col-sm-3"><strong>Status</strong></div>
 									 </div>
 									 <div class="row" ng-repeat="data in locationCtrl.weekDays">
 										 <div class="valign col-xs-12 col-sm-3">
 											 <span>{{data.day}}</span>
+										 </div>
+										 <div class="col-xs-12 col-sm-3">
+											 <div class="valign form-group">
+												 <span>
+													 <input type="checkbox" class="cbr" name="chk-rules" id="chk-status">
+												</span>
+											 </div>
 										 </div>
 										 <div class="col-xs-12 col-sm-3">
 											 <div uib-timepicker ng-model="startTime" ng-change="locationCtrl.changedStartTime(data)" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian">
@@ -208,14 +211,6 @@
 										 </div>
 										 <div class="col-xs-12 col-sm-3">
 											 <div uib-timepicker ng-model="endTime[$index]" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian">
-											 </div>
-										 </div>
-										 <div class="col-xs-12 col-sm-3">
-											 <div class="valign form-group">
-												 <span>
-													 <input type="checkbox" class="cbr" name="chk-rules" id="chk-status">
- 											 		<label for="chk-status">Closed</label>
-												</span>
 											 </div>
 										 </div>
 										 <div class="clearfix"></div>
